@@ -9,17 +9,17 @@ import com.damas.payload.WebResponse;
 
 import jakarta.validation.ConstraintViolationException;
 
-@RestControllerAdvice
+@RestControllerAdvice// untuk identifikasi untuk custopm error
 public class ErrorController {
-    
     @ExceptionHandler(ResponseStatusException.class)
     public ResponseEntity<WebResponse<String>> responseStatusException(ResponseStatusException exception) {
-        
+        // WebResponse<String> response = new WebResponse<>();
+        // response.setData(null);
+        // response.setErrors(exception.getReason());
+        // return ResponseEntity.status(exception.getStatusCode().)
         return ResponseEntity
         .status(exception.getStatusCode())
         .body(WebResponse.<String>builder().errors(exception.getReason())
         .build());
     }
-
-
 }

@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//response secara global untuk semua request
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

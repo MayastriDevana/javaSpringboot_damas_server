@@ -6,14 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor 
-@Builder //untuk membuat object user response
+@Builder
 
-public class UserResponse {
+public class LoginResponse {
     private String username;
-    private String role;
     private String name;
-    private String status;
-
+    private String role;
+    private String token;
+    
 }
