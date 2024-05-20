@@ -30,14 +30,10 @@ public class UserController {
     consumes = MediaType.APPLICATION_JSON_VALUE,
     produces = MediaType.APPLICATION_JSON_VALUE
    )
-    // public ResponseEntity<UserResponse> register(@RequestBody RegisterUserRequest request){
-    //     return ResponseEntity.status(HttpStatus.CREATED).body(userService.register(request));
-    // }
+   
     public WebResponse<UserResponse> register(@RequestBody RegisterUserRequest request, @RequestHeader("X-API-TOKEN") String token){
         UserResponse userResponse = userService.register(request, token);
-        // WebResponse<UserResponse> response = new WebResponse<UserResponse>();
-        // response.setData(userResponse);
-        // response.setError(null);
+
 
         return WebResponse.<UserResponse>builder().data(userResponse).error(null).build();
 
