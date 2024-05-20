@@ -59,5 +59,5 @@ public class UserController {
             return WebResponse.<String>builder().data("Logout Success").error(null).build();
        }
 
-   
+    
 }
