@@ -1,7 +1,6 @@
 package com.damas.service;
 
 import java.time.Instant;
-import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,6 @@ import com.damas.repository.UserRepository;
 import com.damas.security.BCrypt;
 
 import jakarta.transaction.Transactional;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validator;
 
 @Service
 public class UserService {
