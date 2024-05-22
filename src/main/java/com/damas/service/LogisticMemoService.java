@@ -1,6 +1,5 @@
 package com.damas.service;
 
-import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -12,10 +11,7 @@ import com.damas.model.LogisticMemo;
 import com.damas.model.User;
 import com.damas.payload.LogisticMemoRequest;
 import com.damas.payload.LogisticMemoResponse;
-import com.damas.payload.ProjectDevRequest;
-import com.damas.payload.ProjectDevResponse;
 import com.damas.repository.LogisticMemoRepository;
-import com.damas.repository.ProjectDevRepository;
 import com.damas.repository.UserRepository;
 
 import jakarta.transaction.Transactional;

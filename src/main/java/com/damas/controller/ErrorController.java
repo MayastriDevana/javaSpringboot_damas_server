@@ -7,7 +7,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.damas.payload.WebResponse;
 
-import jakarta.validation.ConstraintViolationException;
 
 @RestControllerAdvice// untuk identifikasi untuk custopm error
 public class ErrorController {

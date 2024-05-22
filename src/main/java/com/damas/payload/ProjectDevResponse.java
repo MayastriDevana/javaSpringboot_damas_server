@@ -15,5 +15,6 @@ public class ProjectDevResponse {
     private String pic;
     private String deadline;
     private String status;
+    private Integer maxSize;
 
 }
