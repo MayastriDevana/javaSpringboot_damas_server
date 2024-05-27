@@ -15,5 +15,6 @@ public class OperationNetworkResponse {
     private String network_pic;
     private String network_deadline;
     private String network_status;
+    private Integer maxSize;
 
 }
