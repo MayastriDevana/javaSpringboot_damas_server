@@ -1,5 +1,7 @@
 package com.damas.model;
 
+
+
 import org.hibernate.annotations.UuidGenerator;
 
 import jakarta.persistence.Entity;
@@ -15,20 +17,19 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity //model
-@Table(name = "skse")
-public class Skse {
+@Table(name = "operation_network")
+public class OperationNetwork {
     @Id
     @UuidGenerator
-    private String id;
+    private String network_id;
+
+    private String network_perihal;
     
-    private String nosurat;
+    private String network_pic;
 
-    private String perihal;
+    private String network_deadline;
 
-    private String pic;
+    private String network_status;
 
-    private String deadline;
     
-    private String status;
-
 }

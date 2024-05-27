@@ -10,12 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor 
 @Builder //untuk membuat object user response
 
-public class LogisticMemoResponse {
-    private String memo_num;
-    private String memo_perihal;
-    private String memo_pic;
-    private String memo_deadline;
-    private String memo_status;
+public class OperationNetworkResponse {
+    private String network_perihal;
+    private String network_pic;
+    private String network_deadline;
+    private String network_status;
     private Integer maxSize;
 
 }

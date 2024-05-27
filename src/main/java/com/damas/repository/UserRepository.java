@@ -10,6 +10,7 @@ public interface UserRepository extends JpaRepository<User, String> { // karena 
     Optional<User> findFirstByToken(String token);
     Optional<User> findFirstByRole(String token);
     Optional<User> findFirstByUsername(String token);
+    // Optional<User> findByUsername(String username);
 
     boolean existsByUsername(String username);
 }

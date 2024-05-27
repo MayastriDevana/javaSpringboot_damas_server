@@ -119,4 +119,11 @@ public class UserService {
 
         userRepository.save(user);
     }
+
+    // @Transactional
+    // public User convertToUserResponse(User user) {
+    //     User newUser = new User();
+    //     newUser.setUsername(user.getUsername());
+    //     return newUser;
+    // }
 }
