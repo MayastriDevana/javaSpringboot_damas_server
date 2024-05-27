@@ -18,4 +18,5 @@ public class LogisticMemoResponse {
     private String memo_status;
     private Integer maxSize;
 
+
 }
