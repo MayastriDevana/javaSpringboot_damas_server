@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.damas.payload.LogisticMemoRequest;
 import com.damas.payload.LogisticMemoResponse;
-import com.damas.payload.ProjectDevResponse;
 import com.damas.payload.WebResponse;
-import com.damas.service.AllProjectService;
 import com.damas.service.LogisticMemoService;
 
 @RestController
