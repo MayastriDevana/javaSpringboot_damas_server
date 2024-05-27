@@ -16,5 +16,7 @@ public class LogisticMemoResponse {
     private String memo_pic;
     private String memo_deadline;
     private String memo_status;
+    private Integer maxSize;
+
 
 }
