@@ -58,4 +58,12 @@ public class LogisticMemoController {
         return WebResponse.<LogisticMemoResponse>builder().data(logisticMemoResponse).error(null).build();
     }
 
+
+    @GetMapping("api/getMemoByID/{memoId}")
+    public WebResponse<LogisticMemoResponse> getMemoById(@PathVariable("memoId") String memoId) {
+        LogisticMemoResponse response = logisticMemoService.getMemoById(memoId);
+
+        return WebResponse.<LogisticMemoResponse>builder().data(response).error(null).build();
+    }
+
 }

@@ -2,6 +2,7 @@ package com.damas.service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,5 +124,20 @@ public class LogisticMemoService {
         .collect(Collectors.toList());
 
         return response;
+    }
+
+
+
+    public LogisticMemoResponse getMemoById(String memoId) {
+        LogisticMemo logisticMemo = logisticMemoRepository.findById(memoId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Memo not found"));
+
+        return LogisticMemoResponse.builder()
+                .memo_num(logisticMemo.getMemo_num())
+                .memo_perihal(logisticMemo.getMemo_perihal())
+                .memo_pic(logisticMemo.getMemo_pic())
+                .memo_status(logisticMemo.getMemo_status())
+                .memo_deadline(logisticMemo.getMemo_deadline())
+                .build();
     }
 }
