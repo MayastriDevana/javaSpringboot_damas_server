@@ -96,34 +96,36 @@ public class LogisticMemoService {
 
     public List<LogisticMemoResponse> findAll(String token, Long start, Long size) {
         validationService.validateRequest(token);
-
+    
         User user = userRepository.findFirstByToken(token)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
-
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+    
         if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
         }
-
+    
         if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
         }
-
+    
         List<LogisticMemo> logisticMemos = logisticMemoRepository.findAll();
-
+    
         List<LogisticMemoResponse> response = logisticMemos.stream()
-        .skip(start).limit(size)
-        .map(item -> new LogisticMemoResponse(
-            item.getMemo_num(),
-            item.getMemo_perihal(),
-            item.getMemo_pic(),
-            item.getMemo_status(),
-            item.getMemo_deadline(),
-            logisticMemos.size()
+            .skip(start).limit(size)
+            .map(item -> new LogisticMemoResponse(
+                item.getMemo_id(),
+                item.getMemo_num(),
+                item.getMemo_perihal(),
+                item.getMemo_pic(),
+                item.getMemo_status(),
+                item.getMemo_deadline(),
+                logisticMemos.size()
             ))
-        .collect(Collectors.toList());
-
+            .collect(Collectors.toList());
+    
         return response;
     }
+    
 
 
 
