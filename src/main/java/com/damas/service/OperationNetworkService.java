@@ -1,5 +1,9 @@
 package com.damas.service;
 
+import java.time.Instant;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -55,5 +59,35 @@ public class OperationNetworkService {
         .network_status(operationNetwork.getNetwork_status())
         .build();
 
+    }
+
+    public List<OperationNetworkResponse> findAll(String token, Long start, Long size) {
+        validationService.validateRequest(token);
+
+        User user = userRepository.findFirstByToken(token)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+
+        if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
+        }
+
+        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
+        }
+
+        List<OperationNetwork> operationNetworkShowAll = OperationNetworkRepository.findAll();
+
+        List<OperationNetworkResponse> response = operationNetworkShowAll.stream()
+        .skip(start).limit(size)
+        .map(item -> new OperationNetworkResponse(
+            item.getNetwork_perihal(),
+            item.getNetwork_pic(),
+            item.getNetwork_deadline(),
+            item.getNetwork_status(),
+            operationNetworkShowAll.size()
+        ))
+    .collect(Collectors.toList());
+
+        return response;
     }
 }
