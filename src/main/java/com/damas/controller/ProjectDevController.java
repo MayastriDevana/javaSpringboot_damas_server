@@ -47,4 +47,14 @@ public class ProjectDevController {
 
     return WebResponse.<List<ProjectDevResponse>>builder().data(response).error(null).build();
     }
+
+    @GetMapping("api/allproject/getproject")
+    public WebResponse<List<ProjectDevResponse>> findProject(
+        @RequestHeader("X-API-TOKEN") String token,
+        @RequestParam ("input") String input) {
+            List<ProjectDevResponse> response = projectDevService.findProject(token, input);
+
+            return WebResponse.<List<ProjectDevResponse>>builder().data(response).error(null).build();
+        }
+    
 }
