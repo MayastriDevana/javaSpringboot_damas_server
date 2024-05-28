@@ -88,4 +88,35 @@ public class ProjectDevService {
             .collect((Collectors.toList()));
     return response;
     }
+
+    public List<ProjectDevResponse> findAll(String token, Long start, Long size) {
+        validationService.validateRequest(token);
+    
+        User user = userRepository.findFirstByToken(token)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+    
+        if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
+        }
+    
+        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
+        }
+    
+        List<ProjectDev> projectDevAll = projectDevRepository.findAll();
+    
+        List<ProjectDevResponse> response = projectDevAll.stream()
+        .skip(start).limit(size)
+        .map(item -> new ProjectDevResponse(
+            item.getProjectname(),
+            item.getPic(),
+            item.getDeadline(),
+            item.getStatus(),
+            projectDevAll.size()
+            ))
+        .collect(Collectors.toList());
+    
+            return response;
+    
+        }
 }

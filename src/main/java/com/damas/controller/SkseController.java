@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.damas.payload.SkseRequest;
 import com.damas.payload.SkseResponse;
 import com.damas.payload.WebResponse;
-import com.damas.service.AllSkseService;
 import com.damas.service.SkseService;
 
 @RestController
@@ -23,8 +22,6 @@ public class SkseController {
     @Autowired
     private SkseService skseService;
 
-    @Autowired
-    private AllSkseService allSkseService;
 
     @PostMapping(
     path = "/api/newskse",
@@ -43,7 +40,7 @@ public class SkseController {
         @RequestHeader("X-API-TOKEN") String token,
         @RequestParam("start") Long start,
         @RequestParam("size") Long size) {
-    List<SkseResponse> response = allSkseService.findAll(token, start, size); 
+    List<SkseResponse> response = skseService.findAll(token, start, size); 
 
     return WebResponse.<List<SkseResponse>>builder().data(response).error(null).build();
     }
