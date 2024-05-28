@@ -64,4 +64,6 @@ public class LogisticMemoController {
         return WebResponse.<LogisticMemoResponse>builder().data(response).error(null).build();
     }
 
+    //request param input 
+
 }
