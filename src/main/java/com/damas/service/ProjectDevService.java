@@ -1,6 +1,5 @@
 package com.damas.service;
 
-
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
@@ -20,10 +19,11 @@ import com.damas.repository.ProjectDevRepository;
 import com.damas.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
+
 @Service
 public class ProjectDevService {
 
-    @Autowired 
+    @Autowired
     private ProjectDevRepository projectDevRepository;
 
     @Autowired
@@ -35,13 +35,12 @@ public class ProjectDevService {
     @Autowired
     private UserRepository userRepository;
 
-
     @Transactional
     public ProjectDevResponse newProject(ProjectDevRequest request, String token) {
         validationService.validateRequest(request);
 
         User user = userRepository.findFirstByToken(token)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
 
         if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
@@ -55,10 +54,12 @@ public class ProjectDevService {
 
         projectDevRepository.save(projectDev);
 
-        return ProjectDevResponse.builder().projectname(projectDev.getProjectname()).pic(projectDev.getPic()).deadline(projectDev.getDeadline()).status(projectDev.getStatus()).build();
+        return ProjectDevResponse.builder().projectname(projectDev.getProjectname()).pic(projectDev.getPic())
+                .deadline(projectDev.getDeadline()).status(projectDev.getStatus()).build();
     }
 
-    public List<ProjectDevResponse> findProject(String token, String input){
+    @Transactional
+    public List<ProjectDevResponse> findProject(String token, String input) {
 
         validationService.validateRequest(token);
 
@@ -79,44 +80,77 @@ public class ProjectDevService {
         List<ProjectDev> projectByName = projectDevRepository.searchByNameorPic(input);
 
         List<ProjectDevResponse> response = projectByName.stream()
-        .map(item -> new ProjectDevResponse(
-            item.getProjectname(),
-            item.getPic(),
-            item.getDeadline(),
-            item.getStatus(),
-            projectByName.size()))
-            .collect((Collectors.toList()));
-    return response;
+                .map(item -> new ProjectDevResponse(
+                    item.getId(),
+                        item.getProjectname(),
+                        item.getPic(),
+                        item.getDeadline(),
+                        item.getStatus(),
+                        projectByName.size()))
+                .collect((Collectors.toList()));
+        return response;
     }
 
-    public List<ProjectDevResponse> findAll(String token, Long start, Long size) {
-        validationService.validateRequest(token);
-    
+    @Transactional
+    public ProjectDevResponse editedProject(String token, ProjectDevRequest request, String input) {
+
+        validationService.validateRequest(request);
+
         User user = userRepository.findFirstByToken(token)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
-    
-        if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
-        }
-    
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+
         if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
         }
-    
-        List<ProjectDev> projectDevAll = projectDevRepository.findAll();
-    
-        List<ProjectDevResponse> response = projectDevAll.stream()
-        .skip(start).limit(size)
-        .map(item -> new ProjectDevResponse(
-            item.getProjectname(),
-            item.getPic(),
-            item.getDeadline(),
-            item.getStatus(),
-            projectDevAll.size()
-            ))
-        .collect(Collectors.toList());
-    
-            return response;
-    
+
+        ProjectDev projectDev = projectDevRepository.findById(input)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found"));
+
+        projectDev.setProjectname(request.getProjectname());
+        projectDev.setPic(request.getPic());
+        projectDev.setDeadline(request.getDeadline());
+        projectDev.setStatus(request.getStatus());
+
+        projectDevRepository.save(projectDev);
+
+        return ProjectDevResponse.builder()
+                .projectname(projectDev.getProjectname())
+                .pic(projectDev.getPic())
+                .deadline(projectDev.getDeadline())
+                .status(projectDev.getStatus())
+                .build();
+    }
+
+    @Transactional
+    public List<ProjectDevResponse> findAll(String token, Long start, Long size) {
+        validationService.validateRequest(token);
+
+        User user = userRepository.findFirstByToken(token)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+
+        if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
         }
+
+        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
+        }
+
+        List<ProjectDev> projectDevAll = projectDevRepository.findAll();
+
+        List<ProjectDevResponse> response = projectDevAll.stream()
+                .skip(start).limit(size)
+                .map(item -> new ProjectDevResponse(
+                        item.getId(),
+                        item.getProjectname(),
+                        item.getPic(),
+                        item.getDeadline(),
+                        item.getStatus(),
+                        projectDevAll.size()))
+                .collect(Collectors.toList());
+
+        return response;
+
+    }
+
 }
