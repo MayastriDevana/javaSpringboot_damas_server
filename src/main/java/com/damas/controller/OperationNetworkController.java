@@ -44,4 +44,13 @@ public class OperationNetworkController {
     return WebResponse.<List<OperationNetworkResponse>>builder().data(response).error(null).build();
     
     }
+
+    @GetMapping("/api/networkshow/getnetwork")
+    public WebResponse<List<OperationNetworkResponse>> findNetwork(
+        @RequestHeader("X-API-TOKEN") String token,
+        @RequestParam ("input") String input) {
+            List<OperationNetworkResponse> response = operationNetworkService.findNetwork(token, input);
+
+            return WebResponse.<List<OperationNetworkResponse>>builder().data(response).error(null).build();
+        }
 }

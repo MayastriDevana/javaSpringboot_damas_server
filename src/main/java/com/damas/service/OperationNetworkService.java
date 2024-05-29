@@ -2,6 +2,7 @@ package com.damas.service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,38 @@ public class OperationNetworkService {
             operationNetworkShowAll.size()
         ))
     .collect(Collectors.toList());
+
+        return response;
+    }
+
+    public List<OperationNetworkResponse> findNetwork(String token, String input){
+
+        validationService.validateRequest(token);
+
+        if (input == "" || input == null || Objects.isNull(input) || input.equals("")) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid request");
+        }
+
+        User user = userRepository.findFirstByToken(token)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+
+        if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
+        }
+
+        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
+        }
+        List<OperationNetwork> networkByName = OperationNetworkRepository.searchByNetwork_perihalorNetwork_pic(input);
+
+        List<OperationNetworkResponse> response = networkByName.stream()
+        .map(item -> new OperationNetworkResponse(
+            item.getNetwork_perihal(),
+            item.getNetwork_pic(),
+            item.getNetwork_deadline(),
+            item.getNetwork_status(),
+            networkByName.size()))
+            .collect((Collectors.toList()));
 
         return response;
     }
