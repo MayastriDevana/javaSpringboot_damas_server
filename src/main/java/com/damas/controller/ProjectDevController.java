@@ -58,14 +58,14 @@ public class ProjectDevController {
             return WebResponse.<List<ProjectDevResponse>>builder().data(response).error(null).build();
         }
     
-    // @PutMapping("/api/allproject/editedproject")
-    // public WebResponse<ProjectDevResponse> editProject(
-    //         @PathVariable("memoId") String memoId,
-    //         @RequestBody LogisticMemoRequest request,
-    //         @RequestHeader("X-API-TOKEN") String token) {
-    //     LogisticMemoResponse logisticMemoResponse = logisticMemoService.editMemo(memoId, request, token);
+    @PutMapping("/api/allproject/editedproject")
+    public WebResponse<ProjectDevResponse> editedProject(
+            @RequestHeader("X-API-TOKEN") String token,
+            @RequestBody ProjectDevRequest request,
+            @RequestParam ("input") String input){
+        ProjectDevResponse ProjectDevResponse = projectDevService.editedProject(token, request, input);
 
-    //     return WebResponse.<LogisticMemoResponse>builder().data(logisticMemoResponse).error(null).build();
-    // }
+        return WebResponse.<ProjectDevResponse>builder().data(ProjectDevResponse).error(null).build();
+    }
     
 }
