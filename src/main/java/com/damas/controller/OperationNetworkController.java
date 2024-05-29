@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,4 +54,14 @@ public class OperationNetworkController {
 
             return WebResponse.<List<OperationNetworkResponse>>builder().data(response).error(null).build();
         }
+
+    @PutMapping("/api/networkshow/editednetwork")
+    public WebResponse<OperationNetworkResponse> editedNetwork(
+            @RequestHeader("X-API-TOKEN") String token,
+            @RequestBody OperationNetworkRequest request,
+            @RequestParam ("input") String input){
+        OperationNetworkResponse OperationNetworkResponse = operationNetworkService.editedNetwork(token, request, input);
+
+        return WebResponse.<OperationNetworkResponse>builder().data(OperationNetworkResponse).error(null).build();
+    }
 }

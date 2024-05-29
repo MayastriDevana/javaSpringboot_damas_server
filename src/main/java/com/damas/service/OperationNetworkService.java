@@ -81,6 +81,7 @@ public class OperationNetworkService {
         List<OperationNetworkResponse> response = operationNetworkShowAll.stream()
         .skip(start).limit(size)
         .map(item -> new OperationNetworkResponse(
+            item.getNetwork_id(),
             item.getNetwork_perihal(),
             item.getNetwork_pic(),
             item.getNetwork_deadline(),
@@ -114,6 +115,7 @@ public class OperationNetworkService {
 
         List<OperationNetworkResponse> response = networkByName.stream()
         .map(item -> new OperationNetworkResponse(
+            item.getNetwork_id(),
             item.getNetwork_perihal(),
             item.getNetwork_pic(),
             item.getNetwork_deadline(),
@@ -122,5 +124,35 @@ public class OperationNetworkService {
             .collect((Collectors.toList()));
 
         return response;
+    }
+
+    @Transactional
+    public OperationNetworkResponse editedNetwork(String token, OperationNetworkRequest request, String input) {
+
+        validationService.validateRequest(request);
+
+        User user = userRepository.findFirstByToken(token)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+
+        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
+        }
+
+        OperationNetwork operationNetwork = OperationNetworkRepository.findById(input)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Network not found"));
+
+        operationNetwork.setNetwork_perihal(request.getNetwork_perihal());
+        operationNetwork.setNetwork_pic(request.getNetwork_pic());
+        operationNetwork.setNetwork_deadline(request.getNetwork_deadline());
+        operationNetwork.setNetwork_status(request.getNetwork_status());
+
+        OperationNetworkRepository.save(operationNetwork);
+
+        return OperationNetworkResponse.builder()
+                .network_perihal(operationNetwork.getNetwork_perihal())
+                .network_pic(operationNetwork.getNetwork_pic())
+                .network_deadline(operationNetwork.getNetwork_deadline())
+                .network_status(operationNetwork.getNetwork_status())
+                .build();
     }
 }
