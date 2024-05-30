@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.damas.payload.LogisticMemoRequest;
-import com.damas.payload.LogisticMemoResponse;
 import com.damas.payload.ProjectDevRequest;
 import com.damas.payload.ProjectDevResponse;
 import com.damas.payload.WebResponse;
@@ -58,14 +55,14 @@ public class ProjectDevController {
             return WebResponse.<List<ProjectDevResponse>>builder().data(response).error(null).build();
         }
     
-    // @PutMapping("/api/allproject/editedproject")
-    // public WebResponse<ProjectDevResponse> editProject(
-    //         @PathVariable("memoId") String memoId,
-    //         @RequestBody LogisticMemoRequest request,
-    //         @RequestHeader("X-API-TOKEN") String token) {
-    //     LogisticMemoResponse logisticMemoResponse = logisticMemoService.editMemo(memoId, request, token);
+    @PutMapping("/api/allproject/editedproject")
+    public WebResponse<ProjectDevResponse> editedProject(
+            @RequestHeader("X-API-TOKEN") String token,
+            @RequestBody ProjectDevRequest request,
+            @RequestParam ("input") String input){
+        ProjectDevResponse ProjectDevResponse = projectDevService.editedProject(token, request, input);
 
-    //     return WebResponse.<LogisticMemoResponse>builder().data(logisticMemoResponse).error(null).build();
-    // }
+        return WebResponse.<ProjectDevResponse>builder().data(ProjectDevResponse).error(null).build();
+    }
     
 }
