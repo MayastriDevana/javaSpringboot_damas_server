@@ -23,46 +23,42 @@ public class ProjectDevController {
     @Autowired
     private ProjectDevService projectDevService;
 
+    @PostMapping(path = "/api/projectdev", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 
-    @PostMapping(
-    path = "/api/projectdev",
-    consumes = MediaType.APPLICATION_JSON_VALUE,
-    produces = MediaType.APPLICATION_JSON_VALUE
-    )
-
-    public WebResponse<ProjectDevResponse> newProject(@RequestBody ProjectDevRequest request, @RequestHeader("X-API-TOKEN") String token){
+    public WebResponse<ProjectDevResponse> newProject(@RequestBody ProjectDevRequest request,
+            @RequestHeader("X-API-TOKEN") String token) {
         ProjectDevResponse projectDevResponse = projectDevService.newProject(request, token);
-    
-    return WebResponse.<ProjectDevResponse>builder().data(projectDevResponse).error(null).build();
+
+        return WebResponse.<ProjectDevResponse>builder().data(projectDevResponse).error(null).build();
     }
 
     @GetMapping("/api/allproject")
     public WebResponse<List<ProjectDevResponse>> findAll(
-        @RequestHeader("X-API-TOKEN") String token,
-        @RequestParam("start") Long start,
-        @RequestParam("size") Long size) {
-    List<ProjectDevResponse> response = projectDevService.findAll(token, start, size); 
+            @RequestHeader("USER-ID") String userid,
+            @RequestParam("start") Long start,
+            @RequestParam("size") Long size) {
+        List<ProjectDevResponse> response = projectDevService.findAll(userid, start, size);
 
-    return WebResponse.<List<ProjectDevResponse>>builder().data(response).error(null).build();
+        return WebResponse.<List<ProjectDevResponse>>builder().data(response).error(null).build();
     }
 
     @GetMapping("api/allproject/getproject")
     public WebResponse<List<ProjectDevResponse>> findProject(
-        @RequestHeader("X-API-TOKEN") String token,
-        @RequestParam ("input") String input) {
-            List<ProjectDevResponse> response = projectDevService.findProject(token, input);
+            @RequestHeader("USER-ID") String userid,
+            @RequestParam("input") String input) {
+        List<ProjectDevResponse> response = projectDevService.findProject(userid, input);
 
-            return WebResponse.<List<ProjectDevResponse>>builder().data(response).error(null).build();
-        }
-    
+        return WebResponse.<List<ProjectDevResponse>>builder().data(response).error(null).build();
+    }
+
     @PutMapping("/api/allproject/editedproject")
     public WebResponse<ProjectDevResponse> editedProject(
-            @RequestHeader("X-API-TOKEN") String token,
+            @RequestHeader("USER-ID") String userid,
             @RequestBody ProjectDevRequest request,
-            @RequestParam ("input") String input){
-        ProjectDevResponse ProjectDevResponse = projectDevService.editedProject(token, request, input);
+            @RequestParam("input") String input) {
+        ProjectDevResponse ProjectDevResponse = projectDevService.editedProject(userid, request, input);
 
         return WebResponse.<ProjectDevResponse>builder().data(ProjectDevResponse).error(null).build();
     }
-    
+
 }

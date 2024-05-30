@@ -11,12 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.damas.dbsecure.model.Tuser;
 
 public interface UserSecureRepository extends JpaRepository<Tuser, String> {
-    @Query(value = "EXEC uspLogonAPI @userid=:userid , @kode_aplikasi='00101' , @pass=:pass", nativeQuery = true)
+    @Query(value = "EXEC uspLogonAPI @userid=:userid , @kode_aplikasi='00102' , @pass=:pass", nativeQuery = true)
     List<String> loginSecure(@Param("userid") String userid, @Param("pass") String pass);
 
     @Modifying
     @Transactional
-    @Query(value = "EXEC uspLogoffapl @userid=:userid , @kode_aplikasi='00101'", nativeQuery = true)
+    @Query(value = "EXEC uspLogoffapl @userid=:userid , @kode_aplikasi='00102'", nativeQuery = true)
     void logoutSecure(@Param("userid") String userid);
 
     @Query(value = "SELECT * FROM t_users WHERE userid=:userid", nativeQuery = true)
