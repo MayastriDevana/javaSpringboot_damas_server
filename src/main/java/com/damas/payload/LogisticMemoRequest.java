@@ -13,9 +13,9 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class LogisticMemoRequest {
-    @NotBlank
-    @Size(max = 255)
-    private String memo_id;
+    // @NotBlank
+    // @Size(max = 255)
+    // private String memo_id;
 
 
     @Size(max = 255)
@@ -31,11 +31,12 @@ public class LogisticMemoRequest {
 
     @NotBlank
     @Size(max = 255)
-    private String memo_deadline;
+    private String memo_status;
 
     @NotBlank
     @Size(max = 255)
-    private String memo_status;
+    private String memo_deadline;
+
 
 
 }

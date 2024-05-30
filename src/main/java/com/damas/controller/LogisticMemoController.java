@@ -46,11 +46,11 @@ public class LogisticMemoController {
         return WebResponse.<List<LogisticMemoResponse>>builder().data(response).error(null).build();
     }
 
-    @PutMapping("/api/editmemo/{memoId}")
+    @PutMapping("/api/editmemo")
     public WebResponse<LogisticMemoResponse> editMemo(
-            @PathVariable("memoId") String memoId,
-            @RequestBody LogisticMemoRequest request,
-            @RequestHeader("X-API-TOKEN") String token) {
+            @RequestParam("memoId") String memoId,
+            @RequestHeader("X-API-TOKEN") String token,
+            @RequestBody LogisticMemoRequest request) {
         LogisticMemoResponse logisticMemoResponse = logisticMemoService.editMemo(memoId, request, token);
 
         return WebResponse.<LogisticMemoResponse>builder().data(logisticMemoResponse).error(null).build();
@@ -65,5 +65,14 @@ public class LogisticMemoController {
     }
 
     //request param input 
+
+    @GetMapping("api/allmemo/getmemo")
+    public WebResponse<List<LogisticMemoResponse>> findMemo(
+        @RequestHeader("X-API-TOKEN") String token,
+        @RequestParam ("input") String input) {
+            List<LogisticMemoResponse> response = logisticMemoService.findMemo(token, input);
+
+            return WebResponse.<List<LogisticMemoResponse>>builder().data(response).error(null).build();
+        }
 
 }
