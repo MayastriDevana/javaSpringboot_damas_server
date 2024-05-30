@@ -38,12 +38,19 @@ public class OperationNetworkService {
     public OperationNetworkResponse newNetwork(OperationNetworkRequest userid, String token) {
         validationService.validateRequest(userid);
 
-        User user = userRepository.findFirstByToken(token)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+        // User user = userRepository.findFirstByToken(token)
+        // .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
 
-        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        }
+        // if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
+        //     throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
+        // }
+
+        // Tuser Tuser = userSecureRepository.findUseridInUsers(userid)
+        //         .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+
+        // if (!Tuser.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
+        //     throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
+        // }
 
         OperationNetwork operationNetwork = new OperationNetwork();
         operationNetwork.setNetwork_perihal(userid.getNetwork_perihal());
@@ -65,16 +72,16 @@ public class OperationNetworkService {
     public List<OperationNetworkResponse> findAll(String userid, Long start, Long size) {
         validationService.validateRequest(userid);
 
-        User user = userRepository.findFirstByToken(userid)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+        // User user = userRepository.findFirstByToken(userid)
+        // .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
 
-        if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
-        }
+        // if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
+        //     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
+        // }
 
-        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        }
+        // if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
+        //     throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
+        // }
 
         List<OperationNetwork> operationNetworkShowAll = OperationNetworkRepository.findAll();
 
@@ -97,20 +104,20 @@ public class OperationNetworkService {
 
         validationService.validateRequest(userid);
 
-        if (input == "" || input == null || Objects.isNull(input) || input.equals("")) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid request");
-        }
+        // if (input == "" || input == null || Objects.isNull(input) || input.equals("")) {
+        //     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid request");
+        // }
 
-        User user = userRepository.findFirstByToken(userid)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+        // User user = userRepository.findFirstByToken(userid)
+        //         .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
 
-        if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
-        }
+        // if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
+        //     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
+        // }
 
-        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        }
+        // if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
+        //     throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
+        // }
         List<OperationNetwork> networkByName = OperationNetworkRepository.searchByNetwork_perihalorNetwork_pic(input);
 
         List<OperationNetworkResponse> response = networkByName.stream()
@@ -131,12 +138,12 @@ public class OperationNetworkService {
 
         validationService.validateRequest(userid);
 
-        User user = userRepository.findFirstByToken(userid)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+        // User user = userRepository.findFirstByToken(userid)
+        //         .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
 
-        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        }
+        // if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
+        //     throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
+        // }
 
         OperationNetwork operationNetwork = OperationNetworkRepository.findById(input)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Network not found"));
