@@ -30,8 +30,8 @@ public class OperationNetworkController {
         produces = MediaType.APPLICATION_JSON_VALUE
     )
     public WebResponse<OperationNetworkResponse> newNetwork(@RequestBody OperationNetworkRequest request, 
-        @RequestHeader("X-API-TOKEN") String token){
-        OperationNetworkResponse operationNetworkResponse = operationNetworkService.newNetwork(request, token);
+        @RequestHeader("USER-ID") String userid){
+        OperationNetworkResponse operationNetworkResponse = operationNetworkService.newNetwork(request, userid);
 
         return WebResponse.<OperationNetworkResponse>builder().data(operationNetworkResponse).error(null).build();
     }
