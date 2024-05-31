@@ -93,7 +93,8 @@ public class UserSecureService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found!");
         }
 
-        List<UserResponse> response = result.stream().map(item -> new UserResponse(
+        List<UserResponse> response = result.stream()
+        .map(item -> new UserResponse(
                 item.getUserid(),
                 item.getUsername(),
                 item.getLevel(),
