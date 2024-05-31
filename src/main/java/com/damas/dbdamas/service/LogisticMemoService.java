@@ -2,7 +2,6 @@ package com.damas.dbdamas.service;
 
 import java.time.Instant;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.damas.dbdamas.model.LogisticMemo;
-import com.damas.dbdamas.model.User;
 import com.damas.dbdamas.payload.LogisticMemoRequest;
 import com.damas.dbdamas.payload.LogisticMemoResponse;
 import com.damas.dbdamas.repository.LogisticMemoRepository;
@@ -28,56 +26,41 @@ public class LogisticMemoService {
 
     @Autowired
     private ValidationService validationService;
- 
+
     @Autowired
     private Environment env;
- 
+
     @Autowired
     private UserRepository userRepository;
 
     @Transactional
-    public LogisticMemoResponse newMemo(LogisticMemoRequest request, String token) {
+    public LogisticMemoResponse newMemo(LogisticMemoRequest request, String userId) {
         validationService.validateRequest(request);
- 
-        User user = userRepository.findFirstByToken(token)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
- 
-        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        }
- 
+
         LogisticMemo logisticMemo = new LogisticMemo();
         logisticMemo.setMemo_num(request.getMemo_num());
         logisticMemo.setMemo_perihal(request.getMemo_perihal());
         logisticMemo.setMemo_pic(request.getMemo_pic());
         logisticMemo.setMemo_status(request.getMemo_status());
         logisticMemo.setMemo_deadline(request.getMemo_deadline());
-       
 
         logisticMemoRepository.save(logisticMemo);
 
         return LogisticMemoResponse.builder()
-        .memo_num(logisticMemo.getMemo_num())
-        .memo_perihal(logisticMemo.getMemo_perihal())
-        .memo_pic(logisticMemo.getMemo_pic())
-        .memo_status(logisticMemo.getMemo_status())
-        .memo_deadline(logisticMemo.getMemo_deadline())
-        .build();
+            .memo_num(logisticMemo.getMemo_num())
+            .memo_perihal(logisticMemo.getMemo_perihal())
+            .memo_pic(logisticMemo.getMemo_pic())
+            .memo_status(logisticMemo.getMemo_status())
+            .memo_deadline(logisticMemo.getMemo_deadline())
+            .build();
     }
 
     @Transactional
-    public LogisticMemoResponse editMemo(String memoId, LogisticMemoRequest request, String token) {
+    public LogisticMemoResponse editMemo(String memoId, LogisticMemoRequest request, String userId) {
         validationService.validateRequest(request);
 
-        User user = userRepository.findFirstByToken(token)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
-
-        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        }
-
         LogisticMemo logisticMemo = logisticMemoRepository.findById(memoId)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Memo not found"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Memo not found"));
 
         logisticMemo.setMemo_num(request.getMemo_num());
         logisticMemo.setMemo_perihal(request.getMemo_perihal());
@@ -88,95 +71,61 @@ public class LogisticMemoService {
         logisticMemoRepository.save(logisticMemo);
 
         return LogisticMemoResponse.builder()
-        .memo_num(logisticMemo.getMemo_num())
-        .memo_perihal(logisticMemo.getMemo_perihal())
-        .memo_pic(logisticMemo.getMemo_pic())
-        .memo_status(logisticMemo.getMemo_status())
-        .memo_deadline(logisticMemo.getMemo_deadline())
-        .build();
+            .memo_num(logisticMemo.getMemo_num())
+            .memo_perihal(logisticMemo.getMemo_perihal())
+            .memo_pic(logisticMemo.getMemo_pic())
+            .memo_status(logisticMemo.getMemo_status())
+            .memo_deadline(logisticMemo.getMemo_deadline())
+            .build();
     }
 
-  public List<LogisticMemoResponse> findAll(String token, Long start, Long size) {
-    validationService.validateRequest(token);
+    public List<LogisticMemoResponse> findAll(String userId, Long start, Long size) {
+        validationService.validateRequest(userId);
 
-    User user = userRepository.findFirstByToken(token)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+        List<LogisticMemo> logisticMemos = logisticMemoRepository.findAll();
 
-    if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
-        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
+        return logisticMemos.stream()
+            .skip(start).limit(size)
+            .map(item -> new LogisticMemoResponse(
+                item.getMemo_id(),
+                item.getMemo_num(),
+                item.getMemo_perihal(),
+                item.getMemo_pic(),
+                item.getMemo_status(),
+                item.getMemo_deadline(),
+                logisticMemos.size()
+            ))
+            .collect(Collectors.toList());
     }
-
-    if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-    }
-
-    List<LogisticMemo> logisticMemos = logisticMemoRepository.findAll();
-
-    List<LogisticMemoResponse> response = logisticMemos.stream()
-        .skip(start).limit(size)
-        .map(item -> new LogisticMemoResponse(
-            item.getMemo_id(),
-            item.getMemo_num(),
-            item.getMemo_perihal(),
-            item.getMemo_pic(),
-            item.getMemo_status(),
-            item.getMemo_deadline(),
-            logisticMemos.size()
-        ))
-        .collect(Collectors.toList());
-
-    return response;
-}
-
-
-
 
     public LogisticMemoResponse getMemoById(String memoId) {
         LogisticMemo logisticMemo = logisticMemoRepository.findById(memoId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Memo not found"));
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Memo not found"));
 
         return LogisticMemoResponse.builder()
-                .memo_num(logisticMemo.getMemo_num())
-                .memo_perihal(logisticMemo.getMemo_perihal())
-                .memo_pic(logisticMemo.getMemo_pic())
-                .memo_status(logisticMemo.getMemo_status())
-                .memo_deadline(logisticMemo.getMemo_deadline())
-                .build();
+            .memo_num(logisticMemo.getMemo_num())
+            .memo_perihal(logisticMemo.getMemo_perihal())
+            .memo_pic(logisticMemo.getMemo_pic())
+            .memo_status(logisticMemo.getMemo_status())
+            .memo_deadline(logisticMemo.getMemo_deadline())
+            .build();
     }
- 
-      public List<LogisticMemoResponse> findMemo(String token, String input){
 
-        validationService.validateRequest(token);
+    public List<LogisticMemoResponse> findMemo(String userId, String input) {
+        validationService.validateRequest(userId);
 
-        if (input == "" || input == null || Objects.isNull(input) || input.equals("")) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid request");
-        }
-
-        User user = userRepository.findFirstByToken(token)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
-
-        if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
-        }
-
-        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        }
         List<LogisticMemo> memoByPerihal = logisticMemoRepository.searchByPerihalorPic(input);
 
-        List<LogisticMemoResponse> response = memoByPerihal.stream()
-        .map(item -> new LogisticMemoResponse(
-            item.getMemo_id(),
-            item.getMemo_num(),
-            item.getMemo_perihal(),
-            item.getMemo_pic(),
-            item.getMemo_status(),
-            item.getMemo_deadline(),
-           
-            memoByPerihal.size()
+        return memoByPerihal.stream()
+            .map(item -> new LogisticMemoResponse(
+                item.getMemo_id(),
+                item.getMemo_num(),
+                item.getMemo_perihal(),
+                item.getMemo_pic(),
+                item.getMemo_status(),
+                item.getMemo_deadline(),
+                memoByPerihal.size()
             ))
-            .collect((Collectors.toList()));
-    return response;
+            .collect(Collectors.toList());
     }
-    
 }
