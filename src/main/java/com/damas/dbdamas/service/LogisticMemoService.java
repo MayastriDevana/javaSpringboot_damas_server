@@ -85,7 +85,6 @@ public class LogisticMemoService {
         logisticMemo.setMemo_status(request.getMemo_status());
         logisticMemo.setMemo_deadline(request.getMemo_deadline());
 
-
         logisticMemoRepository.save(logisticMemo);
 
         return LogisticMemoResponse.builder()
