@@ -35,21 +35,15 @@ public class OperationNetworkService {
     private UserRepository userRepository;
 
     @Transactional
-    public OperationNetworkResponse newNetwork(OperationNetworkRequest request, String token) {
-        validationService.validateRequest(request);
+    public OperationNetworkResponse newNetwork(OperationNetworkRequest userid, String token) {
+        validationService.validateRequest(userid);
 
-        User user = userRepository.findFirstByToken(token)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
-
-        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        }
 
         OperationNetwork operationNetwork = new OperationNetwork();
-        operationNetwork.setNetwork_perihal(request.getNetwork_perihal());
-        operationNetwork.setNetwork_pic(request.getNetwork_pic());
-        operationNetwork.setNetwork_deadline(request.getNetwork_deadline());
-        operationNetwork.setNetwork_status(request.getNetwork_status());
+        operationNetwork.setNetwork_perihal(userid.getNetwork_perihal());
+        operationNetwork.setNetwork_pic(userid.getNetwork_pic());
+        operationNetwork.setNetwork_deadline(userid.getNetwork_deadline());
+        operationNetwork.setNetwork_status(userid.getNetwork_status());
 
         OperationNetworkRepository.save(operationNetwork);
 
@@ -62,19 +56,10 @@ public class OperationNetworkService {
 
     }
 
-    public List<OperationNetworkResponse> findAll(String token, Long start, Long size) {
-        validationService.validateRequest(token);
+    public List<OperationNetworkResponse> findAll(String userid, Long start, Long size) {
+        validationService.validateRequest(userid);
 
-        User user = userRepository.findFirstByToken(token)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
-
-        if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
-        }
-
-        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        }
+        
 
         List<OperationNetwork> operationNetworkShowAll = OperationNetworkRepository.findAll();
 
@@ -93,24 +78,10 @@ public class OperationNetworkService {
         return response;
     }
 
-    public List<OperationNetworkResponse> findNetwork(String token, String input){
+    public List<OperationNetworkResponse> findNetwork(String userid, String input){
 
-        validationService.validateRequest(token);
+        validationService.validateRequest(userid);
 
-        if (input == "" || input == null || Objects.isNull(input) || input.equals("")) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid request");
-        }
-
-        User user = userRepository.findFirstByToken(token)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
-
-        if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
-        }
-
-        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        }
         List<OperationNetwork> networkByName = OperationNetworkRepository.searchByNetwork_perihalorNetwork_pic(input);
 
         List<OperationNetworkResponse> response = networkByName.stream()
@@ -127,16 +98,10 @@ public class OperationNetworkService {
     }
 
     @Transactional
-    public OperationNetworkResponse editedNetwork(String token, OperationNetworkRequest request, String input) {
+    public OperationNetworkResponse editedNetwork(String userid, OperationNetworkRequest request, String input) {
 
-        validationService.validateRequest(request);
+        validationService.validateRequest(userid);
 
-        User user = userRepository.findFirstByToken(token)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
-
-        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        }
 
         OperationNetwork operationNetwork = OperationNetworkRepository.findById(input)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Network not found"));
