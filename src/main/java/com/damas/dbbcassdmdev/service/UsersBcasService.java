@@ -1,4 +1,4 @@
-package com.damas.dbbcas_sdmdev.service;
+package com.damas.dbbcassdmdev.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,14 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.damas.dbbcas_sdmdev.model.Users;
-import com.damas.dbbcas_sdmdev.payload.DepartementResponse;
-import com.damas.dbbcas_sdmdev.repository.UsersBcasRepository;
-import com.damas.dbdamas.model.ProjectDev;
-import com.damas.dbdamas.payload.ProjectDevResponse;
-import com.damas.dbsecure.model.Tuser;
-import com.damas.dbsecure.payload.UserResponse;
-import com.damas.dbsecure.repository.UserSecureRepository;
+import com.damas.dbbcassdmdev.model.Users;
+import com.damas.dbbcassdmdev.payload.DepartementResponse;
+import com.damas.dbbcassdmdev.repository.UsersBcasRepository;
+
 
 import jakarta.transaction.Transactional;
 
@@ -24,9 +20,13 @@ public class UsersBcasService {
     @Autowired
     UsersBcasRepository usersBcasRepository;
 
+    @Autowired
+    ValidationBcasService validationBcasService;
+
     @Transactional
-    public List<DepartementResponse> findNamaAndDeptInUsers(Long start, Long size) {
-    
+    public List<DepartementResponse> findNamaAndDeptInUsers(String userid) {
+    validationBcasService.validateUsers(userid);
+
         List<Users> result = usersBcasRepository.findNamaAndDeptInUsers();
 
         if (result.size() == 0) {
@@ -34,14 +34,12 @@ public class UsersBcasService {
         }
 
         List<DepartementResponse> response = result.stream()
-                .skip(start).limit(size)
                 .map(item -> new DepartementResponse(
-                   item.getCatapaid(),
                    item.getNama(),
-                   item.getDepartement(),
-                   result.size() 
+                   item.getDepartemen()
+                  
                 ))
-                .collect((Collectors.toList()));
+                .collect(Collectors.toList());
 
         return response;
     }

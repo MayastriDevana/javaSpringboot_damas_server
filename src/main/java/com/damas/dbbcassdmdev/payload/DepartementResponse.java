@@ -1,4 +1,4 @@
-package com.damas.dbbcas_sdmdev.payload;
+package com.damas.dbbcassdmdev.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,9 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder //untuk membuat object user response
 
 public class DepartementResponse {
-    private String catapaid;
     private String nama;
-    private String departement;
-    private Integer maxSize;
-
+    private String departemen;
 }

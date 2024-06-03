@@ -1,6 +1,8 @@
-package com.damas.dbbcas_sdmdev.model;
+package com.damas.dbbcassdmdev.model;
 
 import java.time.Instant;
+
+import org.hibernate.annotations.UuidGenerator;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,6 +20,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "users")
 public class Users {
+
     @Id
     @Column(name = "catapa_id")
     private String catapaid;
@@ -27,7 +30,7 @@ public class Users {
     private String nik;
 
     private String nama;
-    
+
     private String email;
 
     @Column(name = "user_domain")
@@ -45,7 +48,7 @@ public class Users {
     @Column(name = "bidang_fungsi")
     private String bidangfungsi;
 
-    private String departement;
+    private String departemen;
 
     @Column(name = "satuan_kerja")
     private String satuankerja;

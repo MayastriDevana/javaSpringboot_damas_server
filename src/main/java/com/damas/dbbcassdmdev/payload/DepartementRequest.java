@@ -1,4 +1,4 @@
-package com.damas.dbbcas_sdmdev.payload;
+package com.damas.dbbcassdmdev.payload;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -20,6 +20,6 @@ public class DepartementRequest {
 
     @NotBlank
     @Size(max = 100)
-    private String departement;
+    private String departemen;
 
 }
