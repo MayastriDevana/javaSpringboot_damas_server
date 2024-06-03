@@ -2,6 +2,7 @@ package com.damas.dbdamas.service;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,7 @@ public class LogisticMemoService {
         logisticMemo.setMemo_perihal(request.getMemo_perihal());
         logisticMemo.setMemo_pic(request.getMemo_pic());
         logisticMemo.setMemo_status(request.getMemo_status());
+        logisticMemo.setMemo_status(request.getMemo_status());
         logisticMemo.setMemo_deadline(request.getMemo_deadline());
 
         logisticMemoRepository.save(logisticMemo);
@@ -65,6 +67,7 @@ public class LogisticMemoService {
         logisticMemo.setMemo_num(request.getMemo_num());
         logisticMemo.setMemo_perihal(request.getMemo_perihal());
         logisticMemo.setMemo_pic(request.getMemo_pic());
+        logisticMemo.setMemo_status(request.getMemo_status());
         logisticMemo.setMemo_status(request.getMemo_status());
         logisticMemo.setMemo_deadline(request.getMemo_deadline());
 

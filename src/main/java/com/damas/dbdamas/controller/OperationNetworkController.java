@@ -29,18 +29,19 @@ public class OperationNetworkController {
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public WebResponse<OperationNetworkResponse> newNetwork(@RequestBody OperationNetworkRequest request, @RequestHeader("X-API-TOKEN") String token){
-        OperationNetworkResponse operationNetworkResponse = operationNetworkService.newNetwork(request, token);
+    public WebResponse<OperationNetworkResponse> newNetwork(@RequestBody OperationNetworkRequest request, 
+        @RequestHeader("USER-ID") String userid){
+        OperationNetworkResponse operationNetworkResponse = operationNetworkService.newNetwork(request, userid);
 
         return WebResponse.<OperationNetworkResponse>builder().data(operationNetworkResponse).error(null).build();
     }
 
     @GetMapping("/api/networkshow")
     public WebResponse<List<OperationNetworkResponse>> findAll(
-        @RequestHeader("X-API-TOKEN") String token,
+        @RequestHeader("USER-ID") String userid,
         @RequestParam("start") Long start,
         @RequestParam("size") Long size) {
-    List<OperationNetworkResponse> response = operationNetworkService.findAll(token, start, size);
+    List<OperationNetworkResponse> response = operationNetworkService.findAll(userid, start, size);
 
     return WebResponse.<List<OperationNetworkResponse>>builder().data(response).error(null).build();
     
@@ -48,19 +49,19 @@ public class OperationNetworkController {
 
     @GetMapping("/api/networkshow/getnetwork")
     public WebResponse<List<OperationNetworkResponse>> findNetwork(
-        @RequestHeader("X-API-TOKEN") String token,
+        @RequestHeader("USER-ID") String userid,
         @RequestParam ("input") String input) {
-            List<OperationNetworkResponse> response = operationNetworkService.findNetwork(token, input);
+            List<OperationNetworkResponse> response = operationNetworkService.findNetwork(userid, input);
 
             return WebResponse.<List<OperationNetworkResponse>>builder().data(response).error(null).build();
         }
 
     @PutMapping("/api/networkshow/editednetwork")
     public WebResponse<OperationNetworkResponse> editedNetwork(
-            @RequestHeader("X-API-TOKEN") String token,
+            @RequestHeader("USER-ID") String userid,
             @RequestBody OperationNetworkRequest request,
             @RequestParam ("input") String input){
-        OperationNetworkResponse OperationNetworkResponse = operationNetworkService.editedNetwork(token, request, input);
+        OperationNetworkResponse OperationNetworkResponse = operationNetworkService.editedNetwork(userid, request, input);
 
         return WebResponse.<OperationNetworkResponse>builder().data(OperationNetworkResponse).error(null).build();
     }

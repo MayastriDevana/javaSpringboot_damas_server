@@ -23,11 +23,13 @@ public class ProjectDevController {
     @Autowired
     private ProjectDevService projectDevService;
 
-    @PostMapping(path = "/api/projectdev", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/api/projectdev", 
+    consumes = MediaType.APPLICATION_JSON_VALUE, 
+    produces = MediaType.APPLICATION_JSON_VALUE)
 
     public WebResponse<ProjectDevResponse> newProject(@RequestBody ProjectDevRequest request,
-            @RequestHeader("X-API-TOKEN") String token) {
-        ProjectDevResponse projectDevResponse = projectDevService.newProject(request, token);
+            @RequestHeader("USER-ID") String userid) {
+        ProjectDevResponse projectDevResponse = projectDevService.newProject(request, userid);
 
         return WebResponse.<ProjectDevResponse>builder().data(projectDevResponse).error(null).build();
     }

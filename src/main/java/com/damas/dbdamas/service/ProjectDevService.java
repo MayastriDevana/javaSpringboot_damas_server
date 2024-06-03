@@ -40,13 +40,6 @@ public class ProjectDevService {
     public ProjectDevResponse newProject(ProjectDevRequest userid, String token) {
         validationService.validateRequest(userid);
 
-        // Tuser Tuser = userSecureRepository.findUseridInUsers(userid)
-        //         .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
-
-        // if (!Tuser.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-        //     throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        // }
-
         ProjectDev projectDev = new ProjectDev();
         projectDev.setProjectname(userid.getProjectname());
         projectDev.setPic(userid.getPic());
@@ -64,20 +57,6 @@ public class ProjectDevService {
 
         validationService.validateRequest(userid);
 
-        // if (input == "" || input == null || Objects.isNull(input) || input.equals("")) {
-        //     throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "invalid request");
-        // }
-
-        // User user = userSecureRepository.findFirstByToken(token)
-        //         .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
-
-        // if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
-        //     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
-        // }
-
-        // if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-        //     throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        // }
         List<ProjectDev> projectByName = projectDevRepository.searchByNameorPic(input);
 
         List<ProjectDevResponse> response = projectByName.stream()
@@ -97,12 +76,6 @@ public class ProjectDevService {
 
         validationService.validateRequest(userid);
 
-        // User user = userRepository.findFirstByToken(token)
-        //         .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
-
-        // if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-        //     throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        // }
 
         ProjectDev projectDev = projectDevRepository.findById(input)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found"));
@@ -125,17 +98,6 @@ public class ProjectDevService {
     @Transactional
     public List<ProjectDevResponse> findAll(String userid, Long start, Long size) {
         validationService.validateRequest(userid);
-
-        // User user = userRepository.findFirstByToken(token)
-        //         .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
-
-        // if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
-        //     throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
-        // }
-
-        // if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-        //     throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        // }
 
         List<ProjectDev> projectDevAll = projectDevRepository.findAll();
 
