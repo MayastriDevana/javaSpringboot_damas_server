@@ -41,18 +41,20 @@ public class ProjectPhaseService {
         validationService.validateRequest(userid);
 
         ProjectPhase projectPhase = new ProjectPhase();
-        projectPhase.setNopmo(userid.getNopmo());
-        projectPhase.setProjectname(userid.getProjectname());
-        projectPhase.setPhase(userid.getPhase());
-        projectPhase.setPic(userid.getPic());
-        projectPhase.setDepartement(userid.getDepartement());
-        projectPhase.setTeam(userid.getTeam());
-        projectPhase.setDeadline(userid.getDeadline());
+        projectPhase.setKickoff(userid.getKickoff());
+        projectPhase.setUserrequirement(userid.getUserrequirement());
+        projectPhase.setApplicationdevelopment(userid.getApplicationdevelopment());
+        projectPhase.setSit(userid.getSit());
+        projectPhase.setUat(userid.getUat());
+        projectPhase.setImplementationprepare(userid.getImplementationprepare());
+        projectPhase.setImplementationmeeting(userid.getImplementationmeeting());
+        projectPhase.setImplementation(userid.getImplementation());
+        projectPhase.setPostimplementationreview(userid.getPostimplementationreview());
         projectPhase.setStatus(userid.getStatus());
 
         projectPhaseRepository.save(projectPhase);
 
-        return ProjectPhaseResponse.builder().nopmo(projectPhase.getNopmo()).projectname(projectPhase.getProjectname()).phase(projectPhase.getPhase()).pic(projectPhase.getPic()).departement(projectPhase.getDepartement()).team(projectPhase.getTeam()).deadline(projectPhase.getDeadline()).status(projectPhase.getStatus()).build();
+        return ProjectPhaseResponse.builder().kickoff(projectPhase.getKickoff()).userrequirement(projectPhase.getUserrequirement()).applicationdevelopment(projectPhase.getApplicationdevelopment()).sit(projectPhase.getSit()).uat(projectPhase.getUat()).implementationprepare(projectPhase.getImplementationprepare()).implementationmeeting(projectPhase.getImplementationmeeting()).implementation(projectPhase.getImplementation()).postimplementationreview(projectPhase.getPostimplementationreview()).status(projectPhase.getStatus()).build();
     }
 
     // @Transactional

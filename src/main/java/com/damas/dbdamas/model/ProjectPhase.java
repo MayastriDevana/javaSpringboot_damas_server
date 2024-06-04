@@ -22,22 +22,30 @@ public class ProjectPhase {
     @UuidGenerator
     private String id;
 
-    @Column(name = "no_pmo")
-    private String nopmo;
+    @Column(name = "kick_off")
+    private String kickoff;
 
-    @Column(name = "project_name")
-    private String projectname;
+    @Column(name = "user_requirement")
+    private String userrequirement;
 
-    private String phase;
+    @Column(name = "application_development")
+    private String applicationdevelopment;
 
-    private String pic;
+    private String sit;
 
-    private String departement;
+    private String uat;
 
-    private String team;
+    @Column(name = "implementation_prepare")
+    private String implementationprepare;
 
-    private String deadline;
+    @Column(name = "implementation_meeting")
+    private String implementationmeeting;
     
+    private String implementation;
+
+    @Column(name = "post_implementation_review")
+    private String 	postimplementationreview;
+
     private String status;
 
 }

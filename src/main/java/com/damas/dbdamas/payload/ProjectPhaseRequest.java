@@ -1,5 +1,6 @@
 package com.damas.dbdamas.payload;
 
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -14,39 +15,45 @@ import lombok.NoArgsConstructor;
 
 public class ProjectPhaseRequest {
     
-    // @NotBlank
-    // @Size(max = 100)
-    // private String id;
 
     @NotBlank
     @Size(max = 100)
-    private String nopmo;
+    private String kickoff;
 
     @NotBlank
     @Size(max = 100)
-    private String projectname;
+    private String userrequirement;
 
     @NotBlank
     @Size(max = 100)
-    private String phase;
+    private String applicationdevelopment;
 
     @NotBlank
     @Size(max = 100)
-    private String pic;
+    private String sit;
 
     @NotBlank
     @Size(max = 100)
-    private String departement;
+    private String uat;
+
+    @NotBlank
+    @Size(max = 100)
+    private String implementationprepare;
+
+    @NotBlank
+    @Size(max = 100)
+    private String implementationmeeting;
     
     @NotBlank
     @Size(max = 100)
-    private String team;
+    private String implementation;
 
     @NotBlank
     @Size(max = 100)
-    private String deadline;
+    private String 	postimplementationreview;
 
     @NotBlank
     @Size(max = 100)
     private String status;
+    
 }
