@@ -10,8 +10,8 @@ import com.damas.dbdamas.model.ProjectPhase;
 
 
 public interface ProjectPhaseRepository extends JpaRepository<ProjectPhase, String> { // karena udh pake jpa repo jd pake interface
-    @Query(value = "SELECT * FROM projectphase WHERE UPPER(project_name) LIKE UPPER(CONCAT('%', ?1, '%')) OR UPPER(pic) LIKE UPPER(CONCAT('%', ?1, '%')) OR UPPER(id) LIKE UPPER(CONCAT('%', ?1, '%'))", nativeQuery = true)
-    List<ProjectPhase> searchByNameorPic(String searchParam);
+    @Query(value = "SELECT * FROM projectphase", nativeQuery = true)
+    List<ProjectPhase> getAll();
 
     // Optional<ProjectDev> updateById(String token);
 }

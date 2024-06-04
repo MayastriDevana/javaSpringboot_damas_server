@@ -1,5 +1,6 @@
 package com.damas.dbdamas.payload;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,14 +13,27 @@ import lombok.NoArgsConstructor;
 
 public class ProjectPhaseResponse {
     private String id;
-    private String nopmo;
-    private String projectname;
-    private String phase;
-    private String pic;
-    private String departement;
-    private String team;
-    private String deadline;
+
+    private String kickoff;
+
+    private String userrequirement;
+
+    private String applicationdevelopment;
+
+    private String sit;
+
+    private String uat;
+
+    private String implementationprepare;
+
+    private String implementationmeeting;
+    
+    private String implementation;
+
+    private String postimplementationreview;
+
     private String status;
+
     private Integer maxSize;
 
 }
