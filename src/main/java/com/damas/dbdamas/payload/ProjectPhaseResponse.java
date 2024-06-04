@@ -32,8 +32,6 @@ public class ProjectPhaseResponse {
 
     private String postimplementationreview;
 
-    private String status;
-
     private Integer maxSize;
 
 }

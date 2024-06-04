@@ -51,9 +51,5 @@ public class ProjectPhaseRequest {
     @NotBlank
     @Size(max = 100)
     private String 	postimplementationreview;
-
-    @NotBlank
-    @Size(max = 100)
-    private String status;
     
 }
