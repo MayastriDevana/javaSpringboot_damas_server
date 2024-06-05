@@ -46,6 +46,4 @@ public class ProjectPhase {
     @Column(name = "post_implementation_review")
     private String 	postimplementationreview;
 
-    private String status;
-
 }

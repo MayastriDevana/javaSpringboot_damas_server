@@ -50,11 +50,9 @@ public class ProjectPhaseService {
         projectPhase.setImplementationmeeting(userid.getImplementationmeeting());
         projectPhase.setImplementation(userid.getImplementation());
         projectPhase.setPostimplementationreview(userid.getPostimplementationreview());
-        projectPhase.setStatus(userid.getStatus());
-
         projectPhaseRepository.save(projectPhase);
 
-        return ProjectPhaseResponse.builder().kickoff(projectPhase.getKickoff()).userrequirement(projectPhase.getUserrequirement()).applicationdevelopment(projectPhase.getApplicationdevelopment()).sit(projectPhase.getSit()).uat(projectPhase.getUat()).implementationprepare(projectPhase.getImplementationprepare()).implementationmeeting(projectPhase.getImplementationmeeting()).implementation(projectPhase.getImplementation()).postimplementationreview(projectPhase.getPostimplementationreview()).status(projectPhase.getStatus()).build();
+        return ProjectPhaseResponse.builder().kickoff(projectPhase.getKickoff()).userrequirement(projectPhase.getUserrequirement()).applicationdevelopment(projectPhase.getApplicationdevelopment()).sit(projectPhase.getSit()).uat(projectPhase.getUat()).implementationprepare(projectPhase.getImplementationprepare()).implementationmeeting(projectPhase.getImplementationmeeting()).implementation(projectPhase.getImplementation()).postimplementationreview(projectPhase.getPostimplementationreview()).build();
     }
 
     // @Transactional
