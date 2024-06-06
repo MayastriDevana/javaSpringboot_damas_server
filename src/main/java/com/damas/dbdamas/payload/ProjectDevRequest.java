@@ -24,7 +24,43 @@ public class ProjectDevRequest {
 
     @NotBlank
     @Size(max = 100)
-    private String deadline;
+    private String departement;
+
+    @NotBlank
+    @Size(max = 100)
+    private String kickoff;
+
+    @NotBlank
+    @Size(max = 100)
+    private String userrequirement;
+
+    @NotBlank
+    @Size(max = 100)
+    private String applicationdevelopment;
+
+    @NotBlank
+    @Size(max = 100)
+    private String sit;
+
+    @NotBlank
+    @Size(max = 100)
+    private String uat;
+
+    @NotBlank
+    @Size(max = 100)
+    private String implementationprepare;
+
+    @NotBlank
+    @Size(max = 100)
+    private String implementationmeeting;
+    
+    @NotBlank
+    @Size(max = 100)
+    private String implementation;
+
+    @NotBlank
+    @Size(max = 100)
+    private String 	postimplementationreview;
 
     @NotBlank
     @Size(max = 100)

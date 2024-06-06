@@ -43,13 +43,21 @@ public class ProjectDevService {
         ProjectDev projectDev = new ProjectDev();
         projectDev.setProjectname(userid.getProjectname());
         projectDev.setPic(userid.getPic());
-        projectDev.setDeadline(userid.getDeadline());
+        projectDev.setDepartement(userid.getDepartement());
+        projectDev.setKickoff(userid.getKickoff());
+        projectDev.setUserrequirement(userid.getUserrequirement());
+        projectDev.setApplicationdevelopment(userid.getApplicationdevelopment());
+        projectDev.setSit(userid.getSit());
+        projectDev.setUat(userid.getUat());
+        projectDev.setImplementationprepare(userid.getImplementationprepare());
+        projectDev.setImplementationmeeting(userid.getImplementationmeeting());
+        projectDev.setImplementation(userid.getImplementation());
+        projectDev.setPostimplementationreview(userid.getPostimplementationreview());
         projectDev.setStatus(userid.getStatus());
 
         projectDevRepository.save(projectDev);
 
-        return ProjectDevResponse.builder().projectname(projectDev.getProjectname()).pic(projectDev.getPic())
-                .deadline(projectDev.getDeadline()).status(projectDev.getStatus()).build();
+        return ProjectDevResponse.builder().projectname(projectDev.getProjectname()).pic(projectDev.getPic()).departement(projectDev.getDepartement()).kickoff((projectDev.getKickoff())).userrequirement(projectDev.getUserrequirement()).applicationdevelopment(projectDev.getApplicationdevelopment()).sit(projectDev.getSit()).uat(projectDev.getUat()).implementationprepare(projectDev.getImplementationprepare()).implementationmeeting(projectDev.getImplementationmeeting()).implementation(projectDev.getImplementation()).postimplementationreview(projectDev.getPostimplementationreview()).status(projectDev.getStatus()).build();
     }
 
     @Transactional
@@ -64,7 +72,16 @@ public class ProjectDevService {
                     item.getId(),
                         item.getProjectname(),
                         item.getPic(),
-                        item.getDeadline(),
+                        item.getDepartement(),
+                        item.getKickoff(),
+                        item.getUserrequirement(),
+                        item.getApplicationdevelopment(),
+                        item.getSit(),
+                        item.getUat(),
+                        item.getImplementationprepare(),
+                        item.getImplementationmeeting(),
+                        item.getImplementation(),
+                        item.getPostimplementationreview(),
                         item.getStatus(),
                         projectByName.size()))
                 .collect((Collectors.toList()));
@@ -82,7 +99,16 @@ public class ProjectDevService {
 
         projectDev.setProjectname(request.getProjectname());
         projectDev.setPic(request.getPic());
-        projectDev.setDeadline(request.getDeadline());
+        projectDev.setDepartement(request.getDepartement());
+        projectDev.setKickoff(request.getKickoff());
+        projectDev.setUserrequirement(request.getUserrequirement());
+        projectDev.setApplicationdevelopment(request.getApplicationdevelopment());
+        projectDev.setSit(request.getSit());
+        projectDev.setUat(request.getUat());
+        projectDev.setImplementationprepare(request.getImplementationprepare());
+        projectDev.setImplementationmeeting(request.getImplementationmeeting());
+        projectDev.setImplementation(request.getImplementation());
+        projectDev.setPostimplementationreview(request.getPostimplementationreview());
         projectDev.setStatus(request.getStatus());
 
         projectDevRepository.save(projectDev);
@@ -90,7 +116,16 @@ public class ProjectDevService {
         return ProjectDevResponse.builder()
                 .projectname(projectDev.getProjectname())
                 .pic(projectDev.getPic())
-                .deadline(projectDev.getDeadline())
+                .departement(projectDev.getDepartement())
+                .kickoff(projectDev.getKickoff())
+                .userrequirement(projectDev.getUserrequirement())
+                .applicationdevelopment(projectDev.getApplicationdevelopment())
+                .sit(projectDev.getSit())
+                .uat(projectDev.getUat())
+                .implementationprepare(projectDev.getImplementationprepare())
+                .implementationmeeting(projectDev.getImplementationmeeting())
+                .implementation(projectDev.getImplementation())
+                .postimplementationreview(projectDev.getPostimplementationreview())
                 .status(projectDev.getStatus())
                 .build();
     }
@@ -107,7 +142,16 @@ public class ProjectDevService {
                         item.getId(),
                         item.getProjectname(),
                         item.getPic(),
-                        item.getDeadline(),
+                        item.getDepartement(),
+                        item.getKickoff(),
+                        item.getUserrequirement(),
+                        item.getApplicationdevelopment(),
+                        item.getSit(),
+                        item.getUat(),
+                        item.getImplementationprepare(),
+                        item.getImplementationmeeting(),
+                        item.getImplementation(),
+                        item.getPostimplementationreview(),
                         item.getStatus(),
                         projectDevAll.size()))
                 .collect(Collectors.toList());

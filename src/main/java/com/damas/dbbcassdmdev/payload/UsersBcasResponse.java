@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor 
 @Builder //untuk membuat object user response
 
-public class DepartementResponse {
+public class UsersBcasResponse {
     private String nama;
     private String departemen;
 }
