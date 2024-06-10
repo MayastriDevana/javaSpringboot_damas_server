@@ -1,21 +1,17 @@
 package com.damas.dbdamas.service;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.damas.dbdamas.model.Skse;
-import com.damas.dbdamas.model.User;
 import com.damas.dbdamas.payload.SkseRequest;
 import com.damas.dbdamas.payload.SkseResponse;
 import com.damas.dbdamas.repository.SkseRepository;
-import com.damas.dbdamas.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -28,59 +24,88 @@ public class SkseService {
     @Autowired
     private ValidationService validationService;
 
-    @Autowired
-    private Environment env;
-
-    @Autowired
-    private UserRepository userRepository;
-
     @Transactional
-    public SkseResponse newSkse(SkseRequest request, String token) {
-        validationService.validateRequest(request);
-
-        User user = userRepository.findFirstByToken(token)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
-
-        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        }
+    public SkseResponse newSkse(SkseRequest userid, String token) {
+        validationService.validateRequest(userid);
 
         Skse skse = new Skse();
-        skse.setNosurat(request.getNosurat());
-        skse.setPerihal(request.getPerihal());
-        skse.setPic(request.getPic());
-        skse.setDeadline(request.getDeadline());
-        skse.setStatus(request.getStatus());
+        skse.setNosurat(userid.getNosurat());
+        skse.setPerihal(userid.getPerihal());
+        skse.setPic(userid.getPic());
+        skse.setDepartement(userid.getDepartement());
+        skse.setDeadline(userid.getDeadline());
+        skse.setStatus(userid.getStatus());
 
         skseRepository.save(skse);
 
         return SkseResponse.builder().nosurat(skse.getNosurat()).perihal(skse.getPerihal()).pic(skse.getPic())
+                .departement(skse.getDepartement())
                 .deadline(skse.getDeadline()).status(skse.getStatus()).build();
     }
 
     @Transactional
-    public List<SkseResponse> findAll(String token, Long start, Long size) {
-        validationService.validateRequest(token);
+    public List<SkseResponse> findSkse(String userid, String input) {
 
-        User user = userRepository.findFirstByToken(token)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has not login"));
+        validationService.validateRequest(userid);
 
-        if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "user has logout by system");
-        }
+        List<Skse> skseByPerihal = skseRepository.searchByPerihalorPic(input);
 
-        if (!user.getStatus().equals(env.getProperty("STATUS_GET_ACTIVE"))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "This account is inActive");
-        }
+        List<SkseResponse> response = skseByPerihal.stream()
+                .map(item -> new SkseResponse(
+                        item.getId(),
+                        item.getNosurat(),
+                        item.getPerihal(),
+                        item.getPic(),
+                        item.getDepartement(),
+                        item.getDeadline(),
+                        item.getStatus(),
+                        skseByPerihal.size()))
+                .collect((Collectors.toList()));
+        return response;
+    }
+
+      @Transactional
+    public SkseResponse editedSkse(String userid, SkseRequest request, String input) {
+
+        validationService.validateRequest(userid);
+
+
+        Skse skse = skseRepository.findById(input)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found"));
+
+        skse.setNosurat(request.getNosurat());
+        skse.setPerihal(request.getPerihal());
+        skse.setPic(request.getPic());
+        skse.setDepartement(request.getDepartement());
+        skse.setDeadline(request.getDeadline());
+        skse.setStatus(request.getStatus());
+        
+        skseRepository.save(skse);
+
+        return SkseResponse.builder()
+                .nosurat(skse.getNosurat())
+                .perihal(skse.getPerihal())
+                .pic(skse.getPic())
+                .departement(skse.getDepartement())
+                .deadline(skse.getDeadline())
+                .status(skse.getStatus())
+                .build();
+    }
+
+    @Transactional
+    public List<SkseResponse> findAll(String userid, Long start, Long size) {
+        validationService.validateRequest(userid);
 
         List<Skse> skseAll = skseRepository.findAll();
 
         List<SkseResponse> response = skseAll.stream()
                 .skip(start).limit(size)
                 .map(item -> new SkseResponse(
+                    item.getId(),
                         item.getNosurat(),
                         item.getPerihal(),
                         item.getPic(),
+                        item.getDepartement(),
                         item.getDeadline(),
                         item.getStatus(),
                         skseAll.size()))
@@ -89,7 +114,5 @@ public class SkseService {
         return response;
 
     }
-
-    
 
 }

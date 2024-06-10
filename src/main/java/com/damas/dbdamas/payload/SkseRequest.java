@@ -27,6 +27,10 @@ public class SkseRequest {
 
     @NotBlank
     @Size(max = 100)
+    private String departement;
+
+    @NotBlank
+    @Size(max = 100)
     private String deadline;
 
     @NotBlank

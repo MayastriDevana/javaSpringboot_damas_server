@@ -1,12 +1,10 @@
 package com.damas.dbdamas.service;
 
-import java.time.Instant;
+
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,9 +13,6 @@ import com.damas.dbdamas.model.ProjectDev;
 import com.damas.dbdamas.payload.ProjectDevRequest;
 import com.damas.dbdamas.payload.ProjectDevResponse;
 import com.damas.dbdamas.repository.ProjectDevRepository;
-import com.damas.dbdamas.repository.UserRepository;
-import com.damas.dbsecure.model.Tuser;
-import com.damas.dbsecure.repository.UserSecureRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -29,12 +24,6 @@ public class ProjectDevService {
 
     @Autowired
     private ValidationService validationService;
-
-    @Autowired
-    private Environment env;
-
-    @Autowired
-    private UserSecureRepository userSecureRepository;
 
     @Transactional
     public ProjectDevResponse newProject(ProjectDevRequest userid, String token) {
