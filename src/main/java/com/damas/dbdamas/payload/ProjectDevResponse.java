@@ -19,26 +19,63 @@ public class ProjectDevResponse {
 
     private String departement;
 
-    private String kickoff;
+    private String kickoffstart;
 
-    private String userrequirement;
+    private String kickoffdeadline;
 
-    private String applicationdevelopment;
+    private String kickoffdone;
 
-    private String sit;
+    private String userRequirementstart;
 
-    private String uat;
+    private String userRequirementdeadline;
 
-    private String implementationprepare;
+    private String userRequirementdone;
 
-    private String implementationmeeting;
+    private String applicationDevelopmentstart;
+
+    private String applicationDevelopmentdeadline;
+
+    private String applicationDevelopmentdone;
+
+    private String sitstart;
+
+    private String sitdeadline;
+
+    private String sitdone;
+
+    private String uatstart;
+
+    private String uatdeadline;
+
+    private String uatdone;
+
+    private String implementationpreparestart;
+
+    private String implementationpreparedeadline;
+
+    private String implementationpreparedone;
+
+    private String implementationmeetingstart;
+
+    private String implementationmeetingdeadline;
+
+    private String implementationmeetingdone;
     
-    private String implementation;
+    private String implementationstart;
 
-    private String postimplementationreview;
+    private String implementationdeadline;
+
+    private String implementationdone;
+
+    private String postimplementationreviewstart;
+
+    private String postimplementationreviewdeadline;
+
+    private String postimplementationreviewdone;
 
     private String status;
 
-    private Integer maxSize;
+    private String deadlineproject;
 
+    private Integer maxSize;
 }

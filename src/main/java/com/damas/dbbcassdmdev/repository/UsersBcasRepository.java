@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.damas.dbbcassdmdev.model.Users;
 
 public interface UsersBcasRepository extends JpaRepository<Users, String> {
-@Query(value = "SELECT * FROM users WHERE satuan_kerja='Satuan Kerja Teknologi Informasi dan Logisitk'", nativeQuery = true)
+@Query(value = "SELECT * FROM users", nativeQuery = true)
 List<Users> findNamaAndDeptInUsers();
     
 }
