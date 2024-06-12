@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.damas.dbbcassdmdev.model.Users;
-import com.damas.dbbcassdmdev.payload.DepartementResponse;
+import com.damas.dbbcassdmdev.payload.UsersBcasResponse;
 import com.damas.dbbcassdmdev.repository.UsersBcasRepository;
 
 
@@ -24,7 +24,7 @@ public class UsersBcasService {
     ValidationBcasService validationBcasService;
 
     @Transactional
-    public List<DepartementResponse> findNamaAndDeptInUsers(String userid) {
+    public List<UsersBcasResponse> findNamaAndDeptInUsers(String userid) {
     validationBcasService.validateUsers(userid);
 
         List<Users> result = usersBcasRepository.findNamaAndDeptInUsers();
@@ -33,12 +33,10 @@ public class UsersBcasService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found!");
         }
 
-        List<DepartementResponse> response = result.stream()
-                .map(item -> new DepartementResponse(
+        List<UsersBcasResponse> response = result.stream()
+                .map(item -> new UsersBcasResponse(
                    item.getNama(),
-                   item.getDepartemen()
-                  
-                ))
+                   item.getDepartemen()))
                 .collect(Collectors.toList());
 
         return response;

@@ -58,9 +58,9 @@ public class ProjectDevController {
             @RequestHeader("USER-ID") String userid,
             @RequestBody ProjectDevRequest request,
             @RequestParam("input") String input) {
-        ProjectDevResponse ProjectDevResponse = projectDevService.editedProject(userid, request, input);
+        ProjectDevResponse projectDevResponse = projectDevService.editedProject(userid, request, input);
 
-        return WebResponse.<ProjectDevResponse>builder().data(ProjectDevResponse).error(null).build();
+        return WebResponse.<ProjectDevResponse>builder().data(projectDevResponse).error(null).build();
     }
 
 }

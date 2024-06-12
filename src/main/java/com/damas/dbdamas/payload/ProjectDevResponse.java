@@ -12,10 +12,33 @@ import lombok.NoArgsConstructor;
 
 public class ProjectDevResponse {
     private String id;
+
     private String projectname;
+    
     private String pic;
-    private String deadline;
+
+    private String departement;
+
+    private String kickoff;
+
+    private String userrequirement;
+
+    private String applicationdevelopment;
+
+    private String sit;
+
+    private String uat;
+
+    private String implementationprepare;
+
+    private String implementationmeeting;
+    
+    private String implementation;
+
+    private String postimplementationreview;
+
     private String status;
+
     private Integer maxSize;
 
 }
