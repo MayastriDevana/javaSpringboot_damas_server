@@ -1,6 +1,6 @@
 package com.damas.dbdamas.payload;
 
-import jakarta.validation.constraints.NotBlank;
+
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,55 +14,102 @@ import lombok.NoArgsConstructor;
 
 public class ProjectDevRequest {
     
-    @NotBlank
+
     @Size(max = 100)
     private String projectname;
 
-    @NotBlank
     @Size(max = 100)
     private String pic;
 
-    @NotBlank
     @Size(max = 100)
     private String departement;
 
-    @NotBlank
     @Size(max = 100)
-    private String kickoff;
+    private String kickoffstart;
 
-    @NotBlank
-    @Size(max = 100)
-    private String userrequirement;
 
-    @NotBlank
     @Size(max = 100)
-    private String applicationdevelopment;
+    private String kickoffdeadline;
 
-    @NotBlank
-    @Size(max = 100)
-    private String sit;
 
-    @NotBlank
     @Size(max = 100)
-    private String uat;
+    private String kickoffdone;
 
-    @NotBlank
     @Size(max = 100)
-    private String implementationprepare;
+    private String userrequirementstart;
 
-    @NotBlank
     @Size(max = 100)
-    private String implementationmeeting;
+    private String userrequirementdeadline;
+
+    @Size(max = 100)
+    private String userrequirementdone;
+
+    @Size(max = 100)
+    private String applicationdevelopmentstart;
+
+    @Size(max = 100)
+    private String applicationdevelopmentdeadline;
+
+    @Size(max = 100)
+    private String applicationdevelopmentdone;
+
+    @Size(max = 100)
+    private String sitstart;
+
+    @Size(max = 100)
+    private String sitdeadline;
+
+    @Size(max = 100)
+    private String sitdone;
+
+    @Size(max = 100)
+    private String uatstart;
+
+    @Size(max = 100)
+    private String uatdeadline;
+
+    @Size(max = 100)
+    private String uatdone;
+
+    @Size(max = 100)
+    private String implementationpreparestart;
+
+    @Size(max = 100)
+    private String implementationpreparedeadline;
+
+    @Size(max = 100)
+    private String implementationpreparedone;
+
+    @Size(max = 100)
+    private String implementationmeetingstart;
+
+    @Size(max = 100)
+    private String implementationmeetingdeadline;
+
+    @Size(max = 100)
+    private String implementationmeetingdone;
     
-    @NotBlank
     @Size(max = 100)
-    private String implementation;
+    private String implementationstart;
 
-    @NotBlank
     @Size(max = 100)
-    private String 	postimplementationreview;
+    private String implementationdeadline;
 
-    @NotBlank
+    @Size(max = 100)
+    private String implementationdone;
+
+    @Size(max = 100)
+    private String postimplementationreviewstart;
+
+    @Size(max = 100)
+    private String postimplementationreviewdeadline;
+
+    @Size(max = 100)
+    private String postimplementationreviewdone;
+
     @Size(max = 100)
     private String status;
+
+    @Size(max = 100)
+    private String deadlineproject;
 }

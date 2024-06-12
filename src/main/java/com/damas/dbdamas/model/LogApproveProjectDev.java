@@ -15,13 +15,27 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity //model
-@Table(name = "projectdev")
-public class ProjectDev {
+@Entity
+@Table(name = "log_approve_project")
+public class LogApproveProjectDev {
+
     @Id
     @UuidGenerator
     private String id;
+
+    private String submitter;
+
+    private String authorizer;
+
+    @Column(name = "submit_at") 
+    private String submitAt;
     
+    @Column(name = "deadline_approvement") 
+    private String deadlineApprovement;
+    
+    @Column(name = "status_approvement") 
+    private String statusApprovement;
+
     private String projectname;
 
     private String pic;

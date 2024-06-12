@@ -1,6 +1,5 @@
 package com.damas.dbdamas.service;
 
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,20 +32,75 @@ public class ProjectDevService {
         projectDev.setProjectname(userid.getProjectname());
         projectDev.setPic(userid.getPic());
         projectDev.setDepartement(userid.getDepartement());
-        projectDev.setKickoff(userid.getKickoff());
-        projectDev.setUserrequirement(userid.getUserrequirement());
-        projectDev.setApplicationdevelopment(userid.getApplicationdevelopment());
-        projectDev.setSit(userid.getSit());
-        projectDev.setUat(userid.getUat());
-        projectDev.setImplementationprepare(userid.getImplementationprepare());
-        projectDev.setImplementationmeeting(userid.getImplementationmeeting());
-        projectDev.setImplementation(userid.getImplementation());
-        projectDev.setPostimplementationreview(userid.getPostimplementationreview());
+        projectDev.setKickoffstart(userid.getKickoffstart());
+        projectDev.setKickoffdeadline(userid.getKickoffdeadline());
+        projectDev.setKickoffdone(userid.getKickoffdone());
+        projectDev.setUserrequirementstart(userid.getUserrequirementstart());
+        projectDev.setUserrequirementdeadline(userid.getUserrequirementdeadline());
+        projectDev.setUserrequirementdone(userid.getUserrequirementdone());
+        projectDev.setApplicationdevelopmentstart(userid.getApplicationdevelopmentstart());
+        projectDev.setApplicationdevelopmentdeadline(userid.getApplicationdevelopmentdeadline());
+        projectDev.setApplicationdevelopmentdone(userid.getApplicationdevelopmentdone());
+        projectDev.setSitstart(userid.getSitstart());
+        projectDev.setSitdeadline(userid.getSitdeadline());
+        projectDev.setSitdone(userid.getSitdone());
+        projectDev.setUatstart(userid.getUatstart());
+        projectDev.setUatdeadline(userid.getUatdeadline());
+        projectDev.setUatdone(userid.getUatdone());
+        projectDev.setImplementationpreparestart(userid.getImplementationpreparestart());
+        projectDev.setImplementationpreparedeadline(userid.getImplementationpreparedeadline());
+        projectDev.setImplementationpreparedone(userid.getImplementationpreparedone());
+        projectDev.setImplementationmeetingstart(userid.getImplementationmeetingstart());
+        projectDev.setImplementationmeetingdeadline(userid.getImplementationmeetingdeadline());
+        projectDev.setImplementationmeetingdone(userid.getImplementationmeetingdone());
+        projectDev.setImplementationstart(userid.getImplementationstart());
+        projectDev.setImplementationdeadline(userid.getImplementationdeadline());
+        projectDev.setImplementationdone(userid.getImplementationdone());
+        projectDev.setPostimplementationreviewstart(userid.getPostimplementationreviewstart());
+        projectDev.setPostimplementationreviewdeadline(userid.getPostimplementationreviewdeadline());
+        projectDev.setPostimplementationreviewdone(userid.getPostimplementationreviewdone());
         projectDev.setStatus(userid.getStatus());
+        projectDev.setDeadlineproject(userid.getDeadlineproject());
 
         projectDevRepository.save(projectDev);
 
-        return ProjectDevResponse.builder().projectname(projectDev.getProjectname()).pic(projectDev.getPic()).departement(projectDev.getDepartement()).kickoff((projectDev.getKickoff())).userrequirement(projectDev.getUserrequirement()).applicationdevelopment(projectDev.getApplicationdevelopment()).sit(projectDev.getSit()).uat(projectDev.getUat()).implementationprepare(projectDev.getImplementationprepare()).implementationmeeting(projectDev.getImplementationmeeting()).implementation(projectDev.getImplementation()).postimplementationreview(projectDev.getPostimplementationreview()).status(projectDev.getStatus()).build();
+        return ProjectDevResponse.builder().projectname(projectDev.getProjectname()).pic(projectDev.getPic())
+                .departement(projectDev.getDepartement())
+
+                .kickoffstart((projectDev.getKickoffstart()))
+                .kickoffdeadline((projectDev.getKickoffdeadline())).kickoffdone((projectDev.getKickoffdone()))
+
+                .userRequirementstart(projectDev.getUserrequirementstart())
+                .userRequirementdeadline((projectDev.getUserrequirementdeadline()))
+                .userRequirementdone((projectDev.getUserrequirementdone()))
+
+                .applicationDevelopmentstart(projectDev.getApplicationdevelopmentstart())
+                .applicationDevelopmentdeadline((projectDev.getApplicationdevelopmentdeadline()))
+                .applicationDevelopmentdone((projectDev.getApplicationdevelopmentdone()))
+
+                .sitstart(projectDev.getSitstart()).sitdeadline((projectDev.getSitdeadline()))
+                .sitdone((projectDev.getSitdone()))
+
+                .uatstart(projectDev.getUatstart()).uatdeadline((projectDev.getUatdeadline()))
+                .uatdone((projectDev.getUatdone()))
+
+                .implementationpreparestart(projectDev.getImplementationpreparestart())
+                .implementationpreparedeadline((projectDev.getImplementationpreparedeadline()))
+                .implementationpreparedone((projectDev.getImplementationpreparedone()))
+
+                .implementationmeetingstart(projectDev.getImplementationmeetingstart())
+                .implementationmeetingdeadline((projectDev.getImplementationmeetingdeadline()))
+                .implementationmeetingdone((projectDev.getImplementationmeetingdone()))
+
+                .implementationstart(projectDev.getImplementationstart())
+                .implementationdeadline((projectDev.getImplementationdeadline()))
+                .implementationdone((projectDev.getImplementationdone()))
+
+                .postimplementationreviewstart(projectDev.getPostimplementationreviewstart())
+                .postimplementationreviewdeadline((projectDev.getPostimplementationreviewdeadline()))
+                .postimplementationreviewdone((projectDev.getPostimplementationreviewdone()))
+
+                .status(projectDev.getStatus()).deadlineproject((projectDev.getDeadlineproject())).build();
     }
 
     @Transactional
@@ -58,20 +112,39 @@ public class ProjectDevService {
 
         List<ProjectDevResponse> response = projectByName.stream()
                 .map(item -> new ProjectDevResponse(
-                    item.getId(),
+                        item.getId(),
                         item.getProjectname(),
                         item.getPic(),
                         item.getDepartement(),
-                        item.getKickoff(),
-                        item.getUserrequirement(),
-                        item.getApplicationdevelopment(),
-                        item.getSit(),
-                        item.getUat(),
-                        item.getImplementationprepare(),
-                        item.getImplementationmeeting(),
-                        item.getImplementation(),
-                        item.getPostimplementationreview(),
+                        item.getKickoffstart(),
+                        item.getKickoffdeadline(),
+                        item.getKickoffdone(),
+                        item.getUserrequirementstart(),
+                        item.getUserrequirementdeadline(),
+                        item.getUserrequirementdone(),
+                        item.getApplicationdevelopmentstart(),
+                        item.getApplicationdevelopmentdeadline(),
+                        item.getApplicationdevelopmentdone(),
+                        item.getSitstart(),
+                        item.getSitdeadline(),
+                        item.getSitdone(),
+                        item.getUatstart(),
+                        item.getUatdeadline(),
+                        item.getUatdone(),
+                        item.getImplementationpreparestart(),
+                        item.getImplementationpreparedeadline(),
+                        item.getImplementationpreparedone(),
+                        item.getImplementationmeetingstart(),
+                        item.getImplementationmeetingdeadline(),
+                        item.getImplementationmeetingdone(),
+                        item.getImplementationstart(),
+                        item.getImplementationdeadline(),
+                        item.getImplementationdone(),
+                        item.getPostimplementationreviewstart(),
+                        item.getPostimplementationreviewdeadline(),
+                        item.getPostimplementationreviewdone(),
                         item.getStatus(),
+                        item.getDeadlineproject(),
                         projectByName.size()))
                 .collect((Collectors.toList()));
         return response;
@@ -82,23 +155,41 @@ public class ProjectDevService {
 
         validationService.validateRequest(userid);
 
-
         ProjectDev projectDev = projectDevRepository.findById(input)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found"));
 
         projectDev.setProjectname(request.getProjectname());
         projectDev.setPic(request.getPic());
         projectDev.setDepartement(request.getDepartement());
-        projectDev.setKickoff(request.getKickoff());
-        projectDev.setUserrequirement(request.getUserrequirement());
-        projectDev.setApplicationdevelopment(request.getApplicationdevelopment());
-        projectDev.setSit(request.getSit());
-        projectDev.setUat(request.getUat());
-        projectDev.setImplementationprepare(request.getImplementationprepare());
-        projectDev.setImplementationmeeting(request.getImplementationmeeting());
-        projectDev.setImplementation(request.getImplementation());
-        projectDev.setPostimplementationreview(request.getPostimplementationreview());
+        projectDev.setKickoffstart(request.getKickoffstart());
+        projectDev.setKickoffdeadline(request.getKickoffdeadline());
+        projectDev.setKickoffdone(request.getKickoffdone());
+        projectDev.setUserrequirementstart(request.getUserrequirementstart());
+        projectDev.setUserrequirementdeadline(request.getUserrequirementdeadline());
+        projectDev.setUserrequirementdone(request.getUserrequirementdone());
+        projectDev.setApplicationdevelopmentstart(request.getApplicationdevelopmentstart());
+        projectDev.setApplicationdevelopmentdeadline(request.getApplicationdevelopmentdeadline());
+        projectDev.setApplicationdevelopmentdone(request.getApplicationdevelopmentdone());
+        projectDev.setSitstart(request.getSitstart());
+        projectDev.setSitdeadline(request.getSitdeadline());
+        projectDev.setSitdone(request.getSitdone());
+        projectDev.setUatstart(request.getUatstart());
+        projectDev.setUatdeadline(request.getUatdeadline());
+        projectDev.setUatdone(request.getUatdone());
+        projectDev.setImplementationpreparestart(request.getImplementationpreparestart());
+        projectDev.setImplementationpreparedeadline(request.getImplementationpreparedeadline());
+        projectDev.setImplementationpreparedone(request.getImplementationpreparedone());
+        projectDev.setImplementationmeetingstart(request.getImplementationmeetingstart());
+        projectDev.setImplementationmeetingdeadline(request.getImplementationmeetingdeadline());
+        projectDev.setImplementationmeetingdone(request.getImplementationmeetingdone());
+        projectDev.setImplementationstart(request.getImplementationstart());
+        projectDev.setImplementationdeadline(request.getImplementationdeadline());
+        projectDev.setImplementationdone(request.getImplementationdone());
+        projectDev.setPostimplementationreviewstart(request.getPostimplementationreviewstart());
+        projectDev.setPostimplementationreviewdeadline(request.getPostimplementationreviewdeadline());
+        projectDev.setPostimplementationreviewdone(request.getPostimplementationreviewdone());
         projectDev.setStatus(request.getStatus());
+        projectDev.setDeadlineproject(request.getDeadlineproject());
 
         projectDevRepository.save(projectDev);
 
@@ -106,16 +197,35 @@ public class ProjectDevService {
                 .projectname(projectDev.getProjectname())
                 .pic(projectDev.getPic())
                 .departement(projectDev.getDepartement())
-                .kickoff(projectDev.getKickoff())
-                .userrequirement(projectDev.getUserrequirement())
-                .applicationdevelopment(projectDev.getApplicationdevelopment())
-                .sit(projectDev.getSit())
-                .uat(projectDev.getUat())
-                .implementationprepare(projectDev.getImplementationprepare())
-                .implementationmeeting(projectDev.getImplementationmeeting())
-                .implementation(projectDev.getImplementation())
-                .postimplementationreview(projectDev.getPostimplementationreview())
+                .kickoffstart(projectDev.getKickoffstart())
+                .kickoffdeadline(projectDev.getKickoffdeadline())
+                .kickoffdone(projectDev.getKickoffdone())
+                .userRequirementstart(projectDev.getUserrequirementstart())
+                .userRequirementdeadline(projectDev.getUserrequirementdeadline())
+                .userRequirementdone(projectDev.getUserrequirementdone())
+                .applicationDevelopmentstart(projectDev.getApplicationdevelopmentstart())
+                .applicationDevelopmentdeadline(projectDev.getApplicationdevelopmentdeadline())
+                .applicationDevelopmentdone(projectDev.getApplicationdevelopmentdone())
+                .sitstart(projectDev.getSitstart())
+                .sitdeadline(projectDev.getSitdeadline())
+                .sitdone(projectDev.getSitdone())
+                .uatstart(projectDev.getUatstart())
+                .uatdeadline(projectDev.getUatdeadline())
+                .uatdone(projectDev.getUatdone())
+                .implementationpreparestart(projectDev.getImplementationpreparestart())
+                .implementationpreparedeadline(projectDev.getImplementationpreparedeadline())
+                .implementationpreparedone(projectDev.getImplementationpreparedone())
+                .implementationmeetingstart(projectDev.getImplementationmeetingstart())
+                .implementationmeetingdeadline(projectDev.getImplementationmeetingdeadline())
+                .implementationmeetingdone(projectDev.getImplementationmeetingdone())
+                .implementationstart(projectDev.getImplementationstart())
+                .implementationdeadline(projectDev.getImplementationdeadline())
+                .implementationdone(projectDev.getImplementationdone())
+                .postimplementationreviewstart(projectDev.getPostimplementationreviewstart())
+                .postimplementationreviewdeadline(projectDev.getPostimplementationreviewdeadline())
+                .postimplementationreviewdone(projectDev.getPostimplementationreviewdone())
                 .status(projectDev.getStatus())
+                .deadlineproject(projectDev.getDeadlineproject())
                 .build();
     }
 
@@ -132,16 +242,35 @@ public class ProjectDevService {
                         item.getProjectname(),
                         item.getPic(),
                         item.getDepartement(),
-                        item.getKickoff(),
-                        item.getUserrequirement(),
-                        item.getApplicationdevelopment(),
-                        item.getSit(),
-                        item.getUat(),
-                        item.getImplementationprepare(),
-                        item.getImplementationmeeting(),
-                        item.getImplementation(),
-                        item.getPostimplementationreview(),
+                        item.getKickoffstart(),
+                        item.getKickoffdeadline(),
+                        item.getKickoffdone(),
+                        item.getUserrequirementstart(),
+                        item.getUserrequirementdeadline(),
+                        item.getUserrequirementdone(),
+                        item.getApplicationdevelopmentstart(),
+                        item.getApplicationdevelopmentdeadline(),
+                        item.getApplicationdevelopmentdone(),
+                        item.getSitstart(),
+                        item.getSitdeadline(),
+                        item.getSitdone(),
+                        item.getUatstart(),
+                        item.getUatdeadline(),
+                        item.getUatdone(),
+                        item.getImplementationpreparestart(),
+                        item.getImplementationpreparedeadline(),
+                        item.getImplementationpreparedone(),
+                        item.getImplementationmeetingstart(),
+                        item.getImplementationmeetingdeadline(),
+                        item.getImplementationmeetingdone(),
+                        item.getImplementationstart(),
+                        item.getImplementationdeadline(),
+                        item.getImplementationdone(),
+                        item.getPostimplementationreviewstart(),
+                        item.getPostimplementationreviewdeadline(),
+                        item.getPostimplementationreviewdone(),
                         item.getStatus(),
+                        item.getDeadlineproject(),
                         projectDevAll.size()))
                 .collect(Collectors.toList());
 
