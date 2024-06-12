@@ -31,39 +31,39 @@ public class OperationNetwork {
 
     private String network_kickoff_start;
 
-    private String network_kickoff_end;
+    private String network_kickoff_deadline;
 
-    private String network_kickoff_acct_end;
+    private String network_kickoff_done;
 
     private String network_mop_start;
 
-    private String network_mop_end;
+    private String network_mop_deadline;
     
-    private String network_mop_acct_end;
+    private String network_mop_done;
 
     private String network_demomop_start;
 
-    private String network_demomop_end;
+    private String network_demomop_deadline;
 
-    private String network_demomop_acct_end;
+    private String network_demomop_done;
 
     private String network_implementasi_start;
 
-    private String network_implementasi_end;
+    private String network_implementasi_deadline;
 
-    private String network_implementasi_acct_end;
+    private String network_implementasi_done;
 
     private String network_skse_start;
 
-    private String network_skse_end;
+    private String network_skse_deadline;
 
-    private String network_skse_acct_end;
+    private String network_skse_done;
     
     private String network_uat_start;
 
-    private String network_uat_end;
+    private String network_uat_deadline;
 
-    private String network_uat_acct_end;
+    private String network_uat_done;
 
     private String network_status;
 

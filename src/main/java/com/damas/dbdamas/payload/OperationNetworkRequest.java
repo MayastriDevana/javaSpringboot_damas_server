@@ -14,97 +14,73 @@ import lombok.NoArgsConstructor;
 
 public class OperationNetworkRequest {
 
-    @NotBlank
-    @Size(max = 255)
-    private String network_id;
-
-    @NotBlank
     @Size(max = 255)
     private String network_perihal;
     
-    @NotBlank
     @Size(max = 255)
     private String network_pic;
 
-    @NotBlank
     @Size(max = 255)
     private String departement;
 
-    @NotBlank
     @Size(max = 255)
     private String network_kickoff_start;
 
-    @NotBlank
     @Size(max = 255)
-    private String network_kickoff_end;
-
+    private String network_kickoff_deadline;
 
     @Size(max = 255)
-    private String network_kickoff_acct_end;
+    private String network_kickoff_done;
 
-    @NotBlank
     @Size(max = 255)
     private String network_mop_start;
 
-    @NotBlank
     @Size(max = 255)
-    private String network_mop_end;
+    private String network_mop_deadline;
 
     @Size(max = 255)
-    private String network_mop_acct_end;
+    private String network_mop_done;
 
-    @NotBlank
     @Size(max = 255)
     private String network_demomop_start;
 
-    @NotBlank
     @Size(max = 255)
-    private String network_demomop_end;
-
+    private String network_demomop_deadline;
 
     @Size(max = 255)
-    private String network_demomop_acct_end;
+    private String network_demomop_done;
 
-    @NotBlank
     @Size(max = 255)
     private String network_implementasi_start;
 
-    @NotBlank
     @Size(max = 255)
-    private String network_implementasi_end;
+    private String network_implementasi_deadline;
 
     @Size(max = 255)
-    private String network_implementasi_acct_end;
+    private String network_implementasi_done;
 
-    @NotBlank
     @Size(max = 255)
     private String network_skse_start;
 
-    @NotBlank
     @Size(max = 255)
-    private String network_skse_end;
-
+    private String network_skse_deadline;
 
     @Size(max = 255)
-    private String network_skse_acct_end;
-    
-    @NotBlank
+    private String network_skse_done;
+
     @Size(max = 255)
     private String network_uat_start;
 
-    @NotBlank
     @Size(max = 255)
-    private String network_uat_end;
+    private String network_uat_deadline;
 
 
     @Size(max = 255)
-    private String network_uat_acct_end;
+    private String network_uat_done;
 
-    @NotBlank
     @Size(max = 255)
     private String network_status;
 
-    @NotBlank
     @Size(max = 255)
     private String network_deadline_project;
 
