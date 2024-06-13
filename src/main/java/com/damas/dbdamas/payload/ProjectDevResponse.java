@@ -25,17 +25,17 @@ public class ProjectDevResponse {
 
     private String kickoffdone;
 
-    private String userRequirementstart;
+    private String userrequirementstart;
 
-    private String userRequirementdeadline;
+    private String userrequirementdeadline;
 
-    private String userRequirementdone;
+    private String userrequirementdone;
 
-    private String applicationDevelopmentstart;
+    private String applicationdevelopmentstart;
 
-    private String applicationDevelopmentdeadline;
+    private String applicationdevelopmentdeadline;
 
-    private String applicationDevelopmentdone;
+    private String applicationdevelopmentdone;
 
     private String sitstart;
 
@@ -76,6 +76,8 @@ public class ProjectDevResponse {
     private String status;
 
     private String deadlineproject;
+
+    private String projectdone;
 
     private Integer maxSize;
 }

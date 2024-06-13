@@ -114,4 +114,7 @@ public class ProjectDev {
     @Column(name = "deadline_project")
     private String deadlineproject;
 
+    @Column(name = "project_done")
+    private String projectdone;
+
 }

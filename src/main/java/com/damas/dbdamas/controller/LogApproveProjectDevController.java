@@ -12,43 +12,55 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.damas.dbdamas.model.LogApproveProjectDev;
+import com.damas.dbdamas.payload.LogApproveProjectDevResponse;
 import com.damas.dbdamas.payload.WebResponse;
 import com.damas.dbdamas.service.LogApproveProjectDevService;
 
 @RestController
 public class LogApproveProjectDevController {
-    
+
     @Autowired
     private LogApproveProjectDevService logApproveProjectDevService;
 
     @PostMapping("/api/projectdev/log")
     public WebResponse<String> createLog(
-        @RequestHeader("USER-ID") String userid,
-        @RequestBody LogApproveProjectDev request) {
-            String response = logApproveProjectDevService.createLog(userid, request);
+            @RequestHeader("USER-ID") String userid,
+            @RequestBody LogApproveProjectDev request) {
+        String response = logApproveProjectDevService.createLog(userid, request);
 
-            return WebResponse.<String>builder().data(response).error(null).build();
+        return WebResponse.<String>builder().data(response).error(null).build();
 
-        }
+    }
 
-    @GetMapping("api/projectdev/log")
-    public WebResponse<List<LogApproveProjectDev>> getAllLog(
-        @RequestHeader("USER-ID") String userid) {
-            List<LogApproveProjectDev> response = logApproveProjectDevService.getAllLog(userid);
-            return WebResponse.<List<LogApproveProjectDev>>builder().data(response).error(null).build();
-        }
+    @GetMapping("api/projectdevlog")
+    public WebResponse<List<LogApproveProjectDevResponse>> findAll(
+            @RequestHeader("USER-ID") String userid,
+            @RequestParam("start") Long start,
+            @RequestParam("size") Long size) {
+        List<LogApproveProjectDevResponse> response = logApproveProjectDevService.findAll(userid, start, size);
 
-     @PutMapping("/api/projectdev/log")
+        return WebResponse.<List<LogApproveProjectDevResponse>>builder().data(response).error(null).build();
+    }
+
+    @PutMapping("/api/projectdev/log")
     public WebResponse<String> updateStatusLog(
             @RequestHeader("USER-ID") String userid,
             @RequestParam("id") String id,
-            @RequestParam("status") String status
-            ) {
+            @RequestParam("status") String status) {
 
-         String response = logApproveProjectDevService.updateStatusLog(userid, id, status);
+        String response = logApproveProjectDevService.updateStatusLog(userid, id, status);
 
         return WebResponse.<String>builder().data(response).error(null).build();
-    }   
-    
-    
+    }
+
+    //nyari log
+    @GetMapping("api/projectdev/getprojectlog")
+    public WebResponse<List<LogApproveProjectDevResponse>> findLog(
+            @RequestHeader("USER-ID") String userid,
+            @RequestParam("input") String input) {
+        List<LogApproveProjectDevResponse> response = logApproveProjectDevService.findLog(userid, input);
+
+        return WebResponse.<List<LogApproveProjectDevResponse>>builder().data(response).error(null).build();
+    }
+
 }

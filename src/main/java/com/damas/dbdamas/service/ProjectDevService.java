@@ -61,6 +61,7 @@ public class ProjectDevService {
         projectDev.setPostimplementationreviewdone(userid.getPostimplementationreviewdone());
         projectDev.setStatus(userid.getStatus());
         projectDev.setDeadlineproject(userid.getDeadlineproject());
+        projectDev.setProjectdone(userid.getProjectdone());
 
         projectDevRepository.save(projectDev);
 
@@ -70,13 +71,13 @@ public class ProjectDevService {
                 .kickoffstart((projectDev.getKickoffstart()))
                 .kickoffdeadline((projectDev.getKickoffdeadline())).kickoffdone((projectDev.getKickoffdone()))
 
-                .userRequirementstart(projectDev.getUserrequirementstart())
-                .userRequirementdeadline((projectDev.getUserrequirementdeadline()))
-                .userRequirementdone((projectDev.getUserrequirementdone()))
+                .userrequirementstart(projectDev.getUserrequirementstart())
+                .userrequirementdeadline((projectDev.getUserrequirementdeadline()))
+                .userrequirementdone((projectDev.getUserrequirementdone()))
 
-                .applicationDevelopmentstart(projectDev.getApplicationdevelopmentstart())
-                .applicationDevelopmentdeadline((projectDev.getApplicationdevelopmentdeadline()))
-                .applicationDevelopmentdone((projectDev.getApplicationdevelopmentdone()))
+                .applicationdevelopmentstart(projectDev.getApplicationdevelopmentstart())
+                .applicationdevelopmentdeadline((projectDev.getApplicationdevelopmentdeadline()))
+                .applicationdevelopmentdone((projectDev.getApplicationdevelopmentdone()))
 
                 .sitstart(projectDev.getSitstart()).sitdeadline((projectDev.getSitdeadline()))
                 .sitdone((projectDev.getSitdone()))
@@ -100,7 +101,8 @@ public class ProjectDevService {
                 .postimplementationreviewdeadline((projectDev.getPostimplementationreviewdeadline()))
                 .postimplementationreviewdone((projectDev.getPostimplementationreviewdone()))
 
-                .status(projectDev.getStatus()).deadlineproject((projectDev.getDeadlineproject())).build();
+                .status(projectDev.getStatus()).deadlineproject((projectDev.getDeadlineproject())).projectdone(projectDev.getProjectdone())
+                .build();
     }
 
     @Transactional
@@ -145,6 +147,7 @@ public class ProjectDevService {
                         item.getPostimplementationreviewdone(),
                         item.getStatus(),
                         item.getDeadlineproject(),
+                        item.getProjectdone(),
                         projectByName.size()))
                 .collect((Collectors.toList()));
         return response;
@@ -152,9 +155,7 @@ public class ProjectDevService {
 
     @Transactional
     public ProjectDevResponse editedProject(String userid, ProjectDevRequest request, String input) {
-
-        validationService.validateRequest(userid);
-
+        validationService.validateRequest(request);
         ProjectDev projectDev = projectDevRepository.findById(input)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found"));
 
@@ -190,6 +191,7 @@ public class ProjectDevService {
         projectDev.setPostimplementationreviewdone(request.getPostimplementationreviewdone());
         projectDev.setStatus(request.getStatus());
         projectDev.setDeadlineproject(request.getDeadlineproject());
+        projectDev.setProjectdone(request.getProjectdone());
 
         projectDevRepository.save(projectDev);
 
@@ -200,12 +202,12 @@ public class ProjectDevService {
                 .kickoffstart(projectDev.getKickoffstart())
                 .kickoffdeadline(projectDev.getKickoffdeadline())
                 .kickoffdone(projectDev.getKickoffdone())
-                .userRequirementstart(projectDev.getUserrequirementstart())
-                .userRequirementdeadline(projectDev.getUserrequirementdeadline())
-                .userRequirementdone(projectDev.getUserrequirementdone())
-                .applicationDevelopmentstart(projectDev.getApplicationdevelopmentstart())
-                .applicationDevelopmentdeadline(projectDev.getApplicationdevelopmentdeadline())
-                .applicationDevelopmentdone(projectDev.getApplicationdevelopmentdone())
+                .userrequirementstart(projectDev.getUserrequirementstart())
+                .userrequirementdeadline(projectDev.getUserrequirementdeadline())
+                .userrequirementdone(projectDev.getUserrequirementdone())
+                .applicationdevelopmentstart(projectDev.getApplicationdevelopmentstart())
+                .applicationdevelopmentdeadline(projectDev.getApplicationdevelopmentdeadline())
+                .applicationdevelopmentdone(projectDev.getApplicationdevelopmentdone())
                 .sitstart(projectDev.getSitstart())
                 .sitdeadline(projectDev.getSitdeadline())
                 .sitdone(projectDev.getSitdone())
@@ -226,6 +228,7 @@ public class ProjectDevService {
                 .postimplementationreviewdone(projectDev.getPostimplementationreviewdone())
                 .status(projectDev.getStatus())
                 .deadlineproject(projectDev.getDeadlineproject())
+                .projectdone(projectDev.getProjectdone())
                 .build();
     }
 
@@ -271,6 +274,7 @@ public class ProjectDevService {
                         item.getPostimplementationreviewdone(),
                         item.getStatus(),
                         item.getDeadlineproject(),
+                        item.getProjectdone(),
                         projectDevAll.size()))
                 .collect(Collectors.toList());
 
