@@ -1,7 +1,6 @@
 package com.damas.dbdamas.service;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.damas.dbdamas.model.OperationDacen;
-import com.damas.dbdamas.model.OperationServer;
 import com.damas.dbdamas.payload.OperationDacenRequest;
 import com.damas.dbdamas.payload.OperationDacenResponse;
 import com.damas.dbdamas.repository.OperationDacenRepository;
-import com.damas.dbdamas.repository.OperationServerRepository;
 
 import jakarta.transaction.Transactional;
 
