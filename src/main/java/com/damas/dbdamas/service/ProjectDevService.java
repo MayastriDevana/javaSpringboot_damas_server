@@ -236,7 +236,7 @@ public class ProjectDevService {
     public List<ProjectDevResponse> findAll(String userid, Long start, Long size) {
         validationService.validateRequest(userid);
 
-        List<ProjectDev> projectDevAll = projectDevRepository.findAll();
+        List<ProjectDev> projectDevAll = projectDevRepository.searchAllOrderByDeadline();
 
         List<ProjectDevResponse> response = projectDevAll.stream()
                 .skip(start).limit(size)

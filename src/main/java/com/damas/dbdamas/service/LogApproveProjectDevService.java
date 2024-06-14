@@ -43,7 +43,7 @@ public class LogApproveProjectDevService {
     public List<LogApproveProjectDevResponse> findAll(String userid, Long start, Long size) {
         validationSecureService.validateUsers(userid);
 
-        List<LogApproveProjectDev> LogAll = logApproveProjectDevRepository.findAll();
+        List<LogApproveProjectDev> LogAll = logApproveProjectDevRepository.searchAllOrderByStatus();
 
         List<LogApproveProjectDevResponse> response = LogAll.stream()
         .skip(start).limit(size)
