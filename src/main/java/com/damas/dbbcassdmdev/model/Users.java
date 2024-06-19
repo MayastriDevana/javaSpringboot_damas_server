@@ -1,8 +1,5 @@
 package com.damas.dbbcassdmdev.model;
 
-import java.time.Instant;
-
-import org.hibernate.annotations.UuidGenerator;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

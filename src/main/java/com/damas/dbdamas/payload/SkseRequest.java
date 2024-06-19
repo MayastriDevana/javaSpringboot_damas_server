@@ -13,6 +13,10 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class SkseRequest {
+
+    @Size(max = 100)
+    private String id;
+    
     @NotBlank
     @Size(max = 100)
     private String nosurat;
@@ -24,6 +28,9 @@ public class SkseRequest {
     @NotBlank
     @Size(max = 100)
     private String pic;
+
+    @Size(max = 100)
+    private String departement;
 
     @NotBlank
     @Size(max = 100)

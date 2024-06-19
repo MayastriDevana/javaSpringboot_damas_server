@@ -15,13 +15,29 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity //model
-@Table(name = "ppo_skse")
-public class Skse {
-    @Id
+@Entity
+@Table(name = "log_approve_skse")
+public class LogApproveSkse {
+     @Id
     @UuidGenerator
     private String id;
+
+    @Column(name = "id_skse") 
+    private String idskse;
+
+    private String submitter;
+
+    private String authorizer;
+
+    @Column(name = "submit_at") 
+    private String submitAt;
     
+    @Column(name = "deadline_approvement") 
+    private String deadlineApprovement;
+    
+    @Column(name = "status_approvement") 
+    private String statusApprovement;
+
     @Column(name = "skse_nosurat")
     private String nosurat;
 
@@ -39,5 +55,4 @@ public class Skse {
     
     @Column(name = "skse_status")
     private String status;
-
 }

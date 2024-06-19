@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -30,8 +29,6 @@ public class UserSecureService {
     @Autowired
     private ValidationSecureService validationSecureService;
 
-    @Autowired
-    private Environment env;
 
     @Transactional
     public String login(LoginSecureRequest request) {

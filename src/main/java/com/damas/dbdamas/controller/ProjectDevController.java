@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,7 +25,6 @@ public class ProjectDevController {
     @PostMapping(path = "/api/projectdev", 
     consumes = MediaType.APPLICATION_JSON_VALUE, 
     produces = MediaType.APPLICATION_JSON_VALUE)
-
     public WebResponse<ProjectDevResponse> newProject(@RequestBody ProjectDevRequest request,
             @RequestHeader("USER-ID") String userid) {
         ProjectDevResponse projectDevResponse = projectDevService.newProject(request, userid);
@@ -44,6 +42,7 @@ public class ProjectDevController {
         return WebResponse.<List<ProjectDevResponse>>builder().data(response).error(null).build();
     }
 
+    //nyari project
     @GetMapping("api/allproject/getproject")
     public WebResponse<List<ProjectDevResponse>> findProject(
             @RequestHeader("USER-ID") String userid,
@@ -53,14 +52,14 @@ public class ProjectDevController {
         return WebResponse.<List<ProjectDevResponse>>builder().data(response).error(null).build();
     }
 
-    @PutMapping("/api/allproject/editedproject")
-    public WebResponse<ProjectDevResponse> editedProject(
-            @RequestHeader("USER-ID") String userid,
-            @RequestBody ProjectDevRequest request,
-            @RequestParam("input") String input) {
-        ProjectDevResponse ProjectDevResponse = projectDevService.editedProject(userid, request, input);
+    // @PutMapping("/api/allproject/editedproject")
+    // public WebResponse<ProjectDevResponse> editedProject(
+    //         @RequestHeader("USER-ID") String userid,
+    //         @RequestBody ProjectDevRequest request,
+    //         @RequestParam("input") String input) {
+    //     ProjectDevResponse projectDevResponse = projectDevService.editedProject(userid, request, input);
 
-        return WebResponse.<ProjectDevResponse>builder().data(ProjectDevResponse).error(null).build();
-    }
+    //     return WebResponse.<ProjectDevResponse>builder().data(projectDevResponse).error(null).build();
+    // }
 
 }

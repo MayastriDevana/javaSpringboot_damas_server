@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor //biar class bisa di buat tidak menggunakan argumen/params
 @Builder
 
-public class DepartementRequest {
+public class UsersBcasRequest {
     
     @NotBlank
     @Size(max = 100)
