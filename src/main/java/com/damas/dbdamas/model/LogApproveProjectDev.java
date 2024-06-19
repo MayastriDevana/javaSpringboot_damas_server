@@ -23,6 +23,9 @@ public class LogApproveProjectDev {
     @UuidGenerator
     private String id;
 
+    @Column(name = "id_project") 
+    private String idproject;
+
     private String submitter;
 
     private String authorizer;
@@ -127,5 +130,8 @@ public class LogApproveProjectDev {
 
     @Column(name = "deadline_project")
     private String deadlineproject;
+
+    @Column(name = "project_done")
+    private String projectdone;
 
 }
