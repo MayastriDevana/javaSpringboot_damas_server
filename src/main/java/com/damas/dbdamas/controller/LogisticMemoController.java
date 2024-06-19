@@ -26,14 +26,16 @@ public class LogisticMemoController {
 
     @GetMapping("/api/allmemo")
     public WebResponse<List<LogisticMemoResponse>> findAll(@RequestHeader("USER-ID") String userId,
-            @RequestParam("start") Long start, @RequestParam("size") Long size) {
+            @RequestParam(value = "start", defaultValue = "0") Long start,
+            @RequestParam(value = "size", defaultValue = "10") Long size) {
         List<LogisticMemoResponse> response = logisticMemoService.findAll(userId, start, size);
         return WebResponse.<List<LogisticMemoResponse>>builder().data(response).error(null).build();
     }
 
     @PutMapping("/api/editmemo")
     public WebResponse<LogisticMemoResponse> editMemo(@RequestParam("memoId") String memoId,
-            @RequestHeader("USER-ID") String userId, @RequestBody LogisticMemoRequest request) {
+            @RequestHeader("USER-ID") String userId,
+            @RequestBody LogisticMemoRequest request) {
         LogisticMemoResponse logisticMemoResponse = logisticMemoService.editMemo(memoId, request, userId);
         return WebResponse.<LogisticMemoResponse>builder().data(logisticMemoResponse).error(null).build();
     }
