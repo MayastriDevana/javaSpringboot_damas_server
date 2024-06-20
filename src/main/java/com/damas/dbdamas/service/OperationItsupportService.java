@@ -11,7 +11,6 @@ import org.springframework.web.server.ResponseStatusException;
 import com.damas.dbdamas.model.OperationItsupport;
 import com.damas.dbdamas.payload.OperationItsupportRequest;
 import com.damas.dbdamas.payload.OperationItsupportResponse;
-import com.damas.dbdamas.repository.OperationDacenRepository;
 import com.damas.dbdamas.repository.OperationItsupportRepository;
 
 import jakarta.transaction.Transactional;
@@ -63,6 +62,7 @@ public class OperationItsupportService {
         operationItsupport.setItsupport_phase7_done(userid.getItsupport_phase7_done());
         operationItsupport.setItsupport_status(userid.getItsupport_status());
         operationItsupport.setItsupport_deadline_project(userid.getItsupport_deadline_project());
+        operationItsupport.setItsupport_project_done(userid.getItsupport_project_done());
 
         OperationItsupportRepository.save(operationItsupport);
 
@@ -108,6 +108,7 @@ public class OperationItsupportService {
 
         .itsupport_status(operationItsupport.getItsupport_status())
         .itsupport_deadline_project(operationItsupport.getItsupport_deadline_project())
+        .itsupport_project_done(operationItsupport.getItsupport_project_done())
 
         .build();
     }
@@ -155,6 +156,7 @@ public class OperationItsupportService {
             item.getItsupport_phase7_done(),
             item.getItsupport_status(),
             item.getItsupport_deadline_project(),
+            item.getItsupport_project_done(),
             itsupportByName.size()))
             .collect(Collectors.toList());
 
@@ -202,6 +204,7 @@ public class OperationItsupportService {
             operationItsupport.setItsupport_phase7_done(request.getItsupport_phase7_done());
             operationItsupport.setItsupport_status(request.getItsupport_status());
             operationItsupport.setItsupport_deadline_project(request.getItsupport_deadline_project());
+            operationItsupport.setItsupport_project_done(request.getItsupport_project_done());
 
         OperationItsupportRepository.save(operationItsupport);
 
@@ -247,6 +250,7 @@ public class OperationItsupportService {
 
             .itsupport_status(operationItsupport.getItsupport_status())
             .itsupport_deadline_project(operationItsupport.getItsupport_deadline_project())
+            .itsupport_project_done(operationItsupport.getItsupport_project_done())
             .build();
     }
 
@@ -294,6 +298,7 @@ public class OperationItsupportService {
             item.getItsupport_phase7_done(),
             item.getItsupport_status(),
             item.getItsupport_deadline_project(),
+            item.getItsupport_project_done(),
             operationItsupportShowAll.size()))
             .collect(Collectors.toList());
 

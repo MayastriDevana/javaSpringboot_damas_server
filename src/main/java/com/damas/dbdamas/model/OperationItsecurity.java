@@ -89,4 +89,8 @@ public class OperationItsecurity {
     private String itsecurity_status;
 
     private Date itsecurity_deadline_project;
+
+    private Date itsecurity_project_done;
+
+    private String createdBy;
 }

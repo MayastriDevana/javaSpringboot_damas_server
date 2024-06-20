@@ -68,5 +68,7 @@ public class OperationServerResponse {
 
     private Date server_deadline_project;
 
+    private Date server_project_done;
+
     private Integer maxSize;
 }

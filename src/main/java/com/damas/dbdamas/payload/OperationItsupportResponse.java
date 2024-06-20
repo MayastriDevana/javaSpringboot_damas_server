@@ -82,5 +82,7 @@ public class OperationItsupportResponse {
 
     private Date itsupport_deadline_project;
 
+    private Date itsupport_project_done;
+
     private Integer maxSize;
 }

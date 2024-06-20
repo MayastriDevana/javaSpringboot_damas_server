@@ -62,6 +62,7 @@ public class OperationDacenService {
         operationDacen.setDacen_phase7_done(userid.getDacen_phase7_done());
         operationDacen.setDacen_status(userid.getDacen_status());
         operationDacen.setDacen_deadline_project(userid.getDacen_deadline_project());
+        operationDacen.setDacen_project_done(userid.getDacen_project_done());
 
         OperationDacenRepository.save(operationDacen);
 
@@ -107,6 +108,7 @@ public class OperationDacenService {
 
         .dacen_status(operationDacen.getDacen_status())
         .dacen_deadline_project(operationDacen.getDacen_deadline_project())
+        .dacen_project_done(operationDacen.getDacen_project_done())
 
         .build();
     }
@@ -154,6 +156,7 @@ public class OperationDacenService {
             item.getDacen_phase7_done(),
             item.getDacen_status(),
             item.getDacen_deadline_project(),
+            item.getDacen_project_done(),
             dacenByName.size()))
             .collect(Collectors.toList());
 
@@ -202,6 +205,7 @@ public class OperationDacenService {
         operationDacen.setDacen_phase7_done(request.getDacen_phase7_done());
         operationDacen.setDacen_status(request.getDacen_status());
         operationDacen.setDacen_deadline_project(request.getDacen_deadline_project());
+        operationDacen.setDacen_project_done(request.getDacen_project_done());
 
     OperationDacenRepository.save(operationDacen);
 
@@ -247,6 +251,7 @@ public class OperationDacenService {
 
         .dacen_status(operationDacen.getDacen_status())
         .dacen_deadline_project(operationDacen.getDacen_deadline_project())
+        .dacen_project_done(operationDacen.getDacen_project_done())
         .build();
 
     }
@@ -295,6 +300,7 @@ public class OperationDacenService {
             item.getDacen_phase7_done(),
             item.getDacen_status(),
             item.getDacen_deadline_project(),
+            item.getDacen_project_done(),
             operationDacenShowAll.size()))
             .collect(Collectors.toList());
 

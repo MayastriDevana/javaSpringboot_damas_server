@@ -82,5 +82,7 @@ public class OperationDacenResponse {
 
     private Date dacen_deadline_project;
 
+    private Date dacen_project_done;
+
     private Integer maxSize;
 }

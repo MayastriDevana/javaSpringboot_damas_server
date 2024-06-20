@@ -91,4 +91,9 @@ public class OperationItsupportRequest {
     private String itsupport_status;
 
     private Date itsupport_deadline_project;
+
+    private Date itsupport_project_done;
+
+    @Size(max = 255)
+    private String createdBy;
 }

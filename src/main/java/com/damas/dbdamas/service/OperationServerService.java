@@ -55,6 +55,8 @@ public class OperationServerService {
         operationServer.setServer_implementasi_done(userid.getServer_implementasi_done());
         operationServer.setServer_status(userid.getServer_status());
         operationServer.setServer_deadline_project(userid.getServer_deadline_project());
+        operationServer.setServer_project_done(userid.getServer_project_done());
+
 
         OperationServerRepository.save(operationServer);
 
@@ -93,6 +95,7 @@ public class OperationServerService {
 
         .server_status(operationServer.getServer_status())
         .server_deadline_project(operationServer.getServer_deadline_project())
+        .server_project_done(operationServer.getServer_project_done())
         .build();
         
     }
@@ -133,6 +136,7 @@ public class OperationServerService {
             item.getServer_implementasi_done(),
             item.getServer_status(),
             item.getServer_deadline_project(),
+            item.getServer_project_done(),
             serverByName.size()))
             .collect((Collectors.toList()));
 
@@ -174,6 +178,7 @@ public class OperationServerService {
             operationServer.setServer_implementasi_done(request.getServer_implementasi_done());
             operationServer.setServer_status(request.getServer_status());
             operationServer.setServer_deadline_project(request.getServer_deadline_project());
+            operationServer.setServer_project_done(request.getServer_project_done());
 
     OperationServerRepository.save(operationServer);
 
@@ -212,6 +217,7 @@ public class OperationServerService {
 
             .server_status(operationServer.getServer_status())
             .server_deadline_project(operationServer.getServer_deadline_project())
+            .server_project_done(operationServer.getServer_project_done())
             .build();
     }
 
@@ -252,6 +258,7 @@ public class OperationServerService {
             item.getServer_implementasi_done(),
             item.getServer_status(),
             item.getServer_deadline_project(),
+            item.getServer_project_done(),
             operationServerShowAll.size()))
             .collect(Collectors.toList());
 

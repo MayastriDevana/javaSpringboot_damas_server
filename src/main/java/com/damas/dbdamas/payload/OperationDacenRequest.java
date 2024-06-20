@@ -91,4 +91,8 @@ public class OperationDacenRequest {
     private String dacen_status;
 
     private Date dacen_deadline_project;
+
+    private Date dacen_project_done;
+
+    private String createdBy;
 }

@@ -62,6 +62,7 @@ public class OperationItmoService {
         operationItmo.setItmo_phase7_done(userid.getItmo_phase7_done());
         operationItmo.setItmo_status(userid.getItmo_status());
         operationItmo.setItmo_deadline_project(userid.getItmo_deadline_project());
+        operationItmo.setItmo_project_done(userid.getItmo_project_done());
 
         OperationItmoRepository.save(operationItmo);
 
@@ -107,6 +108,7 @@ public class OperationItmoService {
 
         .itmo_status(operationItmo.getItmo_status())
         .itmo_deadline_project(operationItmo.getItmo_deadline_project())
+        .itmo_project_done(operationItmo.getItmo_project_done())
 
         .build();
     }
@@ -154,6 +156,7 @@ public class OperationItmoService {
             item.getItmo_phase7_done(),
             item.getItmo_status(),
             item.getItmo_deadline_project(),
+            item.getItmo_project_done(),
             itmoByName.size()))
             .collect(Collectors.toList());
 
@@ -202,6 +205,7 @@ public class OperationItmoService {
         operationItmo.setItmo_phase7_done(request.getItmo_phase7_done());
         operationItmo.setItmo_status(request.getItmo_status());
         operationItmo.setItmo_deadline_project(request.getItmo_deadline_project());
+        operationItmo.setItmo_project_done(request.getItmo_project_done());
 
     OperationItmoRepository.save(operationItmo);
 
@@ -247,6 +251,7 @@ public class OperationItmoService {
 
         .itmo_status(operationItmo.getItmo_status())
         .itmo_deadline_project(operationItmo.getItmo_deadline_project())
+        .itmo_project_done(operationItmo.getItmo_project_done())
         .build();
 
     }
@@ -295,6 +300,7 @@ public class OperationItmoService {
             item.getItmo_phase7_done(),
             item.getItmo_status(),
             item.getItmo_deadline_project(),
+            item.getItmo_project_done(),
             operationItmoShowAll.size()))
             .collect(Collectors.toList());
 

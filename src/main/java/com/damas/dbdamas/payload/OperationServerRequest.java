@@ -70,4 +70,9 @@ public class OperationServerRequest {
     private String server_status;
     
     private Date server_deadline_project;
+
+    private Date server_project_done;
+
+    @Size(max = 255)
+    private String createdBy;
 }

@@ -92,4 +92,8 @@ public class OperationItsecurityRequest {
 
     private Date itsecurity_deadline_project;
     
+    private Date itsecurity_project_done;
+
+    @Size(max = 255)
+    private String createdBy;
 }

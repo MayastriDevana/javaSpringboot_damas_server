@@ -82,5 +82,7 @@ public class OperationItmoResponse {
 
     private Date itmo_deadline_project;
 
+    private Date itmo_project_done;
+
     private Integer maxSize;
 }

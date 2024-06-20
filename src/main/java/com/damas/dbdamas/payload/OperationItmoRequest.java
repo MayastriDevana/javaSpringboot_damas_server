@@ -91,4 +91,9 @@ public class OperationItmoRequest {
     private String itmo_status;
 
     private Date itmo_deadline_project;
+
+    private Date itmo_project_done;
+
+    @Size(max = 255)
+    private String createdBy;
 }

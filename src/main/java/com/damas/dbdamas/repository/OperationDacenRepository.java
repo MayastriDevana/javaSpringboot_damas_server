@@ -11,4 +11,6 @@ public interface OperationDacenRepository extends JpaRepository<OperationDacen, 
     @Query(value = "SELECT * FROM operation_dacen WHERE UPPER(dacen_perihal) LIKE UPPER(CONCAT('%', ?1, '%')) OR UPPER(dacen_pic) LIKE UPPER(CONCAT('%', ?1, '%')) OR UPPER(dacen_id) LIKE UPPER(CONCAT('%', ?1, '%'))", nativeQuery = true)
     List<OperationDacen> searchByDacen_perihalorDacen_pic(String searchParam);
     
+    @Query(value = "SELECT * FROM operation_dacen ORDER BY dacen_deadline_project ASC", nativeQuery = true)
+    List<OperationDacen> searchAllOrderByDeadline();
 }

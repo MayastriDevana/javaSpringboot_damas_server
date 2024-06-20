@@ -74,4 +74,8 @@ public class OperationServer {
     private String server_status;
 
     private Date server_deadline_project;
+
+    private Date server_project_done;
+
+    private String createdBy;
 }

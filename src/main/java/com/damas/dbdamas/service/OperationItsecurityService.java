@@ -62,6 +62,7 @@ public class OperationItsecurityService {
         operationItsecurity.setItsecurity_phase7_done(userid.getItsecurity_phase7_done());
         operationItsecurity.setItsecurity_status(userid.getItsecurity_status());
         operationItsecurity.setItsecurity_deadline_project(userid.getItsecurity_deadline_project());
+        operationItsecurity.setItsecurity_project_done(userid.getItsecurity_project_done());
 
         OperationItsecurityRepository.save(operationItsecurity);
 
@@ -107,6 +108,7 @@ public class OperationItsecurityService {
 
         .itsecurity_status(operationItsecurity.getItsecurity_status())
         .itsecurity_deadline_project(operationItsecurity.getItsecurity_deadline_project())
+        .itsecurity_project_done(operationItsecurity.getItsecurity_project_done())
 
         .build();
 
@@ -155,6 +157,7 @@ public class OperationItsecurityService {
             item.getItsecurity_phase7_done(),
             item.getItsecurity_status(),
             item.getItsecurity_deadline_project(),
+            item.getItsecurity_project_done(),
             itsecurityByName.size()))
             .collect(Collectors.toList());
 
@@ -202,6 +205,7 @@ public class OperationItsecurityService {
             operationItsecurity.setItsecurity_phase7_done(request.getItsecurity_phase7_done());
             operationItsecurity.setItsecurity_status(request.getItsecurity_status());
             operationItsecurity.setItsecurity_deadline_project(request.getItsecurity_deadline_project());
+            operationItsecurity.setItsecurity_project_done(request.getItsecurity_project_done());
     
         OperationItsecurityRepository.save(operationItsecurity);
 
@@ -247,6 +251,7 @@ public class OperationItsecurityService {
 
         .itsecurity_status(operationItsecurity.getItsecurity_status())
         .itsecurity_deadline_project(operationItsecurity.getItsecurity_deadline_project())
+        .itsecurity_project_done(operationItsecurity.getItsecurity_project_done())
         .build();
         
     }
@@ -295,6 +300,7 @@ public class OperationItsecurityService {
             item.getItsecurity_phase7_done(),
             item.getItsecurity_status(),
             item.getItsecurity_deadline_project(),
+            item.getItsecurity_project_done(),
             operationItsecurityShowAll.size()))
             .collect(Collectors.toList());
 

@@ -82,5 +82,7 @@ public class OperationItsecurityResponse {
 
     private Date itsecurity_deadline_project;
 
+    private Date itsecurity_project_done;
+
     private Integer maxSize;
 }

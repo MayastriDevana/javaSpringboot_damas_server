@@ -88,5 +88,9 @@ public class OperationItmo {
     private String itmo_status;
 
     private Date itmo_deadline_project;
+
+    private Date itmo_project_done;
+
+    private String createdBy;
     
 }
