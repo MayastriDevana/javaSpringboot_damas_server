@@ -39,9 +39,9 @@ public class LogisticMemo {
 
     private String memo_status;
 
-    @Lob
+    
     private String memo_notes;  // Hidden field, can store longer text
 
-    @Lob
-    private byte[] memo_upload;  // Field for storing uploaded files
+    // @Lob
+    // private byte[] memo_upload;  // Field for storing uploaded files
 }

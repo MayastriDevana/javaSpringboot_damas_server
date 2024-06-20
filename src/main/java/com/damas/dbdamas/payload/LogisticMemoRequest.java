@@ -48,7 +48,7 @@ public class LogisticMemoRequest {
     // private byte[] memo_upload; // Field for storing uploaded files
 
 
-    @PastOrPresent
+    // @PastOrPresent
     private Date memo_deadline;
 
     @Size(max = 1000)
