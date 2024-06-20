@@ -44,11 +44,11 @@ public class LogisticMemoRequest {
     private String memo_status;
 
     
-    // // For file uploads, consider using MultipartFile or a similar approach
-    // private byte[] memo_upload; // Field for storing uploaded files
+    // For file uploads, consider using MultipartFile or a similar approach
+    private String memo_upload; // Field for storing uploaded files
 
 
-    @PastOrPresent
+    // @PastOrPresent
     private Date memo_deadline;
 
     @Size(max = 1000)
