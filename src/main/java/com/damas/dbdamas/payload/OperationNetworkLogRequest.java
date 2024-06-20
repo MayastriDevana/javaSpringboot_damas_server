@@ -109,7 +109,4 @@ public class OperationNetworkLogRequest {
     @Size(max = 255)
     private String network_project_done;
 
-    @Size(max = 255)
-    private String createdBy;
-
 }

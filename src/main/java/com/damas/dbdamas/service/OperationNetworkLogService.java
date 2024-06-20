@@ -77,7 +77,6 @@ public class OperationNetworkLogService {
             item.getNetwork_status(),
             item.getNetwork_deadline_project(),
             item.getNetwork_project_done(),
-            item.getCreatedBy(),
             LogAll.size()))
             .collect(Collectors.toList());
     
@@ -122,7 +121,6 @@ public class OperationNetworkLogService {
             item.getNetwork_status(),
             item.getNetwork_deadline_project(),
             item.getNetwork_project_done(),
-            item.getCreatedBy(),
             logByName.size()))
     .collect((Collectors.toList()));
        return response;
@@ -163,7 +161,6 @@ public class OperationNetworkLogService {
         inputRequestOperationNetwork.setNetwork_status(result.getNetwork_status());
         inputRequestOperationNetwork.setNetwork_deadline_project(result.getNetwork_deadline_project());
         inputRequestOperationNetwork.setNetwork_project_done(result.getNetwork_project_done());
-        inputRequestOperationNetwork.setCreatedBy(result.getCreatedBy());
 
 
         if (status.toUpperCase().equals("APPROVED")) {

@@ -84,5 +84,4 @@ public class OperationNetworkLog {
 
     private String createdBy;
     
-    
 }
