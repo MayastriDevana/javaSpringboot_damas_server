@@ -127,14 +127,14 @@ public class OperationNetworkLogService {
     }
 
     @Transactional
-    public String updateStatusLog(String userid, String id, String status) {
+    public String updateStatusLog(String userid, String id, String network_status) {
         validationSecureService.validateUsers(userid);
 
         OperationNetworkLog result = operationNetworkLogRepository.findById(id).orElseThrow(() -> {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "log not found!");
         });
 
-        result.setStatus_approvement(status);
+        result.setStatus_approvement(network_status);
 
         OperationNetworkRequest inputRequestOperationNetwork = new OperationNetworkRequest();
         inputRequestOperationNetwork.setNetwork_perihal(result.getNetwork_perihal());
@@ -163,14 +163,14 @@ public class OperationNetworkLogService {
         inputRequestOperationNetwork.setNetwork_project_done(result.getNetwork_project_done());
 
 
-        if (status.toUpperCase().equals("APPROVED")) {
+        if (network_status.toUpperCase().equals("APPROVED")) {
             operationNetworkService.editedNetwork(userid, inputRequestOperationNetwork, result.getNetwork_id());
 
         }
 
         operationNetworkLogRepository.save(result);
 
-        return "Status Update: " + status;
+        return "Status Update: " + network_status;
 
     }
 }
