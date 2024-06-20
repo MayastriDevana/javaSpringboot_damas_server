@@ -1,26 +1,19 @@
-package com.damas.dbdamas.model;
+package com.damas.dbdamas.payload;
 
 import java.sql.Date;
 
-import org.hibernate.annotations.UuidGenerator;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Setter
-@Getter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "operation_server_log")
-public class OperationServerLog {
-    @Id
-    @UuidGenerator
+@Builder
+
+public class OperationServerLogResponse {
+    
     private String id;
 
     private String server_id;
@@ -89,5 +82,5 @@ public class OperationServerLog {
 
     private Date server_project_done;
 
-    private String createdBy;
+    private Integer maxSize;
 }
