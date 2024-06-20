@@ -1,6 +1,8 @@
 package com.damas.dbdamas.model;
 
 import org.hibernate.annotations.UuidGenerator;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
@@ -42,6 +44,6 @@ public class LogisticMemo {
     
     private String memo_notes;  // Hidden field, can store longer text
 
-    // @Lob
-    // private byte[] memo_upload;  // Field for storing uploaded files
+    @Column(nullable = true, length = 255)
+    private String memo_upload;  // Field for storing uploaded files
 }

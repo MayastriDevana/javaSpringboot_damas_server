@@ -22,7 +22,7 @@ public class LogisticMemoResponse {
     private String memo_status;
     private Date memo_deadline;
     private String memo_notes;
-    // private byte[] memo_upload;
+    private String memo_upload;
     // private String memo_signature;
 
     private Integer maxSize;
