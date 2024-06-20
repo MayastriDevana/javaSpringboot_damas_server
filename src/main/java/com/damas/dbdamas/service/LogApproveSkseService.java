@@ -44,7 +44,7 @@ public class LogApproveSkseService {
     public List<LogApproveSkseResponse> findAll(String userid, Long start, Long size){
         validationSecureService.validateUsers(userid);
 
-        List<LogApproveSkse> skseAll = logApproveSkseRepository.findAll();
+        List<LogApproveSkse> skseAll = logApproveSkseRepository.searchAllOrderByStatus();
 
         List<LogApproveSkseResponse> response = skseAll.stream()
         .skip(start).limit(size)

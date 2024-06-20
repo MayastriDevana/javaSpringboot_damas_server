@@ -117,4 +117,7 @@ public class ProjectDev {
     @Column(name = "project_done")
     private String projectdone;
 
+    @Column(name = "created_by")
+    private String createdby;
+
 }
