@@ -53,6 +53,7 @@ public class OperationNetworkService {
         operationNetwork.setNetwork_uat_done(userid.getNetwork_uat_done());
         operationNetwork.setNetwork_status(userid.getNetwork_status());
         operationNetwork.setNetwork_deadline_project(userid.getNetwork_deadline_project());
+        operationNetwork.setNetwork_project_done(userid.getNetwork_project_done());
 
         OperationNetworkRepository.save(operationNetwork);
 
@@ -87,6 +88,7 @@ public class OperationNetworkService {
         
         .network_status(operationNetwork.getNetwork_status())
         .network_deadline_project(operationNetwork.getNetwork_deadline_project())
+        .network_project_done(operationNetwork.getNetwork_project_done())
         .build();
 
     }
@@ -124,6 +126,7 @@ public class OperationNetworkService {
             item.getNetwork_uat_done(),
             item.getNetwork_status(),
             item.getNetwork_deadline_project(),
+            item.getNetwork_project_done(),
             networkByName.size()))
             .collect((Collectors.toList()));
 
@@ -162,6 +165,8 @@ public class OperationNetworkService {
                 operationNetwork.setNetwork_uat_done(request.getNetwork_uat_done());
                 operationNetwork.setNetwork_status(request.getNetwork_status());
                 operationNetwork.setNetwork_deadline_project(request.getNetwork_deadline_project());
+                operationNetwork.setNetwork_project_done(request.getNetwork_project_done());
+
 
         OperationNetworkRepository.save(operationNetwork);
 
@@ -189,6 +194,7 @@ public class OperationNetworkService {
         .network_uat_done(operationNetwork.getNetwork_uat_done())
         .network_status(operationNetwork.getNetwork_status())
         .network_deadline_project(operationNetwork.getNetwork_deadline_project())
+        .network_project_done(operationNetwork.getNetwork_project_done())
         .build();
     }
 
@@ -227,6 +233,7 @@ public class OperationNetworkService {
             item.getNetwork_uat_done(),
             item.getNetwork_status(),
             item.getNetwork_deadline_project(),
+            item.getNetwork_project_done(),
             operationNetworkShowAll.size()
         ))
     .collect(Collectors.toList());

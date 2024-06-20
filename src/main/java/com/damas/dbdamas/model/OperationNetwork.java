@@ -69,5 +69,8 @@ public class OperationNetwork {
 
     private String network_deadline_project;
  
+    private String network_project_done;
+
+    private String createdBy;
     
 }
