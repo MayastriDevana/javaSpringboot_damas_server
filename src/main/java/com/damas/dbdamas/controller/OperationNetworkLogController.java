@@ -46,9 +46,9 @@ public class OperationNetworkLogController {
     public WebResponse<String> updateStatusLog(
             @RequestHeader("USER-ID") String userid,
             @RequestParam("id") String id,
-            @RequestParam("status") String status) {
+            @RequestParam("network_status") String network_status) {
 
-        String response = operationNetworkLogService.updateStatusLog(userid, id, status);
+        String response = operationNetworkLogService.updateStatusLog(userid, id, network_status);
 
         return WebResponse.<String>builder().data(response).error(null).build();
     }
