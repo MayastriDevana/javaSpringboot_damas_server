@@ -2,21 +2,19 @@ package com.damas.dbdamas.payload;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.PastOrPresent;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data //berisi setter dan getter
-@AllArgsConstructor //biar class bisa di buat menggunakan argumen/params
-@NoArgsConstructor //biar class bisa di buat tidak menggunakan argumen/params
+import java.sql.Date;
+
+@Data // Includes getters and setters
+@AllArgsConstructor // Allows instantiation with arguments
+@NoArgsConstructor // Allows instantiation without arguments
 @Builder
-
 public class LogisticMemoRequest {
-    // @NotBlank
-    // @Size(max = 255)
-    // private String memo_id;
-
 
     @Size(max = 255)
     private String memo_num;
@@ -31,11 +29,30 @@ public class LogisticMemoRequest {
 
     @NotBlank
     @Size(max = 255)
-    private String memo_status;
+    private String memo_department;
 
     @NotBlank
     @Size(max = 255)
-    private String memo_deadline;
+    private String memo_createdBy;
+
+    @NotBlank
+    @Size(max = 255)
+    private String memo_reviewer;
+
+    @NotBlank
+    @Size(max = 255)
+    private String memo_status;
+
+    
+    // For file uploads, consider using MultipartFile or a similar approach
+    private String memo_upload; // Field for storing uploaded files
+
+
+    // @PastOrPresent
+    private Date memo_deadline;
+
+    @Size(max = 1000)
+    private String memo_notes; // Optional field, can store longer text
 
 
 
