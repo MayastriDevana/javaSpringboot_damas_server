@@ -15,10 +15,8 @@ import com.damas.dbdamas.repository.LogApproveProjectDevRepository;
 import com.damas.dbsecure.service.ValidationSecureService;
 
 import jakarta.transaction.Transactional;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 public class LogApproveProjectDevService {
 
     @Autowired
@@ -34,7 +32,7 @@ public class LogApproveProjectDevService {
     public String createLog(String userid, LogApproveProjectDev request) {
         validationSecureService.validateUsers(userid);
 
-        if (!(validationSecureService.isOperator(userid) || validationSecureService.isDevOperator(userid) || validationSecureService.isPpoOperator(userid) || validationSecureService. isSkseOperator(userid) || validationSecureService.isDacenOperator(userid) || validationSecureService.isNetworkOperator(userid) || validationSecureService.isServerOperator(userid) || validationSecureService.isItsupportOperator(userid) || validationSecureService.isItmoOperator(userid) || validationSecureService.isItsecurityOperator(userid) || validationSecureService.isLogisticOperator(userid) || validationSecureService.isReviewerSupervisor(userid))) {
+        if (!(validationSecureService.isOperator(userid) || validationSecureService.isDevOperator(userid) || validationSecureService.isPpoOperator(userid))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
         }
 
@@ -47,7 +45,7 @@ public class LogApproveProjectDevService {
     public List<LogApproveProjectDevResponse> findAll(String userid, Long start, Long size) {
         validationSecureService.validateUsers(userid);
 
-        if (!(validationSecureService.isOperator(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isDevSupervisor(userid) || validationSecureService.isPpoSupervisor(userid) || validationSecureService.isOperationSupervisor(userid) || validationSecureService.isLogisticSupervisor(userid) || validationSecureService.isReviewerSupervisor(userid) || validationSecureService.isDevOperator(userid) || validationSecureService.isPpoOperator(userid) || validationSecureService. isSkseOperator(userid) || validationSecureService.isNetworkOperator(userid) || validationSecureService.isServerOperator(userid) || validationSecureService.isDacenOperator(userid) || validationSecureService.isItsupportOperator(userid) || validationSecureService.isItmoOperator(userid) || validationSecureService.isItsecurityOperator(userid) || validationSecureService.isLogisticOperator(userid))) {
+        if (!(validationSecureService.isOperator(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isDevSupervisor(userid) || validationSecureService.isPpoSupervisor(userid))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
         }
 
@@ -158,7 +156,7 @@ public class LogApproveProjectDevService {
     public String updateStatusLog(String userid, String id, String status) {
         validationSecureService.validateUsers(userid);
 
-        if (!(validationSecureService.isSupervisor(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isDevSupervisor(userid) || validationSecureService.isPpoSupervisor(userid) || validationSecureService.isOperationSupervisor(userid) || validationSecureService.isLogisticSupervisor(userid) || validationSecureService.isReviewerSupervisor(userid))) {
+        if (!(validationSecureService.isSupervisor(userid) || validationSecureService.isDevSupervisor(userid) || validationSecureService.isPpoSupervisor(userid))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
         }
 

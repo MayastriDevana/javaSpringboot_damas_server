@@ -20,7 +20,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.damas.dbdamas.model.LogisticMemo;
 import com.damas.dbdamas.model.OperationNetwork;
-import com.damas.dbdamas.model.OperationSystem;
 import com.damas.dbdamas.model.ProjectDev;
 import com.damas.dbdamas.model.Skse;
 import com.damas.dbdamas.model.User;
@@ -56,7 +55,7 @@ public class DbDamasConfig {
             EntityManagerFactoryBuilder builder) {
         return builder
                 .dataSource(dbdamasDataSource())
-                .packages(User.class, Skse.class, ProjectDev.class, OperationNetwork.class, OperationSystem.class, LogisticMemo.class)
+                .packages(User.class, Skse.class, ProjectDev.class, OperationNetwork.class, LogisticMemo.class)
                 .build();
     }
 

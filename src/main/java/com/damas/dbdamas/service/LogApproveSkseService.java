@@ -35,6 +35,10 @@ public class LogApproveSkseService {
     public String createLog(String userid, LogApproveSkse request){
         validationSecureService.validateUsers(userid);
 
+        if (!(validationSecureService.isOperator(userid) || validationSecureService. isSkseOperator(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
+
         logApproveSkseRepository.save(request);
 
         return "request submitted";
@@ -43,6 +47,10 @@ public class LogApproveSkseService {
     @Transactional
     public List<LogApproveSkseResponse> findAll(String userid, Long start, Long size){
         validationSecureService.validateUsers(userid);
+
+        if (!(validationSecureService.isOperator(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isPpoSupervisor(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
 
         List<LogApproveSkse> skseAll = logApproveSkseRepository.searchAllOrderByStatus();
 
@@ -96,6 +104,10 @@ public class LogApproveSkseService {
     @Transactional
     public String updateStatusLog(String userid, String id, String status){
         validationSecureService.validateUsers(userid);
+
+        if (!(validationSecureService.isSupervisor(userid) || validationSecureService.isPpoSupervisor(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
 
         LogApproveSkse result = logApproveSkseRepository.findById(id).orElseThrow(() -> {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "log not found!");
