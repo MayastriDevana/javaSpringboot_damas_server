@@ -34,6 +34,10 @@ public class LogApproveProjectDevService {
     public String createLog(String userid, LogApproveProjectDev request) {
         validationSecureService.validateUsers(userid);
 
+        if (!(validationSecureService.isOperator(userid) || validationSecureService.isDevOperator(userid) || validationSecureService.isPpoOperator(userid) || validationSecureService. isSkseOperator(userid) || validationSecureService.isDacenOperator(userid) || validationSecureService.isNetworkOperator(userid) || validationSecureService.isServerOperator(userid) || validationSecureService.isItsupportOperator(userid) || validationSecureService.isItmoOperator(userid) || validationSecureService.isItsecurityOperator(userid) || validationSecureService.isLogisticOperator(userid) || validationSecureService.isReviewerSupervisor(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
+
         logApproveProjectDevRepository.save(request);
 
         return "request submitted";
@@ -42,6 +46,10 @@ public class LogApproveProjectDevService {
     @Transactional
     public List<LogApproveProjectDevResponse> findAll(String userid, Long start, Long size) {
         validationSecureService.validateUsers(userid);
+
+        if (!(validationSecureService.isOperator(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isDevSupervisor(userid) || validationSecureService.isPpoSupervisor(userid) || validationSecureService.isOperationSupervisor(userid) || validationSecureService.isLogisticSupervisor(userid) || validationSecureService.isReviewerSupervisor(userid) || validationSecureService.isDevOperator(userid) || validationSecureService.isPpoOperator(userid) || validationSecureService. isSkseOperator(userid) || validationSecureService.isNetworkOperator(userid) || validationSecureService.isServerOperator(userid) || validationSecureService.isDacenOperator(userid) || validationSecureService.isItsupportOperator(userid) || validationSecureService.isItmoOperator(userid) || validationSecureService.isItsecurityOperator(userid) || validationSecureService.isLogisticOperator(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
 
         List<LogApproveProjectDev> LogAll = logApproveProjectDevRepository.searchAllOrderByStatus();
 
@@ -149,6 +157,10 @@ public class LogApproveProjectDevService {
     @Transactional
     public String updateStatusLog(String userid, String id, String status) {
         validationSecureService.validateUsers(userid);
+
+        if (!(validationSecureService.isSupervisor(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isDevSupervisor(userid) || validationSecureService.isPpoSupervisor(userid) || validationSecureService.isOperationSupervisor(userid) || validationSecureService.isLogisticSupervisor(userid) || validationSecureService.isReviewerSupervisor(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
 
         LogApproveProjectDev result = logApproveProjectDevRepository.findById(id).orElseThrow(() -> {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "log not found!");
