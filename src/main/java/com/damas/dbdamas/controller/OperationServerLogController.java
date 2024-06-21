@@ -46,9 +46,9 @@ public class OperationServerLogController {
     public WebResponse<String> updateStatusLog(
             @RequestHeader("USER-ID") String userid,
             @RequestParam("id") String id,
-            @RequestParam("status") String status) {
+            @RequestParam("server_status") String server_status) {
 
-        String response = operationServerLogService.updateStatusLog(userid, id, status);
+        String response = operationServerLogService.updateStatusLog(userid, id, server_status);
 
         return WebResponse.<String>builder().data(response).error(null).build();
     }

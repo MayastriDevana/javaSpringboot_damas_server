@@ -93,6 +93,7 @@ public class OperationDacenRequest {
     private Date dacen_deadline_project;
 
     private Date dacen_project_done;
-
+    
+    @Size(max = 255)
     private String createdBy;
 }

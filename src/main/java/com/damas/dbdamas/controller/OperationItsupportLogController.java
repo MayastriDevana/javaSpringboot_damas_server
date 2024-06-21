@@ -9,17 +9,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.damas.dbdamas.model.OperationItsupportLog;
 import com.damas.dbdamas.payload.OperationItsupportLogResponse;
 import com.damas.dbdamas.payload.WebResponse;
 import com.damas.dbdamas.service.OperationItsupportLogService;
 
+@RestController
 public class OperationItsupportLogController {
     @Autowired
     private OperationItsupportLogService operationItsupportLogService;
 
-    @PostMapping("/api/operationitsupport/log")
+    @PostMapping("api/operationitsupport/log")
     public WebResponse<String> createLog(
          @RequestHeader("USER-ID") String userid,
             @RequestBody OperationItsupportLog request) {
@@ -43,9 +45,9 @@ public class OperationItsupportLogController {
     public WebResponse<String> updateStatusLog(
             @RequestHeader("USER-ID") String userid,
             @RequestParam("id") String id,
-            @RequestParam("status") String status) {
+            @RequestParam("itsupport_status") String itsupport_status) {
 
-        String response = operationItsupportLogService.updateStatusLog(userid, id, status);
+        String response = operationItsupportLogService.updateStatusLog(userid, id, itsupport_status);
 
         return WebResponse.<String>builder().data(response).error(null).build();
     }

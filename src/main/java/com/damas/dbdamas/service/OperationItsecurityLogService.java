@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.damas.dbdamas.model.OperationItsecurityLog;
@@ -15,6 +16,7 @@ import com.damas.dbsecure.service.ValidationSecureService;
 
 import jakarta.transaction.Transactional;
 
+@Service
 public class OperationItsecurityLogService {
     @Autowired
     private OperationItsecurityLogRepository operationItsecurityLogRepository;

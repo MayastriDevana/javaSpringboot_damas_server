@@ -9,18 +9,20 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.damas.dbdamas.model.OperationDacenLog;
 import com.damas.dbdamas.payload.OperationDacenLogResponse;
 import com.damas.dbdamas.payload.WebResponse;
 import com.damas.dbdamas.service.OperationDacenLogService;
 
+@RestController
 public class OperationDacenLogController {
     
     @Autowired
     private OperationDacenLogService operationDacenLogService;
 
-    @PostMapping("/api/operationdacen/log")
+    @PostMapping("api/operationdacen/log")
     public WebResponse<String> createLog(
          @RequestHeader("USER-ID") String userid,
             @RequestBody OperationDacenLog request) {
@@ -44,9 +46,9 @@ public class OperationDacenLogController {
     public WebResponse<String> updateStatusLog(
             @RequestHeader("USER-ID") String userid,
             @RequestParam("id") String id,
-            @RequestParam("status") String status) {
+            @RequestParam("dacen_status") String dacen_status) {
 
-        String response = operationDacenLogService.updateStatusLog(userid, id, status);
+        String response = operationDacenLogService.updateStatusLog(userid, id, dacen_status);
 
         return WebResponse.<String>builder().data(response).error(null).build();
     }

@@ -9,17 +9,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.damas.dbdamas.model.OperationItsecurityLog;
 import com.damas.dbdamas.payload.OperationItsecurityLogResponse;
 import com.damas.dbdamas.payload.WebResponse;
 import com.damas.dbdamas.service.OperationItsecurityLogService;
 
+@RestController
 public class OperationItsecurityLogController {
     @Autowired
     private OperationItsecurityLogService operationItsecurityLogService;
 
-    @PostMapping("/api/operationitsecurity/log")
+    @PostMapping("api/operationitsecurity/log")
     public WebResponse<String> createLog(
          @RequestHeader("USER-ID") String userid,
             @RequestBody OperationItsecurityLog request) {
@@ -43,9 +45,9 @@ public class OperationItsecurityLogController {
     public WebResponse<String> updateStatusLog(
             @RequestHeader("USER-ID") String userid,
             @RequestParam("id") String id,
-            @RequestParam("status") String status) {
+            @RequestParam("itsecurity_status") String itsecurity_status) {
 
-        String response = operationItsecurityLogService.updateStatusLog(userid, id, status);
+        String response = operationItsecurityLogService.updateStatusLog(userid, id, itsecurity_status);
 
         return WebResponse.<String>builder().data(response).error(null).build();
     }

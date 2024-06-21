@@ -2,6 +2,7 @@ package com.damas.dbdamas.payload;
 
 import java.sql.Date;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,9 +15,12 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class OperationItsupportLogRequest {
-     @Size(max = 255)
+
+    @NotBlank
+    @Size(max = 255)
     private String id;
 
+    @NotBlank
     @Size(max = 255)
     private String itsupport_id;
 
