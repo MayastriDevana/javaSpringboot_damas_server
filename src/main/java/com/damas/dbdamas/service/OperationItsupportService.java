@@ -25,44 +25,48 @@ public class OperationItsupportService {
     private ValidationService validationService;
 
     @Transactional
-    public OperationItsupportResponse newItsupport(OperationItsupportRequest userid, String token) {
+    public OperationItsupportResponse newItsupport(OperationItsupportRequest request, String userid) {
         validationService.validateRequest(userid);
+
+        if (!(validationService.isOperator(userid) || validationService.isItsupportOperator(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
         
         OperationItsupport operationItsupport = new OperationItsupport();
-        operationItsupport.setItsupport_perihal(userid.getItsupport_perihal());
-        operationItsupport.setItsupport_pic(userid.getItsupport_pic());
-        operationItsupport.setDepartement(userid.getDepartement());
-        operationItsupport.setItsupport_phase1(userid.getItsupport_phase1());
-        operationItsupport.setItsupport_phase1_start(userid.getItsupport_phase1_start());
-        operationItsupport.setItsupport_phase1_deadline(userid.getItsupport_phase1_deadline());
-        operationItsupport.setItsupport_phase1_done(userid.getItsupport_phase1_done());
-        operationItsupport.setItsupport_phase2(userid.getItsupport_phase2());
-        operationItsupport.setItsupport_phase2_start(userid.getItsupport_phase2_start());
-        operationItsupport.setItsupport_phase2_deadline(userid.getItsupport_phase2_deadline());
-        operationItsupport.setItsupport_phase2_done(userid.getItsupport_phase2_done());
-        operationItsupport.setItsupport_phase3(userid.getItsupport_phase3());
-        operationItsupport.setItsupport_phase3_start(userid.getItsupport_phase3_start());
-        operationItsupport.setItsupport_phase3_deadline(userid.getItsupport_phase3_deadline());
-        operationItsupport.setItsupport_phase3_done(userid.getItsupport_phase3_done());
-        operationItsupport.setItsupport_phase4(userid.getItsupport_phase4());
-        operationItsupport.setItsupport_phase4_start(userid.getItsupport_phase4_start());
-        operationItsupport.setItsupport_phase4_deadline(userid.getItsupport_phase4_deadline());
-        operationItsupport.setItsupport_phase4_done(userid.getItsupport_phase4_done());
-        operationItsupport.setItsupport_phase5(userid.getItsupport_phase5());
-        operationItsupport.setItsupport_phase5_start(userid.getItsupport_phase5_start());
-        operationItsupport.setItsupport_phase5_deadline(userid.getItsupport_phase5_deadline());
-        operationItsupport.setItsupport_phase5_done(userid.getItsupport_phase5_done());
-        operationItsupport.setItsupport_phase6(userid.getItsupport_phase6());
-        operationItsupport.setItsupport_phase6_start(userid.getItsupport_phase6_start());
-        operationItsupport.setItsupport_phase6_deadline(userid.getItsupport_phase6_deadline());
-        operationItsupport.setItsupport_phase6_done(userid.getItsupport_phase6_done());
-        operationItsupport.setItsupport_phase7(userid.getItsupport_phase7());
-        operationItsupport.setItsupport_phase7_start(userid.getItsupport_phase7_start());
-        operationItsupport.setItsupport_phase7_deadline(userid.getItsupport_phase7_deadline());
-        operationItsupport.setItsupport_phase7_done(userid.getItsupport_phase7_done());
-        operationItsupport.setItsupport_status(userid.getItsupport_status());
-        operationItsupport.setItsupport_deadline_project(userid.getItsupport_deadline_project());
-        operationItsupport.setItsupport_project_done(userid.getItsupport_project_done());
+        operationItsupport.setItsupport_perihal(request.getItsupport_perihal());
+        operationItsupport.setItsupport_pic(request.getItsupport_pic());
+        operationItsupport.setDepartement(request.getDepartement());
+        operationItsupport.setItsupport_phase1(request.getItsupport_phase1());
+        operationItsupport.setItsupport_phase1_start(request.getItsupport_phase1_start());
+        operationItsupport.setItsupport_phase1_deadline(request.getItsupport_phase1_deadline());
+        operationItsupport.setItsupport_phase1_done(request.getItsupport_phase1_done());
+        operationItsupport.setItsupport_phase2(request.getItsupport_phase2());
+        operationItsupport.setItsupport_phase2_start(request.getItsupport_phase2_start());
+        operationItsupport.setItsupport_phase2_deadline(request.getItsupport_phase2_deadline());
+        operationItsupport.setItsupport_phase2_done(request.getItsupport_phase2_done());
+        operationItsupport.setItsupport_phase3(request.getItsupport_phase3());
+        operationItsupport.setItsupport_phase3_start(request.getItsupport_phase3_start());
+        operationItsupport.setItsupport_phase3_deadline(request.getItsupport_phase3_deadline());
+        operationItsupport.setItsupport_phase3_done(request.getItsupport_phase3_done());
+        operationItsupport.setItsupport_phase4(request.getItsupport_phase4());
+        operationItsupport.setItsupport_phase4_start(request.getItsupport_phase4_start());
+        operationItsupport.setItsupport_phase4_deadline(request.getItsupport_phase4_deadline());
+        operationItsupport.setItsupport_phase4_done(request.getItsupport_phase4_done());
+        operationItsupport.setItsupport_phase5(request.getItsupport_phase5());
+        operationItsupport.setItsupport_phase5_start(request.getItsupport_phase5_start());
+        operationItsupport.setItsupport_phase5_deadline(request.getItsupport_phase5_deadline());
+        operationItsupport.setItsupport_phase5_done(request.getItsupport_phase5_done());
+        operationItsupport.setItsupport_phase6(request.getItsupport_phase6());
+        operationItsupport.setItsupport_phase6_start(request.getItsupport_phase6_start());
+        operationItsupport.setItsupport_phase6_deadline(request.getItsupport_phase6_deadline());
+        operationItsupport.setItsupport_phase6_done(request.getItsupport_phase6_done());
+        operationItsupport.setItsupport_phase7(request.getItsupport_phase7());
+        operationItsupport.setItsupport_phase7_start(request.getItsupport_phase7_start());
+        operationItsupport.setItsupport_phase7_deadline(request.getItsupport_phase7_deadline());
+        operationItsupport.setItsupport_phase7_done(request.getItsupport_phase7_done());
+        operationItsupport.setItsupport_status(request.getItsupport_status());
+        operationItsupport.setItsupport_deadline_project(request.getItsupport_deadline_project());
+        operationItsupport.setItsupport_project_done(request.getItsupport_project_done());
 
         OperationItsupportRepository.save(operationItsupport);
 
@@ -168,6 +172,10 @@ public class OperationItsupportService {
 
         validationService.validateRequest(userid);
 
+        if (!(validationService.isOperator(userid) || validationService.isItsupportOperator(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
+
         OperationItsupport operationItsupport = OperationItsupportRepository.findById(input)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Data not Found"));
 
@@ -258,6 +266,12 @@ public class OperationItsupportService {
     public List<OperationItsupportResponse> findAll(String userid, Long start, Long size) {
 
         validationService.validateRequest(userid);
+
+        if (!(validationService.isOperator(userid) || validationService.isItsupportOperator(userid)
+                || validationService.isOperationSupervisor(userid)
+                || validationService.isSupervisor(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
 
         List<OperationItsupport> operationItsupportShowAll = OperationItsupportRepository.findAll();
 

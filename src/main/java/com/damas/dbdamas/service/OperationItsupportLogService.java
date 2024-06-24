@@ -31,10 +31,9 @@ public class OperationItsupportLogService {
      public String createLog(String userid, OperationItsupportLog request) {
         validationSecureService.validateUsers(userid);
 
-        if (!(validationSecureService.isOperator(userid) || validationSecureService.isDevOperator(userid) || validationSecureService.isPpoOperator(userid) || validationSecureService. isSkseOperator(userid) || validationSecureService.isDacenOperator(userid) || validationSecureService.isNetworkOperator(userid) || validationSecureService.isServerOperator(userid) || validationSecureService.isItsupportOperator(userid) || validationSecureService.isItmoOperator(userid) || validationSecureService.isItsecurityOperator(userid) || validationSecureService.isLogisticOperator(userid) || validationSecureService.isReviewerSupervisor(userid))) {
+        if (!(validationSecureService.isOperator(userid) || validationSecureService.isItsupportOperator(userid))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
         }
-
         operationItsupportLogRepository.save(request);
 
         return "request submitted";
@@ -44,9 +43,10 @@ public class OperationItsupportLogService {
     public List<OperationItsupportLogResponse> findAll(String userid, Long start, Long size) {
         validationSecureService.validateUsers(userid);
 
-        if (!(validationSecureService.isOperator(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isDevSupervisor(userid) || validationSecureService.isPpoSupervisor(userid) || validationSecureService.isOperationSupervisor(userid) || validationSecureService.isLogisticSupervisor(userid) || validationSecureService.isReviewerSupervisor(userid) || validationSecureService.isDevOperator(userid) || validationSecureService.isPpoOperator(userid) || validationSecureService. isSkseOperator(userid) || validationSecureService.isNetworkOperator(userid) || validationSecureService.isServerOperator(userid) || validationSecureService.isDacenOperator(userid) || validationSecureService.isItsupportOperator(userid) || validationSecureService.isItmoOperator(userid) || validationSecureService.isItsecurityOperator(userid) || validationSecureService.isLogisticOperator(userid))) {
+        if (!(validationSecureService.isOperator(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isOperationSupervisor(userid))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
         }
+
 
         List<OperationItsupportLog> LogAll = operationItsupportLogRepository.searchAllOrderByStatus();
 
@@ -157,7 +157,7 @@ public class OperationItsupportLogService {
     public String updateStatusLog(String userid, String id, String itsupport_status) {
         validationSecureService.validateUsers(userid);
 
-        if (!(validationSecureService.isSupervisor(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isDevSupervisor(userid) || validationSecureService.isPpoSupervisor(userid) || validationSecureService.isOperationSupervisor(userid) || validationSecureService.isLogisticSupervisor(userid) || validationSecureService.isReviewerSupervisor(userid))) {
+        if (!(validationSecureService.isOperator(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isOperationSupervisor(userid))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
         }
 

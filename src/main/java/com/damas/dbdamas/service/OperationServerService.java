@@ -25,37 +25,41 @@ public class OperationServerService {
     private ValidationService validationService;
 
     @Transactional
-    public OperationServerResponse newServer(OperationServerRequest userid, String token) {
+    public OperationServerResponse newServer(OperationServerRequest request, String userid) {
         validationService.validateRequest(userid);
+
+        if (!(validationService.isOperator(userid) || validationService.isServerOperator(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
         
         OperationServer operationServer = new OperationServer();
-        operationServer.setServer_perihal(userid.getServer_perihal());
-        operationServer.setServer_pic(userid.getServer_pic());
-        operationServer.setDepartement(userid.getDepartement());
-        operationServer.setServer_kickoff_start(userid.getServer_kickoff_start());
-        operationServer.setServer_kickoff_deadline(userid.getServer_kickoff_deadline());
-        operationServer.setServer_kickoff_done(userid.getServer_kickoff_done());
-        operationServer.setServer_peyiapanserver_start(userid.getServer_peyiapanserver_start());
-        operationServer.setServer_peyiapanserver_deadline(userid.getServer_peyiapanserver_deadline());
-        operationServer.setServer_peyiapanserver_done(userid.getServer_peyiapanserver_done());
-        operationServer.setServer_instalasiaplikasi_start(userid.getServer_instalasiaplikasi_start());
-        operationServer.setServer_instalasiaplikasi_deadline(userid.getServer_instalasiaplikasi_deadline());
-        operationServer.setServer_instalasiaplikasi_done(userid.getServer_instalasiaplikasi_done());
-        operationServer.setServer_instalcheckpoint_start(userid.getServer_instalcheckpoint_start());
-        operationServer.setServer_instalcheckpoint_deadline(userid.getServer_instalcheckpoint_deadline());
-        operationServer.setServer_instalcheckpoint_done(userid.getServer_instalcheckpoint_done());
-        operationServer.setServer_testingkoneksi_start(userid.getServer_testingkoneksi_start());
-        operationServer.setServer_testingkoneksi_deadline(userid.getServer_testingkoneksi_deadline());
-        operationServer.setServer_testingkoneksi_done(userid.getServer_testingkoneksi_done());
-        operationServer.setServer_serahterimaserver_start(userid.getServer_serahterimaserver_start());
-        operationServer.setServer_serahterimaserver_deadline(userid.getServer_serahterimaserver_deadline());
-        operationServer.setServer_serahterimaserver_done(userid.getServer_serahterimaserver_done());
-        operationServer.setServer_implementasi_start(userid.getServer_implementasi_start());
-        operationServer.setServer_implementasi_deadline(userid.getServer_implementasi_deadline());
-        operationServer.setServer_implementasi_done(userid.getServer_implementasi_done());
-        operationServer.setServer_status(userid.getServer_status());
-        operationServer.setServer_deadline_project(userid.getServer_deadline_project());
-        operationServer.setServer_project_done(userid.getServer_project_done());
+        operationServer.setServer_perihal(request.getServer_perihal());
+        operationServer.setServer_pic(request.getServer_pic());
+        operationServer.setDepartement(request.getDepartement());
+        operationServer.setServer_kickoff_start(request.getServer_kickoff_start());
+        operationServer.setServer_kickoff_deadline(request.getServer_kickoff_deadline());
+        operationServer.setServer_kickoff_done(request.getServer_kickoff_done());
+        operationServer.setServer_peyiapanserver_start(request.getServer_peyiapanserver_start());
+        operationServer.setServer_peyiapanserver_deadline(request.getServer_peyiapanserver_deadline());
+        operationServer.setServer_peyiapanserver_done(request.getServer_peyiapanserver_done());
+        operationServer.setServer_instalasiaplikasi_start(request.getServer_instalasiaplikasi_start());
+        operationServer.setServer_instalasiaplikasi_deadline(request.getServer_instalasiaplikasi_deadline());
+        operationServer.setServer_instalasiaplikasi_done(request.getServer_instalasiaplikasi_done());
+        operationServer.setServer_instalcheckpoint_start(request.getServer_instalcheckpoint_start());
+        operationServer.setServer_instalcheckpoint_deadline(request.getServer_instalcheckpoint_deadline());
+        operationServer.setServer_instalcheckpoint_done(request.getServer_instalcheckpoint_done());
+        operationServer.setServer_testingkoneksi_start(request.getServer_testingkoneksi_start());
+        operationServer.setServer_testingkoneksi_deadline(request.getServer_testingkoneksi_deadline());
+        operationServer.setServer_testingkoneksi_done(request.getServer_testingkoneksi_done());
+        operationServer.setServer_serahterimaserver_start(request.getServer_serahterimaserver_start());
+        operationServer.setServer_serahterimaserver_deadline(request.getServer_serahterimaserver_deadline());
+        operationServer.setServer_serahterimaserver_done(request.getServer_serahterimaserver_done());
+        operationServer.setServer_implementasi_start(request.getServer_implementasi_start());
+        operationServer.setServer_implementasi_deadline(request.getServer_implementasi_deadline());
+        operationServer.setServer_implementasi_done(request.getServer_implementasi_done());
+        operationServer.setServer_status(request.getServer_status());
+        operationServer.setServer_deadline_project(request.getServer_deadline_project());
+        operationServer.setServer_project_done(request.getServer_project_done());
 
 
         OperationServerRepository.save(operationServer);
@@ -149,6 +153,11 @@ public class OperationServerService {
 
         validationService.validateRequest(userid);
 
+        if (!(validationService.isOperator(userid) || validationService.isServerOperator(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
+
+
         OperationServer operationServer = OperationServerRepository.findById(input)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Server not found"));
 
@@ -225,6 +234,12 @@ public class OperationServerService {
     public List<OperationServerResponse> findAll(String userid, Long start, Long size) {
 
         validationService.validateRequest(userid);
+
+        if (!(validationService.isOperator(userid) || validationService.isDacenOperator(userid)
+                || validationService.isOperationSupervisor(userid)
+                || validationService.isSupervisor(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
 
         List<OperationServer> operationServerShowAll = OperationServerRepository.findAll();
 

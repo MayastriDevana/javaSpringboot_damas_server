@@ -32,7 +32,7 @@ public class OperationNetworkLogService {
     public String createLog(String userid, OperationNetworkLog request) {
         validationSecureService.validateUsers(userid);
 
-        if (!(validationSecureService.isOperator(userid) || validationSecureService.isDevOperator(userid) || validationSecureService.isPpoOperator(userid) || validationSecureService. isSkseOperator(userid) || validationSecureService.isDacenOperator(userid) || validationSecureService.isNetworkOperator(userid) || validationSecureService.isServerOperator(userid) || validationSecureService.isItsupportOperator(userid) || validationSecureService.isItmoOperator(userid) || validationSecureService.isItsecurityOperator(userid) || validationSecureService.isLogisticOperator(userid) || validationSecureService.isReviewerSupervisor(userid))) {
+        if (!(validationSecureService.isOperator(userid) || validationSecureService.isNetworkOperator(userid))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
         }
 
@@ -45,9 +45,10 @@ public class OperationNetworkLogService {
     public List<OperationNetworkLogResponse> findAll(String userid, Long start, Long size) {
         validationSecureService.validateUsers(userid);
 
-        if (!(validationSecureService.isOperator(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isDevSupervisor(userid) || validationSecureService.isPpoSupervisor(userid) || validationSecureService.isOperationSupervisor(userid) || validationSecureService.isLogisticSupervisor(userid) || validationSecureService.isReviewerSupervisor(userid) || validationSecureService.isDevOperator(userid) || validationSecureService.isPpoOperator(userid) || validationSecureService. isSkseOperator(userid) || validationSecureService.isNetworkOperator(userid) || validationSecureService.isServerOperator(userid) || validationSecureService.isDacenOperator(userid) || validationSecureService.isItsupportOperator(userid) || validationSecureService.isItmoOperator(userid) || validationSecureService.isItsecurityOperator(userid) || validationSecureService.isLogisticOperator(userid))) {
+        if (!(validationSecureService.isOperator(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isOperationSupervisor(userid))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
         }
+
 
         List<OperationNetworkLog> LogAll = operationNetworkLogRepository.searchAllOrderByStatus();
 
@@ -138,7 +139,8 @@ public class OperationNetworkLogService {
     public String updateStatusLog(String userid, String id, String network_status) {
         validationSecureService.validateUsers(userid);
 
-        if (!(validationSecureService.isSupervisor(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isDevSupervisor(userid) || validationSecureService.isPpoSupervisor(userid) || validationSecureService.isOperationSupervisor(userid) || validationSecureService.isLogisticSupervisor(userid) || validationSecureService.isReviewerSupervisor(userid))) {
+        
+        if (!(validationSecureService.isOperator(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isOperationSupervisor(userid))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
         }
 
