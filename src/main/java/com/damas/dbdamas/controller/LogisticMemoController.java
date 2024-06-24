@@ -65,8 +65,8 @@ public class LogisticMemoController {
     
     @GetMapping("/api/allmemo")
     public WebResponse<List<LogisticMemoResponse>> findAll(@RequestHeader("USER-ID") String userId,
-            @RequestParam(value = "start", defaultValue = "0") Long start,
-            @RequestParam(value = "size", defaultValue = "10") Long size) {
+            @RequestParam(value = "start") Long start,
+            @RequestParam(value = "size") Long size) {
         List<LogisticMemoResponse> response = logisticMemoService.findAll(userId, start, size);
         return WebResponse.<List<LogisticMemoResponse>>builder().data(response).error(null).build();
     }
