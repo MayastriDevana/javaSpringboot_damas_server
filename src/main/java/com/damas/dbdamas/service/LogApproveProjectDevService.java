@@ -15,10 +15,8 @@ import com.damas.dbdamas.repository.LogApproveProjectDevRepository;
 import com.damas.dbsecure.service.ValidationSecureService;
 
 import jakarta.transaction.Transactional;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 public class LogApproveProjectDevService {
 
     @Autowired
@@ -34,6 +32,10 @@ public class LogApproveProjectDevService {
     public String createLog(String userid, LogApproveProjectDev request) {
         validationSecureService.validateUsers(userid);
 
+        if (!(validationSecureService.isOperator(userid) || validationSecureService.isDevOperator(userid) || validationSecureService.isPpoOperator(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
+
         logApproveProjectDevRepository.save(request);
 
         return "request submitted";
@@ -42,6 +44,10 @@ public class LogApproveProjectDevService {
     @Transactional
     public List<LogApproveProjectDevResponse> findAll(String userid, Long start, Long size) {
         validationSecureService.validateUsers(userid);
+
+        if (!(validationSecureService.isOperator(userid) || validationSecureService.isSupervisor(userid) || validationSecureService.isDevSupervisor(userid) || validationSecureService.isPpoSupervisor(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
 
         List<LogApproveProjectDev> LogAll = logApproveProjectDevRepository.searchAllOrderByStatus();
 
@@ -149,6 +155,10 @@ public class LogApproveProjectDevService {
     @Transactional
     public String updateStatusLog(String userid, String id, String status) {
         validationSecureService.validateUsers(userid);
+
+        if (!(validationSecureService.isSupervisor(userid) || validationSecureService.isDevSupervisor(userid) || validationSecureService.isPpoSupervisor(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
 
         LogApproveProjectDev result = logApproveProjectDevRepository.findById(id).orElseThrow(() -> {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "log not found!");
