@@ -20,9 +20,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.damas.dbdamas.model.LogisticMemo;
 import com.damas.dbdamas.model.OperationNetwork;
+import com.damas.dbdamas.model.User;
 import com.damas.dbdamas.model.ProjectDev;
 import com.damas.dbdamas.model.Skse;
-import com.damas.dbdamas.model.User;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration

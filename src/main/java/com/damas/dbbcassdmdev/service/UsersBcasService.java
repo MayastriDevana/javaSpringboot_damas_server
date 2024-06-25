@@ -35,7 +35,8 @@ public class UsersBcasService {
         List<UsersBcasResponse> response = result.stream()
                 .map(item -> new UsersBcasResponse(
                         item.getNama(),
-                        item.getDepartemen()))
+                        item.getDepartemen(),
+                        item.getUserdomain()))
                 .collect(Collectors.toList());
 
         return response;

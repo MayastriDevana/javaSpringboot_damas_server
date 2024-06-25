@@ -25,35 +25,38 @@ public class OperationNetworkService {
     private ValidationService validationService;
 
     @Transactional
-    public OperationNetworkResponse newNetwork(OperationNetworkRequest userid, String token) {
+    public OperationNetworkResponse newNetwork(OperationNetworkRequest request, String userid) {
         validationService.validateRequest(userid);
 
+        if (!(validationService.isOperator(userid) || validationService.isNetworkOperator(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
 
         OperationNetwork operationNetwork = new OperationNetwork();
-        operationNetwork.setNetwork_perihal(userid.getNetwork_perihal());
-        operationNetwork.setNetwork_pic(userid.getNetwork_pic());
-        operationNetwork.setDepartement(userid.getDepartement());
-        operationNetwork.setNetwork_kickoff_start(userid.getNetwork_kickoff_start());
-        operationNetwork.setNetwork_kickoff_deadline(userid.getNetwork_kickoff_deadline());
-        operationNetwork.setNetwork_kickoff_done(userid.getNetwork_kickoff_done());
-        operationNetwork.setNetwork_mop_start(userid.getNetwork_mop_start());
-        operationNetwork.setNetwork_mop_deadline(userid.getNetwork_mop_deadline());
-        operationNetwork.setNetwork_mop_done(userid.getNetwork_mop_done());
-        operationNetwork.setNetwork_demomop_start(userid.getNetwork_demomop_start());
-        operationNetwork.setNetwork_demomop_deadline(userid.getNetwork_demomop_deadline());
-        operationNetwork.setNetwork_demomop_done(userid.getNetwork_demomop_done());
-        operationNetwork.setNetwork_implementasi_start(userid.getNetwork_implementasi_start());
-        operationNetwork.setNetwork_implementasi_deadline(userid.getNetwork_implementasi_deadline());
-        operationNetwork.setNetwork_implementasi_done(userid.getNetwork_implementasi_done());
-        operationNetwork.setNetwork_skse_start(userid.getNetwork_skse_start());
-        operationNetwork.setNetwork_skse_deadline(userid.getNetwork_skse_deadline());
-        operationNetwork.setNetwork_skse_done(userid.getNetwork_skse_done());
-        operationNetwork.setNetwork_uat_start(userid.getNetwork_uat_start());
-        operationNetwork.setNetwork_uat_deadline(userid.getNetwork_uat_deadline());
-        operationNetwork.setNetwork_uat_done(userid.getNetwork_uat_done());
-        operationNetwork.setNetwork_status(userid.getNetwork_status());
-        operationNetwork.setNetwork_deadline_project(userid.getNetwork_deadline_project());
-        operationNetwork.setNetwork_project_done(userid.getNetwork_project_done());
+        operationNetwork.setNetwork_perihal(request.getNetwork_perihal());
+        operationNetwork.setNetwork_pic(request.getNetwork_pic());
+        operationNetwork.setDepartement(request.getDepartement());
+        operationNetwork.setNetwork_kickoff_start(request.getNetwork_kickoff_start());
+        operationNetwork.setNetwork_kickoff_deadline(request.getNetwork_kickoff_deadline());
+        operationNetwork.setNetwork_kickoff_done(request.getNetwork_kickoff_done());
+        operationNetwork.setNetwork_mop_start(request.getNetwork_mop_start());
+        operationNetwork.setNetwork_mop_deadline(request.getNetwork_mop_deadline());
+        operationNetwork.setNetwork_mop_done(request.getNetwork_mop_done());
+        operationNetwork.setNetwork_demomop_start(request.getNetwork_demomop_start());
+        operationNetwork.setNetwork_demomop_deadline(request.getNetwork_demomop_deadline());
+        operationNetwork.setNetwork_demomop_done(request.getNetwork_demomop_done());
+        operationNetwork.setNetwork_implementasi_start(request.getNetwork_implementasi_start());
+        operationNetwork.setNetwork_implementasi_deadline(request.getNetwork_implementasi_deadline());
+        operationNetwork.setNetwork_implementasi_done(request.getNetwork_implementasi_done());
+        operationNetwork.setNetwork_skse_start(request.getNetwork_skse_start());
+        operationNetwork.setNetwork_skse_deadline(request.getNetwork_skse_deadline());
+        operationNetwork.setNetwork_skse_done(request.getNetwork_skse_done());
+        operationNetwork.setNetwork_uat_start(request.getNetwork_uat_start());
+        operationNetwork.setNetwork_uat_deadline(request.getNetwork_uat_deadline());
+        operationNetwork.setNetwork_uat_done(request.getNetwork_uat_done());
+        operationNetwork.setNetwork_status(request.getNetwork_status());
+        operationNetwork.setNetwork_deadline_project(request.getNetwork_deadline_project());
+        operationNetwork.setNetwork_project_done(request.getNetwork_project_done());
 
         OperationNetworkRepository.save(operationNetwork);
 
@@ -138,6 +141,10 @@ public class OperationNetworkService {
 
         validationService.validateRequest(userid);
 
+        if (!(validationService.isOperator(userid) || validationService.isNetworkOperator(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
+
 
         OperationNetwork operationNetwork = OperationNetworkRepository.findById(input)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Network not found"));
@@ -202,8 +209,11 @@ public class OperationNetworkService {
     public List<OperationNetworkResponse> findAll(String userid, Long start, Long size) {
         validationService.validateRequest(userid);
 
-        
-
+        if (!(validationService.isOperator(userid) || validationService.isNetworkOperator(userid)
+        || validationService.isOperationSupervisor(userid)
+        || validationService.isSupervisor(userid))) {
+    throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+}
         List<OperationNetwork> operationNetworkShowAll = OperationNetworkRepository.findAll();
 
         List<OperationNetworkResponse> response = operationNetworkShowAll.stream()

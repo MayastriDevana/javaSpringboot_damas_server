@@ -117,4 +117,10 @@ public class ProjectDevRequest {
 
     @Size(max = 100)
     private String createdby;
+
+    @Size(max = 100)
+    private String userdomain;
+
+    @Size(max = 100)
+    private String userdomainpic;
 }

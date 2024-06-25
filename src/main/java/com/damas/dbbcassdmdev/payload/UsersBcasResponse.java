@@ -13,4 +13,5 @@ import lombok.NoArgsConstructor;
 public class UsersBcasResponse {
     private String nama;
     private String departemen;
+    private String userdomain;
 }

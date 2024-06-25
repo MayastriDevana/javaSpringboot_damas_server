@@ -25,44 +25,48 @@ public class OperationDacenService {
     private ValidationService validationService;
 
     @Transactional
-    public OperationDacenResponse newDacen(OperationDacenRequest userid, String token) {
-        validationService.validateRequest(userid);
+    public OperationDacenResponse newDacen(OperationDacenRequest request, String userid) {
+        validationService.validateUsers(userid);
+
+        if (!(validationService.isOperator(userid) || validationService.isDacenOperator(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
         
         OperationDacen operationDacen = new OperationDacen();
-        operationDacen.setDacen_perihal(userid.getDacen_perihal());
-        operationDacen.setDacen_pic(userid.getDacen_pic());
-        operationDacen.setDepartement(userid.getDepartement());
-        operationDacen.setDacen_phase1(userid.getDacen_phase1());
-        operationDacen.setDacen_phase1_start(userid.getDacen_phase1_start());
-        operationDacen.setDacen_phase1_deadline(userid.getDacen_phase1_deadline());
-        operationDacen.setDacen_phase1_done(userid.getDacen_phase1_done());
-        operationDacen.setDacen_phase2(userid.getDacen_phase2());
-        operationDacen.setDacen_phase2_start(userid.getDacen_phase2_start());
-        operationDacen.setDacen_phase2_deadline(userid.getDacen_phase2_deadline());
-        operationDacen.setDacen_phase2_done(userid.getDacen_phase2_done());
-        operationDacen.setDacen_phase3(userid.getDacen_phase3());
-        operationDacen.setDacen_phase3_start(userid.getDacen_phase3_start());
-        operationDacen.setDacen_phase3_deadline(userid.getDacen_phase3_deadline());
-        operationDacen.setDacen_phase3_done(userid.getDacen_phase3_done());
-        operationDacen.setDacen_phase4(userid.getDacen_phase4());
-        operationDacen.setDacen_phase4_start(userid.getDacen_phase4_start());
-        operationDacen.setDacen_phase4_deadline(userid.getDacen_phase4_deadline());
-        operationDacen.setDacen_phase4_done(userid.getDacen_phase4_done());
-        operationDacen.setDacen_phase5(userid.getDacen_phase5());
-        operationDacen.setDacen_phase5_start(userid.getDacen_phase5_start());
-        operationDacen.setDacen_phase5_deadline(userid.getDacen_phase5_deadline());
-        operationDacen.setDacen_phase5_done(userid.getDacen_phase5_done());
-        operationDacen.setDacen_phase6(userid.getDacen_phase6());
-        operationDacen.setDacen_phase6_start(userid.getDacen_phase6_start());
-        operationDacen.setDacen_phase6_deadline(userid.getDacen_phase6_deadline());
-        operationDacen.setDacen_phase6_done(userid.getDacen_phase6_done());
-        operationDacen.setDacen_phase7(userid.getDacen_phase7());
-        operationDacen.setDacen_phase7_start(userid.getDacen_phase7_start());
-        operationDacen.setDacen_phase7_deadline(userid.getDacen_phase7_deadline());
-        operationDacen.setDacen_phase7_done(userid.getDacen_phase7_done());
-        operationDacen.setDacen_status(userid.getDacen_status());
-        operationDacen.setDacen_deadline_project(userid.getDacen_deadline_project());
-        operationDacen.setDacen_project_done(userid.getDacen_project_done());
+        operationDacen.setDacen_perihal(request.getDacen_perihal());
+        operationDacen.setDacen_pic(request.getDacen_pic());
+        operationDacen.setDepartement(request.getDepartement());
+        operationDacen.setDacen_phase1(request.getDacen_phase1());
+        operationDacen.setDacen_phase1_start(request.getDacen_phase1_start());
+        operationDacen.setDacen_phase1_deadline(request.getDacen_phase1_deadline());
+        operationDacen.setDacen_phase1_done(request.getDacen_phase1_done());
+        operationDacen.setDacen_phase2(request.getDacen_phase2());
+        operationDacen.setDacen_phase2_start(request.getDacen_phase2_start());
+        operationDacen.setDacen_phase2_deadline(request.getDacen_phase2_deadline());
+        operationDacen.setDacen_phase2_done(request.getDacen_phase2_done());
+        operationDacen.setDacen_phase3(request.getDacen_phase3());
+        operationDacen.setDacen_phase3_start(request.getDacen_phase3_start());
+        operationDacen.setDacen_phase3_deadline(request.getDacen_phase3_deadline());
+        operationDacen.setDacen_phase3_done(request.getDacen_phase3_done());
+        operationDacen.setDacen_phase4(request.getDacen_phase4());
+        operationDacen.setDacen_phase4_start(request.getDacen_phase4_start());
+        operationDacen.setDacen_phase4_deadline(request.getDacen_phase4_deadline());
+        operationDacen.setDacen_phase4_done(request.getDacen_phase4_done());
+        operationDacen.setDacen_phase5(request.getDacen_phase5());
+        operationDacen.setDacen_phase5_start(request.getDacen_phase5_start());
+        operationDacen.setDacen_phase5_deadline(request.getDacen_phase5_deadline());
+        operationDacen.setDacen_phase5_done(request.getDacen_phase5_done());
+        operationDacen.setDacen_phase6(request.getDacen_phase6());
+        operationDacen.setDacen_phase6_start(request.getDacen_phase6_start());
+        operationDacen.setDacen_phase6_deadline(request.getDacen_phase6_deadline());
+        operationDacen.setDacen_phase6_done(request.getDacen_phase6_done());
+        operationDacen.setDacen_phase7(request.getDacen_phase7());
+        operationDacen.setDacen_phase7_start(request.getDacen_phase7_start());
+        operationDacen.setDacen_phase7_deadline(request.getDacen_phase7_deadline());
+        operationDacen.setDacen_phase7_done(request.getDacen_phase7_done());
+        operationDacen.setDacen_status(request.getDacen_status());
+        operationDacen.setDacen_deadline_project(request.getDacen_deadline_project());
+        operationDacen.setDacen_project_done(request.getDacen_project_done());
 
         OperationDacenRepository.save(operationDacen);
 
@@ -169,6 +173,10 @@ public class OperationDacenService {
 
         validationService.validateRequest(userid);
 
+        if (!(validationService.isOperator(userid) || validationService.isDacenOperator(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
+
         OperationDacen operationDacen = OperationDacenRepository.findById(input)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Data not found"));
 
@@ -260,6 +268,10 @@ public class OperationDacenService {
     public List<OperationDacenResponse> findAll(String userid, Long start, Long size) {
 
         validationService.validateRequest(userid);
+
+        if (!(validationService.isOperator(userid) || validationService.isSupervisor(userid) || validationService.isOperationSupervisor(userid) || validationService.isDacenOperator(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
 
         List<OperationDacen> operationDacenShowAll = OperationDacenRepository.findAll();
 

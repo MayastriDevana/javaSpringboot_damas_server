@@ -1,5 +1,6 @@
 package com.damas.dbdamas.service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,44 +26,50 @@ public class ProjectDevService {
     private ValidationService validationService;
 
     @Transactional
-    public ProjectDevResponse newProject(ProjectDevRequest userid, String token) {
-        validationService.validateRequest(userid);
+    public ProjectDevResponse newProject(ProjectDevRequest request, String userid) {
+        validationService.validateUsers(userid);
+
+        if (!(validationService.isOperator(userid) || validationService.isDevOperator(userid) || validationService.isPpoOperator(userid))) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+            }
 
         ProjectDev projectDev = new ProjectDev();
-        projectDev.setProjectname(userid.getProjectname());
-        projectDev.setPic(userid.getPic());
-        projectDev.setDepartement(userid.getDepartement());
-        projectDev.setKickoffstart(userid.getKickoffstart());
-        projectDev.setKickoffdeadline(userid.getKickoffdeadline());
-        projectDev.setKickoffdone(userid.getKickoffdone());
-        projectDev.setUserrequirementstart(userid.getUserrequirementstart());
-        projectDev.setUserrequirementdeadline(userid.getUserrequirementdeadline());
-        projectDev.setUserrequirementdone(userid.getUserrequirementdone());
-        projectDev.setApplicationdevelopmentstart(userid.getApplicationdevelopmentstart());
-        projectDev.setApplicationdevelopmentdeadline(userid.getApplicationdevelopmentdeadline());
-        projectDev.setApplicationdevelopmentdone(userid.getApplicationdevelopmentdone());
-        projectDev.setSitstart(userid.getSitstart());
-        projectDev.setSitdeadline(userid.getSitdeadline());
-        projectDev.setSitdone(userid.getSitdone());
-        projectDev.setUatstart(userid.getUatstart());
-        projectDev.setUatdeadline(userid.getUatdeadline());
-        projectDev.setUatdone(userid.getUatdone());
-        projectDev.setImplementationpreparestart(userid.getImplementationpreparestart());
-        projectDev.setImplementationpreparedeadline(userid.getImplementationpreparedeadline());
-        projectDev.setImplementationpreparedone(userid.getImplementationpreparedone());
-        projectDev.setImplementationmeetingstart(userid.getImplementationmeetingstart());
-        projectDev.setImplementationmeetingdeadline(userid.getImplementationmeetingdeadline());
-        projectDev.setImplementationmeetingdone(userid.getImplementationmeetingdone());
-        projectDev.setImplementationstart(userid.getImplementationstart());
-        projectDev.setImplementationdeadline(userid.getImplementationdeadline());
-        projectDev.setImplementationdone(userid.getImplementationdone());
-        projectDev.setPostimplementationreviewstart(userid.getPostimplementationreviewstart());
-        projectDev.setPostimplementationreviewdeadline(userid.getPostimplementationreviewdeadline());
-        projectDev.setPostimplementationreviewdone(userid.getPostimplementationreviewdone());
-        projectDev.setStatus(userid.getStatus());
-        projectDev.setDeadlineproject(userid.getDeadlineproject());
-        projectDev.setProjectdone(userid.getProjectdone());
-        projectDev.setCreatedby(userid.getCreatedby());
+        projectDev.setProjectname(request.getProjectname());
+        projectDev.setPic(request.getPic());
+        projectDev.setDepartement(request.getDepartement());
+        projectDev.setKickoffstart(request.getKickoffstart());
+        projectDev.setKickoffdeadline(request.getKickoffdeadline());
+        projectDev.setKickoffdone(request.getKickoffdone());
+        projectDev.setUserrequirementstart(request.getUserrequirementstart());
+        projectDev.setUserrequirementdeadline(request.getUserrequirementdeadline());
+        projectDev.setUserrequirementdone(request.getUserrequirementdone());
+        projectDev.setApplicationdevelopmentstart(request.getApplicationdevelopmentstart());
+        projectDev.setApplicationdevelopmentdeadline(request.getApplicationdevelopmentdeadline());
+        projectDev.setApplicationdevelopmentdone(request.getApplicationdevelopmentdone());
+        projectDev.setSitstart(request.getSitstart());
+        projectDev.setSitdeadline(request.getSitdeadline());
+        projectDev.setSitdone(request.getSitdone());
+        projectDev.setUatstart(request.getUatstart());
+        projectDev.setUatdeadline(request.getUatdeadline());
+        projectDev.setUatdone(request.getUatdone());
+        projectDev.setImplementationpreparestart(request.getImplementationpreparestart());
+        projectDev.setImplementationpreparedeadline(request.getImplementationpreparedeadline());
+        projectDev.setImplementationpreparedone(request.getImplementationpreparedone());
+        projectDev.setImplementationmeetingstart(request.getImplementationmeetingstart());
+        projectDev.setImplementationmeetingdeadline(request.getImplementationmeetingdeadline());
+        projectDev.setImplementationmeetingdone(request.getImplementationmeetingdone());
+        projectDev.setImplementationstart(request.getImplementationstart());
+        projectDev.setImplementationdeadline(request.getImplementationdeadline());
+        projectDev.setImplementationdone(request.getImplementationdone());
+        projectDev.setPostimplementationreviewstart(request.getPostimplementationreviewstart());
+        projectDev.setPostimplementationreviewdeadline(request.getPostimplementationreviewdeadline());
+        projectDev.setPostimplementationreviewdone(request.getPostimplementationreviewdone());
+        projectDev.setStatus(request.getStatus());
+        projectDev.setDeadlineproject(request.getDeadlineproject());
+        projectDev.setProjectdone(request.getProjectdone());
+        projectDev.setCreatedby(request.getCreatedby());
+        projectDev.setUserdomain(request.getUserdomain());
+        projectDev.setUserdomainpic(request.getUserdomainpic());
 
         projectDevRepository.save(projectDev);
 
@@ -103,7 +110,7 @@ public class ProjectDevService {
                 .postimplementationreviewdone((projectDev.getPostimplementationreviewdone()))
 
                 .status(projectDev.getStatus()).deadlineproject((projectDev.getDeadlineproject())).projectdone(projectDev.getProjectdone())
-                .createdby(projectDev.getCreatedby())
+                .createdby(projectDev.getCreatedby()).userdomain(projectDev.getUserdomain()).userdomainpic(projectDev.getUserdomainpic())
                 .build();
     }
 
@@ -151,6 +158,8 @@ public class ProjectDevService {
                         item.getDeadlineproject(),
                         item.getProjectdone(),
                         item.getCreatedby(),
+                        item.getUserdomain(),
+                        item.getUserdomainpic(),
                         projectByName.size()))
                 .collect((Collectors.toList()));
         return response;
@@ -159,6 +168,10 @@ public class ProjectDevService {
     @Transactional
     public ProjectDevResponse editedProject(String userid, ProjectDevRequest request, String input) {
         validationService.validateRequest(request);
+
+        if (!(validationService.isOperator(userid) || validationService.isDevOperator(userid) || validationService.isPpoOperator(userid))) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+            }
         ProjectDev projectDev = projectDevRepository.findById(input)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found"));
 
@@ -196,6 +209,8 @@ public class ProjectDevService {
         projectDev.setDeadlineproject(request.getDeadlineproject());
         projectDev.setProjectdone(request.getProjectdone());
         projectDev.setCreatedby(request.getCreatedby());
+        projectDev.setUserdomain(request.getUserdomain());
+        projectDev.setUserdomainpic(request.getUserdomainpic());
 
         projectDevRepository.save(projectDev);
 
@@ -234,12 +249,18 @@ public class ProjectDevService {
                 .deadlineproject(projectDev.getDeadlineproject())
                 .projectdone(projectDev.getProjectdone())
                 .createdby(projectDev.getCreatedby())
+                .userdomain(projectDev.getUserdomain())
+                .userdomainpic(projectDev.getUserdomainpic())
                 .build();
     }
 
     @Transactional
     public List<ProjectDevResponse> findAll(String userid, Long start, Long size) {
         validationService.validateRequest(userid);
+
+        if (!(validationService.isOperator(userid) || validationService.isDevOperator(userid) || validationService.isPpoSupervisor(userid) || validationService.isDevSupervisor(userid) || validationService.isSupervisor(userid) || validationService.isPpoOperator(userid))) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+            }
 
         List<ProjectDev> projectDevAll = projectDevRepository.searchAllOrderByDeadline();
 
@@ -281,11 +302,72 @@ public class ProjectDevService {
                         item.getDeadlineproject(),
                         item.getProjectdone(),
                         item.getCreatedby(),
+                        item.getUserdomain(),
+                        item.getUserdomainpic(),
                         projectDevAll.size()))
                 .collect(Collectors.toList());
 
         return response;
 
     }
+
+    @Transactional
+public List<ProjectDevResponse> findByUserdomainOrderByDeadline(String userid, Long start, Long size, String userdomain) {
+      
+    // Melakukan validasi terhadap user yang sedang login
+    validationService.validateRequest(userid);
+
+    if (!(validationService.isOperator(userid) || validationService.isDevOperator(userid) || validationService.isPpoSupervisor(userid) || validationService.isDevSupervisor(userid) || validationService.isSupervisor(userid) || validationService.isPpoOperator(userid))) {
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+    }
+
+    // Mengambil data proyek berdasarkan userdomain
+    List<ProjectDev> projectDevAll = projectDevRepository.findByUserdomainOrderByDeadline(userdomain);
+
+    List<ProjectDevResponse> response = projectDevAll.stream()
+            .skip(start).limit(size)
+            .map(item -> new ProjectDevResponse(
+                item.getId(),
+                item.getProjectname(),
+                item.getPic(),
+                item.getDepartement(),
+                item.getKickoffstart(),
+                item.getKickoffdeadline(),
+                item.getKickoffdone(),
+                item.getUserrequirementstart(),
+                item.getUserrequirementdeadline(),
+                item.getUserrequirementdone(),
+                item.getApplicationdevelopmentstart(),
+                item.getApplicationdevelopmentdeadline(),
+                item.getApplicationdevelopmentdone(),
+                item.getSitstart(),
+                item.getSitdeadline(),
+                item.getSitdone(),
+                item.getUatstart(),
+                item.getUatdeadline(),
+                item.getUatdone(),
+                item.getImplementationpreparestart(),
+                item.getImplementationpreparedeadline(),
+                item.getImplementationpreparedone(),
+                item.getImplementationmeetingstart(),
+                item.getImplementationmeetingdeadline(),
+                item.getImplementationmeetingdone(),
+                item.getImplementationstart(),
+                item.getImplementationdeadline(),
+                item.getImplementationdone(),
+                item.getPostimplementationreviewstart(),
+                item.getPostimplementationreviewdeadline(),
+                item.getPostimplementationreviewdone(),
+                item.getStatus(),
+                item.getDeadlineproject(),
+                item.getProjectdone(),
+                item.getCreatedby(),
+                item.getUserdomain(),
+                item.getUserdomainpic(),
+                projectDevAll.size()))
+            .collect(Collectors.toList());
+
+    return response;
+}
 
 }

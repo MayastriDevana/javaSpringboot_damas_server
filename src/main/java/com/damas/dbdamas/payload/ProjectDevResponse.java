@@ -81,5 +81,9 @@ public class ProjectDevResponse {
 
     private String createdby;
 
+    private String userdomain;
+
+    private String userdomainpic;
+
     private Integer maxSize;
 }
