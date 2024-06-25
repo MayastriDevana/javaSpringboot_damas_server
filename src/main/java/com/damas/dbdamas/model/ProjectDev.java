@@ -120,4 +120,9 @@ public class ProjectDev {
     @Column(name = "created_by")
     private String createdby;
 
+    private String userdomain;
+
+    @Column(name = "userdomain_pic")
+    private String userdomainpic;
+
 }

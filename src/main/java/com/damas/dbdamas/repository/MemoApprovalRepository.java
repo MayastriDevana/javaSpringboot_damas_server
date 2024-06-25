@@ -1,7 +1,9 @@
 package com.damas.dbdamas.repository;
 
-import com.damas.dbdamas.model.MemoApproval;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.damas.dbdamas.model.MemoApproval;
+
 import java.util.Optional;
 
 public interface MemoApprovalRepository extends JpaRepository<MemoApproval, String> {

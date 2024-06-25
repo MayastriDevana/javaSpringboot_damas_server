@@ -22,4 +22,8 @@ public class UsersBcasRequest {
     @Size(max = 100)
     private String departemen;
 
+    @NotBlank
+    @Size(max = 100)
+    private String userdomain;
+
 }
