@@ -169,7 +169,7 @@ public class ProjectDevService {
     public ProjectDevResponse editedProject(String userid, ProjectDevRequest request, String input) {
         validationService.validateRequest(request);
 
-        if (!(validationService.isOperator(userid) || validationService.isDevOperator(userid) || validationService.isPpoOperator(userid))) {
+        if (!(validationService.isOperator(userid) || validationService.isDevOperator(userid) || validationService.isPpoOperator(userid) || validationService.isDevSupervisor(userid) || validationService.isPpoSupervisor(userid))) {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
             }
         ProjectDev projectDev = projectDevRepository.findById(input)

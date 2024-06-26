@@ -1,5 +1,6 @@
 package com.damas.dbdamas.payload;
 
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -90,6 +91,12 @@ public class LogApproveProjectDevResponse {
     private String deadlineproject;
 
     private String projectdone;
+
+    private String userdomain;
+
+    private String userdomainpic;
+
+    private String createdby;
 
     private Integer maxSize;
 }

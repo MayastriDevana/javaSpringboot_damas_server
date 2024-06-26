@@ -39,12 +39,16 @@ public class SkseService {
                 skse.setDepartement(request.getDepartement());
                 skse.setDeadline(request.getDeadline());
                 skse.setStatus(request.getStatus());
+                skse.setUserdomain(request.getUserdomain());
+                skse.setUserdomainpic(request.getUserdomainpic());
+                skse.setCreatedby(request.getCreatedby());
 
                 skseRepository.save(skse);
 
                 return SkseResponse.builder().nosurat(skse.getNosurat()).perihal(skse.getPerihal()).pic(skse.getPic())
                                 .departement(skse.getDepartement())
-                                .deadline(skse.getDeadline()).status(skse.getStatus()).build();
+                                .deadline(skse.getDeadline()).status(skse.getStatus()).userdomain(skse.getUserdomain()).userdomainpic(skse.getUserdomainpic())
+                                .build();
         }
 
         @Transactional
@@ -63,6 +67,9 @@ public class SkseService {
                                                 item.getDepartement(),
                                                 item.getDeadline(),
                                                 item.getStatus(),
+                                                item.getUserdomain(),
+                                                item.getUserdomainpic(),
+                                                item.getCreatedby(),
                                                 skseByPerihal.size()))
                                 .collect((Collectors.toList()));
                 return response;
@@ -73,7 +80,7 @@ public class SkseService {
 
                 validationService.validateRequest(userid);
 
-                if (!(validationService.isOperator(userid) || validationService.isSkseOperator(userid))) {
+                if (!(validationService.isOperator(userid) || validationService.isSkseOperator(userid) || validationService.isPpoSupervisor(userid))) {
                         throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
                 }
 
@@ -87,6 +94,9 @@ public class SkseService {
                 skse.setDepartement(request.getDepartement());
                 skse.setDeadline(request.getDeadline());
                 skse.setStatus(request.getStatus());
+                skse.setUserdomain(request.getUserdomain());
+                skse.setUserdomainpic(request.getUserdomainpic());
+                skse.setCreatedby(request.getCreatedby());
 
                 skseRepository.save(skse);
 
@@ -97,6 +107,9 @@ public class SkseService {
                                 .departement(skse.getDepartement())
                                 .deadline(skse.getDeadline())
                                 .status(skse.getStatus())
+                                .userdomain(skse.getUserdomain())
+                                .userdomainpic(skse.getUserdomainpic())
+                                .createdby(skse.getCreatedby())
                                 .build();
         }
 
@@ -120,6 +133,39 @@ public class SkseService {
                                                 item.getDepartement(),
                                                 item.getDeadline(),
                                                 item.getStatus(),
+                                                item.getUserdomain(),
+                                                item.getUserdomainpic(),
+                                                item.getCreatedby(),
+                                                skseAll.size()))
+                                .collect(Collectors.toList());
+
+                return response;
+
+        }
+
+        @Transactional
+        public List<SkseResponse> findByUserdomainOrderByDeadline(String userid, Long start, Long size, String userdomain) {
+                validationService.validateRequest(userid);
+
+                if (!(validationService.isOperator(userid) || validationService.isSkseOperator(userid) || validationService.isPpoSupervisor(userid) || validationService.isSupervisor(userid) || validationService.isPpoOperator(userid))) {
+                        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+                    }
+
+                List<Skse> skseAll = skseRepository.findByUserdomainOrderByDeadline(userdomain);
+
+                List<SkseResponse> response = skseAll.stream()
+                                .skip(start).limit(size)
+                                .map(item -> new SkseResponse(
+                                                item.getId(),
+                                                item.getNosurat(),
+                                                item.getPerihal(),
+                                                item.getPic(),
+                                                item.getDepartement(),
+                                                item.getDeadline(),
+                                                item.getStatus(),
+                                                item.getUserdomain(),
+                                                item.getUserdomainpic(),
+                                                item.getCreatedby(),
                                                 skseAll.size()))
                                 .collect(Collectors.toList());
 
