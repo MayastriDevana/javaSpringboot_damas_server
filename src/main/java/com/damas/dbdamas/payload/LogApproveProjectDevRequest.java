@@ -1,5 +1,6 @@
 package com.damas.dbdamas.payload;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -155,4 +156,13 @@ public class LogApproveProjectDevRequest {
 
     @Size(max = 100)
     private String projectdone;
+
+    @Size(max = 100)
+    private String userdomain;
+
+    @Size(max = 100)
+    private String userdomainpic;
+
+    @Size(max = 100)
+    private String createdby;
 }

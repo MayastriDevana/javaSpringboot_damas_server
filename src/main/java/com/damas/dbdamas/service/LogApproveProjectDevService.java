@@ -94,6 +94,9 @@ public class LogApproveProjectDevService {
             item.getStatus(),
             item.getDeadlineproject(),
             item.getProjectdone(),
+            item.getUserdomain(),
+            item.getUserdomainpic(),
+            item.getCreatedby(),
             LogAll.size()))
             .collect(Collectors.toList());
     
@@ -147,6 +150,9 @@ public class LogApproveProjectDevService {
             item.getStatus(),
             item.getDeadlineproject(),
             item.getProjectdone(),
+            item.getUserdomain(),
+            item.getUserdomainpic(),
+            item.getCreatedby(),
             logByName.size()))
     .collect((Collectors.toList()));
        return response;
@@ -200,6 +206,9 @@ public class LogApproveProjectDevService {
         inputRequestProjectDev.setStatus(result.getStatus());
         inputRequestProjectDev.setDeadlineproject(result.getDeadlineproject());
         inputRequestProjectDev.setProjectdone(result.getProjectdone());
+        inputRequestProjectDev.setUserdomain(result.getUserdomain());
+        inputRequestProjectDev.setUserdomainpic(result.getUserdomainpic());
+        inputRequestProjectDev.setCreatedby(result.getCreatedby());
 
         if (status.toUpperCase().equals("APPROVED")) {
             projectDevService.editedProject(userid, inputRequestProjectDev, result.getIdproject());

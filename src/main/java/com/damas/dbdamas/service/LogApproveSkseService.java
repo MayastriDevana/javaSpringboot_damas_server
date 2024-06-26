@@ -70,6 +70,9 @@ public class LogApproveSkseService {
         item.getDepartement(),
         item.getDeadline(),
         item.getStatus(),
+        item.getUserdomain(),
+        item.getUserdomainpic(),
+        item.getCreatedby(),
         skseAll.size()))
         .collect(Collectors.toList());
 
@@ -96,6 +99,9 @@ public class LogApproveSkseService {
             item.getDepartement(),
             item.getDeadline(),
             item.getStatus(),
+            item.getUserdomain(),
+            item.getUserdomainpic(),
+            item.getCreatedby(),
             logByPerihal.size()))
             .collect((Collectors.toList()));
             return response;
@@ -122,6 +128,9 @@ public class LogApproveSkseService {
         inputRequestSkse.setDepartement(result.getDepartement());
         inputRequestSkse.setDeadline(result.getDeadline());
         inputRequestSkse.setStatus(result.getStatus());
+        inputRequestSkse.setUserdomain(result.getUserdomain());
+        inputRequestSkse.setUserdomainpic(result.getUserdomainpic());
+        inputRequestSkse.setCreatedby(result.getCreatedby());
        
 
         if (status.toUpperCase().equals("APPROVED")) {

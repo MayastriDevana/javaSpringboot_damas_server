@@ -40,4 +40,12 @@ public class Skse {
     @Column(name = "skse_status")
     private String status;
 
+    private String userdomain;
+
+    @Column(name = "userdomain_pic")
+    private String userdomainpic;
+
+    @Column(name = "created_by")
+    private String createdby;
+
 }

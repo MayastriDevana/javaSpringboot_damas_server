@@ -1,6 +1,7 @@
 package com.damas.dbdamas.payload;
 
 
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,6 +38,12 @@ public class LogApproveSkseResponse {
     private String deadline;
 
     private String status;
+
+    private String userdomain;
+
+    private String userdomainpic;
+
+    private String createdby;
 
     private Integer maxSize;
 }

@@ -51,4 +51,14 @@ public class LogApproveSkseRequest {
     
     @Size(max = 100)
     private String status;
+
+    @Size(max = 100)
+    private String userdomain;
+
+    @Size(max = 100)
+    private String userdomainpic;
+
+    @Size(max = 100)
+    private String createdby;
+    
 }

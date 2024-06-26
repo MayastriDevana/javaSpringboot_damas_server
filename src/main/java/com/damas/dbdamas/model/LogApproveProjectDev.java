@@ -134,4 +134,12 @@ public class LogApproveProjectDev {
     @Column(name = "project_done")
     private String projectdone;
 
+    private String userdomain;
+
+    @Column(name = "userdomain_pic")
+    private String userdomainpic;
+
+    @Column(name = "created_by")
+    private String createdby;
+
 }
