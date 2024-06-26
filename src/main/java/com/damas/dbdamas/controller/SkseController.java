@@ -1,6 +1,5 @@
 package com.damas.dbdamas.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 import com.damas.dbdamas.payload.SkseRequest;
 import com.damas.dbdamas.payload.SkseResponse;
 import com.damas.dbdamas.payload.WebResponse;
@@ -24,30 +22,26 @@ public class SkseController {
     @Autowired
     private SkseService skseService;
 
+    @PostMapping(path = "/api/newskse", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 
-    @PostMapping(
-    path = "/api/newskse",
-    consumes = MediaType.APPLICATION_JSON_VALUE,
-    produces = MediaType.APPLICATION_JSON_VALUE
-    )
-
-    public WebResponse<SkseResponse> newSkse(@RequestBody SkseRequest request, @RequestHeader("USER-ID") String userid){
+    public WebResponse<SkseResponse> newSkse(@RequestBody SkseRequest request,
+            @RequestHeader("USER-ID") String userid) {
         SkseResponse skseResponse = skseService.newSkse(request, userid);
-    
-    return WebResponse.<SkseResponse>builder().data(skseResponse).error(null).build();
+
+        return WebResponse.<SkseResponse>builder().data(skseResponse).error(null).build();
     }
 
     @GetMapping("/api/allskse")
     public WebResponse<List<SkseResponse>> findAll(
-        @RequestHeader("USER-ID") String userid,
-        @RequestParam("start") Long start,
-        @RequestParam("size") Long size) {
-    List<SkseResponse> response = skseService.findAll(userid, start, size); 
+            @RequestHeader("USER-ID") String userid,
+            @RequestParam("start") Long start,
+            @RequestParam("size") Long size) {
+        List<SkseResponse> response = skseService.findAll(userid, start, size);
 
-    return WebResponse.<List<SkseResponse>>builder().data(response).error(null).build();
+        return WebResponse.<List<SkseResponse>>builder().data(response).error(null).build();
     }
 
-     @GetMapping("api/allskse/getskse")
+    @GetMapping("api/allskse/getskse")
     public WebResponse<List<SkseResponse>> findSkse(
             @RequestHeader("USER-ID") String userid,
             @RequestParam("input") String input) {
@@ -56,7 +50,7 @@ public class SkseController {
         return WebResponse.<List<SkseResponse>>builder().data(response).error(null).build();
     }
 
-     @PutMapping("/api/allskse/editedskse")
+    @PutMapping("/api/allskse/editedskse")
     public WebResponse<SkseResponse> editedSkse(
             @RequestHeader("USER-ID") String userid,
             @RequestBody SkseRequest request,
@@ -65,4 +59,16 @@ public class SkseController {
 
         return WebResponse.<SkseResponse>builder().data(skseResponse).error(null).build();
     }
+
+    @GetMapping("/api/allskse/userdomainskse")
+    public WebResponse<List<SkseResponse>> findByUserdomainOrderByDeadline(
+            @RequestHeader("USER-ID") String userid,
+            @RequestParam("start") Long start,
+            @RequestParam("size") Long size,
+            @RequestParam("userdomain") String userdomain) {
+        List<SkseResponse> response = skseService.findByUserdomainOrderByDeadline(userid, start, size,
+                userdomain);
+        return WebResponse.<List<SkseResponse>>builder().data(response).error(null).build();
+    }
+
 }

@@ -143,4 +143,34 @@ public class SkseService {
 
         }
 
+        @Transactional
+        public List<SkseResponse> findByUserdomainOrderByDeadline(String userid, Long start, Long size, String userdomain) {
+                validationService.validateRequest(userid);
+
+                if (!(validationService.isOperator(userid) || validationService.isSkseOperator(userid) || validationService.isPpoSupervisor(userid) || validationService.isSupervisor(userid) || validationService.isPpoOperator(userid))) {
+                        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+                    }
+
+                List<Skse> skseAll = skseRepository.findByUserdomainOrderByDeadline(userdomain);
+
+                List<SkseResponse> response = skseAll.stream()
+                                .skip(start).limit(size)
+                                .map(item -> new SkseResponse(
+                                                item.getId(),
+                                                item.getNosurat(),
+                                                item.getPerihal(),
+                                                item.getPic(),
+                                                item.getDepartement(),
+                                                item.getDeadline(),
+                                                item.getStatus(),
+                                                item.getUserdomain(),
+                                                item.getUserdomainpic(),
+                                                item.getCreatedby(),
+                                                skseAll.size()))
+                                .collect(Collectors.toList());
+
+                return response;
+
+        }
+
 }

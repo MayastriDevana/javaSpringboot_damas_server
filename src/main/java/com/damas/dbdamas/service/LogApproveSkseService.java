@@ -111,7 +111,7 @@ public class LogApproveSkseService {
     public String updateStatusLog(String userid, String id, String status){
         validationSecureService.validateUsers(userid);
 
-        if (!(validationSecureService.isSupervisor(userid) || validationSecureService.isPpoSupervisor(userid))) {
+        if (!(validationSecureService.isSupervisor(userid) || validationSecureService.isPpoSupervisor(userid) || validationSecureService.isOperator(userid))) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
         }
 
