@@ -45,6 +45,9 @@ public class LogisticMemoService {
                 logisticMemo.setMemo_status(request.getMemo_status());
                 logisticMemo.setMemo_deadline(request.getMemo_deadline());
                 logisticMemo.setMemo_notes(request.getMemo_notes());
+                logisticMemo.setUserdomain(request.getUserdomain());
+                logisticMemo.setUserdomainpic(request.getUserdomainpic());
+                logisticMemo.setUserdomainreviewer(request.getUserdomainreviewer());
 
                 if (request.getMemo_upload() != null) {
                         logisticMemo.setMemo_upload(
@@ -65,6 +68,9 @@ public class LogisticMemoService {
                                 .memo_deadline(new Date(logisticMemo.getMemo_deadline().getTime()))
                                 .memo_notes(logisticMemo.getMemo_notes())
                                 .memo_upload(logisticMemo.getMemo_upload())
+                                .userdomain(logisticMemo.getUserdomain())
+                                .userdomainpic(logisticMemo.getUserdomainpic())
+                                .userdomainreviewer(logisticMemo.getUserdomainreviewer())
                                 .build();
         }
 
@@ -142,6 +148,75 @@ public class LogisticMemoService {
                                                 .build())
                                 .collect(Collectors.toList());
         }
+
+
+        @Transactional
+    public List<LogisticMemoResponse> findAllByUserdomainPicOrderByDeadline(String userid, Long start, Long size, String userdomain) {
+        validationService.validateRequest(userid);
+
+        if (!(validationService.isOperator(userid) || validationService.isLogisticOperator(userid)
+                || validationService.isLogisticSupervisor(userid)
+                || validationService.isSupervisor(userid)
+                || validationService.isReviewerSupervisor(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
+
+        List<LogisticMemo> logisticMemos = logisticMemoRepository.findAllByUserdomainPicOrderByDeadline(userdomain);
+
+        return logisticMemos.stream()
+                .skip(start).limit(size)
+                .map(item -> LogisticMemoResponse.builder()
+                        .memo_id(item.getMemo_id())
+                        .memo_num(item.getMemo_num())
+                        .memo_perihal(item.getMemo_perihal())
+                        .memo_pic(item.getMemo_pic())
+                        .memo_status(item.getMemo_status())
+                        .memo_department(item.getMemo_department())
+                        .memo_createdBy(item.getMemo_createdBy())
+                        .memo_reviewer(item.getMemo_reviewer())
+                        .memo_deadline(new Date(item.getMemo_deadline().getTime()))
+                        .memo_notes(item.getMemo_notes())
+                        .memo_upload(item.getMemo_upload())
+                        .userdomain(item.getUserdomain()) // Ensure these fields are included
+                        .userdomainpic(item.getUserdomainpic())
+                        .userdomainreviewer(item.getUserdomainreviewer())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public List<LogisticMemoResponse> findAllByUserdomainReviewerOrderByDeadline(String userid, Long start, Long size, String userdomain) {
+        validationService.validateRequest(userid);
+
+        if (!(validationService.isOperator(userid) || validationService.isLogisticOperator(userid)
+                || validationService.isLogisticSupervisor(userid)
+                || validationService.isSupervisor(userid)
+                || validationService.isReviewerSupervisor(userid))) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        }
+
+        List<LogisticMemo> logisticMemos = logisticMemoRepository.findAllByUserdomainReviewerOrderByDeadline(userdomain);
+
+        return logisticMemos.stream()
+                .skip(start).limit(size)
+                .map(item -> LogisticMemoResponse.builder()
+                        .memo_id(item.getMemo_id())
+                        .memo_num(item.getMemo_num())
+                        .memo_perihal(item.getMemo_perihal())
+                        .memo_pic(item.getMemo_pic())
+                        .memo_status(item.getMemo_status())
+                        .memo_department(item.getMemo_department())
+                        .memo_createdBy(item.getMemo_createdBy())
+                        .memo_reviewer(item.getMemo_reviewer())
+                        .memo_deadline(new Date(item.getMemo_deadline().getTime()))
+                        .memo_notes(item.getMemo_notes())
+                        .memo_upload(item.getMemo_upload())
+                        .userdomain(item.getUserdomain()) // Ensure these fields are included
+                        .userdomainpic(item.getUserdomainpic())
+                        .userdomainreviewer(item.getUserdomainreviewer())
+                        .build())
+                .collect(Collectors.toList());
+    }
 
         public LogisticMemoResponse getMemoById(String memoId) {
                 LogisticMemo logisticMemo = logisticMemoRepository.findById(memoId)

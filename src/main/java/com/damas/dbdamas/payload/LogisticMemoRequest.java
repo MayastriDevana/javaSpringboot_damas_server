@@ -53,6 +53,15 @@ public class LogisticMemoRequest {
     @Size(max = 1000)
     private String memo_notes; // Optional field, can store longer text
 
+    @Size(max = 100)
+    private String userdomain;
+
+    @Size(max = 100)
+    private String userdomainpic;
+
+    @Size(max = 100)
+    private String userdomainreviewer;
+
 
 
 }
