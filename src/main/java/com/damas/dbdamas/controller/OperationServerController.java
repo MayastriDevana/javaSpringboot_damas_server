@@ -64,5 +64,16 @@ public class OperationServerController {
 
         return WebResponse.<OperationServerResponse>builder().data(OperationServerResponse).error(null).build();
     }
+
+    @GetMapping("/api/servershow/userdomainprojects")
+    public WebResponse<List<OperationServerResponse>> findByUserdomainOrderByDeadline(
+            @RequestHeader("USER-ID") String userid,
+            @RequestParam("start") Long start,
+            @RequestParam("size") Long size,
+           @RequestParam("userdomain") String userdomain) {
+        List<OperationServerResponse> response = operationServerService.findByUserdomainOrderByDeadline(userid, start, size,
+                userdomain);
+        return WebResponse.<List<OperationServerResponse>>builder().data(response).error(null).build();
+    }
     
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.damas.dbdamas.model.OperationItmo;
 
@@ -13,4 +14,7 @@ public interface OperationItmoRepository extends JpaRepository<OperationItmo, St
 
     @Query(value = "SELECT * FROM operation_itmo ORDER BY itmo_deadline_project ASC", nativeQuery = true)
     List<OperationItmo> searchAllOrderByDeadline();
+
+    @Query(value = "SELECT * FROM operation_itmo WHERE userdomain_pic =:userdomain ORDER BY itmo_deadline_project ASC", nativeQuery = true)
+    List<OperationItmo> findByUserdomainOrderByDeadline(@Param("userdomain") String userdomain);
 }

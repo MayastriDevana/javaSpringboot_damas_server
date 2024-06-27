@@ -65,5 +65,16 @@ public class OperationItsecurityController {
 
         return WebResponse.<OperationItsecurityResponse>builder().data(OperationItsecurityResponse).error(null).build();
     }
+
+     @GetMapping("/api/itsecurityshow/userdomainprojects")
+    public WebResponse<List<OperationItsecurityResponse>> findByUserdomainOrderByDeadline(
+            @RequestHeader("USER-ID") String userid,
+            @RequestParam("start") Long start,
+            @RequestParam("size") Long size,
+           @RequestParam("userdomain") String userdomain) {
+        List<OperationItsecurityResponse> response = operationItsecurityService.findByUserdomainOrderByDeadline(userid, start, size,
+                userdomain);
+        return WebResponse.<List<OperationItsecurityResponse>>builder().data(response).error(null).build();
+    }
     
 }

@@ -96,6 +96,9 @@ public class OperationItmoLogService {
             item.getItmo_status(),
             item.getItmo_deadline_project(),
             item.getItmo_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             LogAll.size()))
             .collect(Collectors.toList());
 
@@ -150,6 +153,9 @@ public class OperationItmoLogService {
             item.getItmo_status(),
             item.getItmo_deadline_project(),
             item.getItmo_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             logByName.size()))
     .collect((Collectors.toList()));
         return response;
@@ -204,6 +210,9 @@ public class OperationItmoLogService {
             inputRequestOperationItmo.setItmo_status(result.getItmo_status());
             inputRequestOperationItmo.setItmo_deadline_project(result.getItmo_deadline_project());
             inputRequestOperationItmo.setItmo_project_done(result.getItmo_project_done());
+            inputRequestOperationItmo.setCreatedBy(result.getCreatedBy());
+            inputRequestOperationItmo.setUserdomain(result.getUserdomain());
+            inputRequestOperationItmo.setUserdomain_pic(result.getUserdomain_pic());
 
             if (itmo_status.toUpperCase().equals("APPROVED")) {
                 operationItmoService.editedItmo(userid, inputRequestOperationItmo, result.getItmo_id());

@@ -94,6 +94,9 @@ public class OperationItsupportLogService {
             item.getItsupport_status(),
             item.getItsupport_deadline_project(),
             item.getItsupport_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             LogAll.size()))
             .collect(Collectors.toList());
 
@@ -148,6 +151,9 @@ public class OperationItsupportLogService {
             item.getItsupport_status(),
             item.getItsupport_deadline_project(),
             item.getItsupport_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             logByName.size()))
     .collect((Collectors.toList()));
         return response;
@@ -202,6 +208,9 @@ public class OperationItsupportLogService {
             inputRequestOperationItsupport.setItsupport_status(result.getItsupport_status());
             inputRequestOperationItsupport.setItsupport_deadline_project(result.getItsupport_deadline_project());
             inputRequestOperationItsupport.setItsupport_project_done(result.getItsupport_project_done());
+            inputRequestOperationItsupport.setCreatedBy(result.getCreatedBy());
+            inputRequestOperationItsupport.setUserdomain(result.getUserdomain());
+            inputRequestOperationItsupport.setUserdomain_pic(result.getUserdomain_pic());
 
             if (itsupport_status.toUpperCase().equals("APPROVED")) {
                 operationItsupportService.editedItsupport(userid, inputRequestOperationItsupport, result.getItsupport_id());

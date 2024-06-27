@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.damas.dbdamas.model.OperationDacen;
 
@@ -13,4 +14,7 @@ public interface OperationDacenRepository extends JpaRepository<OperationDacen, 
     
     @Query(value = "SELECT * FROM operation_dacen ORDER BY dacen_deadline_project ASC", nativeQuery = true)
     List<OperationDacen> searchAllOrderByDeadline();
+
+    @Query(value = "SELECT * FROM operation_dacen WHERE userdomain_pic =:userdomain ORDER BY dacen_deadline_project ASC", nativeQuery = true)
+    List<OperationDacen> findByUserdomainOrderByDeadline(@Param("userdomain") String userdomain);
 }

@@ -117,4 +117,14 @@ public class OperationDacenLogRequest {
     private Date dacen_deadline_project;
 
     private Date dacen_project_done;
+
+    @Size(max = 255)
+    private String createdby;
+
+    @Size(max = 255)
+
+    private String userdomain;
+
+    @Size(max = 255)
+    private String userdomain_pic;
 }

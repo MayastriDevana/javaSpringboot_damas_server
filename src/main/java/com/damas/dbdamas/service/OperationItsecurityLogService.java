@@ -94,6 +94,9 @@ public class OperationItsecurityLogService {
             item.getItsecurity_status(),
             item.getItsecurity_deadline_project(),
             item.getItsecurity_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             LogAll.size()))
             .collect(Collectors.toList());
 
@@ -148,6 +151,9 @@ public class OperationItsecurityLogService {
             item.getItsecurity_status(),
             item.getItsecurity_deadline_project(),
             item.getItsecurity_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             logByName.size()))
     .collect((Collectors.toList()));
         return response;
@@ -203,6 +209,9 @@ public class OperationItsecurityLogService {
             inputRequestOperationItsecurity.setItsecurity_status(result.getItsecurity_status());
             inputRequestOperationItsecurity.setItsecurity_deadline_project(result.getItsecurity_deadline_project());
             inputRequestOperationItsecurity.setItsecurity_project_done(result.getItsecurity_project_done());
+            inputRequestOperationItsecurity.setCreatedBy(result.getCreatedBy());
+            inputRequestOperationItsecurity.setUserdomain(result.getUserdomain());
+            inputRequestOperationItsecurity.setUserdomain_pic(result.getUserdomain_pic());
 
             if (itsecurity_status.toUpperCase().equals("APPROVED")) {
                 operationItsecurityService.editedItsecurity(userid, inputRequestOperationItsecurity, result.getItsecurity_id());

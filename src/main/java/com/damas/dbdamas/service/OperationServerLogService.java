@@ -88,6 +88,9 @@ public class OperationServerLogService {
             item.getServer_status(),
             item.getServer_deadline_project(),
             item.getServer_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             LogAll.size()))
             .collect(Collectors.toList());
 
@@ -135,6 +138,9 @@ public class OperationServerLogService {
             item.getServer_status(),
             item.getServer_deadline_project(),
             item.getServer_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             logByName.size()))
     .collect((Collectors.toList()));
         return response;
@@ -182,6 +188,9 @@ public class OperationServerLogService {
             inputRequestOperationServer.setServer_status(result.getServer_status());
             inputRequestOperationServer.setServer_deadline_project(result.getServer_deadline_project());
             inputRequestOperationServer.setServer_project_done(result.getServer_project_done());
+            inputRequestOperationServer.setCreatedBy(result.getCreatedBy());
+            inputRequestOperationServer.setUserdomain(result.getUserdomain());
+            inputRequestOperationServer.setUserdomain(result.getUserdomain_pic());
 
             if (server_status.toUpperCase().equals("APPROVED")) {
                 operationServerService.editedServer(userid, inputRequestOperationServer, result.getServer_id());

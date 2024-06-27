@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.damas.dbdamas.model.OperationItsecurity;
 
@@ -13,4 +14,7 @@ public interface OperationItsecurityRepository extends JpaRepository<OperationIt
 
     @Query(value = "SELECT * FROM operation_itsecurity ORDER BY itsecurity_deadline_project ASC", nativeQuery = true)
     List<OperationItsecurity> searchAllOrderByDeadline();
+
+    @Query(value = "SELECT * FROM operation_itsecurity WHERE userdomain_pic =:userdomain ORDER BY itsecurity_deadline_project ASC", nativeQuery = true)
+    List<OperationItsecurity> findByUserdomainOrderByDeadline(@Param("userdomain") String userdomain);
 }

@@ -104,4 +104,8 @@ public class OperationItsupportLog {
     private Date itsupport_project_done;
 
     private String createdBy;
+
+    private String userdomain;
+
+    private String userdomain_pic;
 }

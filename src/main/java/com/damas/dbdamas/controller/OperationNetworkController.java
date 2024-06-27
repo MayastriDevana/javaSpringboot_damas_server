@@ -65,4 +65,15 @@ public class OperationNetworkController {
 
         return WebResponse.<OperationNetworkResponse>builder().data(OperationNetworkResponse).error(null).build();
     }
+
+     @GetMapping("/api/networkshow/userdomainprojects")
+    public WebResponse<List<OperationNetworkResponse>> findByUserdomainOrderByDeadline(
+            @RequestHeader("USER-ID") String userid,
+            @RequestParam("start") Long start,
+            @RequestParam("size") Long size,
+           @RequestParam("userdomain") String userdomain) {
+        List<OperationNetworkResponse> response = operationNetworkService.findByUserdomainOrderByDeadline(userid, start, size,
+                userdomain);
+        return WebResponse.<List<OperationNetworkResponse>>builder().data(response).error(null).build();
+    }
 }

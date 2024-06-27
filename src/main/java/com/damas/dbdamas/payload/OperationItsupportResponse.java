@@ -84,5 +84,11 @@ public class OperationItsupportResponse {
 
     private Date itsupport_project_done;
 
+    private String createdBy;
+
+    private String userdomain;
+
+    private String userdomain_pic;
+
     private Integer maxSize;
 }

@@ -93,4 +93,13 @@ public class OperationServerLogRequest {
     private Date server_deadline_project;
 
     private Date server_project_done;
+
+    @Size(max = 255)
+    private String createdBy;
+
+    @Size(max = 255)
+    private String userdomain;
+
+    @Size(max = 255)
+    private String userdomain_pic;
 }
