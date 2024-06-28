@@ -35,7 +35,7 @@ public class LogApproveSkseResponse {
 
     private String departement;
 
-    private String deadline;
+    private String deadlineskse;
 
     private String status;
 

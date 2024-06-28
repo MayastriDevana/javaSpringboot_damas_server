@@ -51,7 +51,7 @@ public class LogApproveSkse {
     private String departement;
 
     @Column(name = "skse_deadline")
-    private String deadline;
+    private String deadlineskse;
     
     @Column(name = "skse_status")
     private String status;

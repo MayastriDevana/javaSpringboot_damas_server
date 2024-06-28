@@ -68,7 +68,7 @@ public class LogApproveSkseService {
         item.getPerihal(),
         item.getPic(),
         item.getDepartement(),
-        item.getDeadline(),
+        item.getDeadlineskse(),
         item.getStatus(),
         item.getUserdomain(),
         item.getUserdomainpic(),
@@ -97,7 +97,7 @@ public class LogApproveSkseService {
             item.getPerihal(),
             item.getPic(),
             item.getDepartement(),
-            item.getDeadline(),
+            item.getDeadlineskse(),
             item.getStatus(),
             item.getUserdomain(),
             item.getUserdomainpic(),
@@ -126,7 +126,7 @@ public class LogApproveSkseService {
         inputRequestSkse.setPerihal(result.getPerihal());
         inputRequestSkse.setPic(result.getPic());
         inputRequestSkse.setDepartement(result.getDepartement());
-        inputRequestSkse.setDeadline(result.getDeadline());
+        inputRequestSkse.setDeadlineskse(result.getDeadlineskse());
         inputRequestSkse.setStatus(result.getStatus());
         inputRequestSkse.setUserdomain(result.getUserdomain());
         inputRequestSkse.setUserdomainpic(result.getUserdomainpic());

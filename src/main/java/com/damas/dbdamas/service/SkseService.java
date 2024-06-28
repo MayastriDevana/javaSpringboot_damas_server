@@ -37,7 +37,7 @@ public class SkseService {
                 skse.setPerihal(request.getPerihal());
                 skse.setPic(request.getPic());
                 skse.setDepartement(request.getDepartement());
-                skse.setDeadline(request.getDeadline());
+                skse.setDeadlineskse(request.getDeadlineskse());
                 skse.setStatus(request.getStatus());
                 skse.setUserdomain(request.getUserdomain());
                 skse.setUserdomainpic(request.getUserdomainpic());
@@ -47,7 +47,7 @@ public class SkseService {
 
                 return SkseResponse.builder().nosurat(skse.getNosurat()).perihal(skse.getPerihal()).pic(skse.getPic())
                                 .departement(skse.getDepartement())
-                                .deadline(skse.getDeadline()).status(skse.getStatus()).userdomain(skse.getUserdomain()).userdomainpic(skse.getUserdomainpic())
+                                .deadlineskse(skse.getDeadlineskse()).status(skse.getStatus()).userdomain(skse.getUserdomain()).userdomainpic(skse.getUserdomainpic())
                                 .build();
         }
 
@@ -65,7 +65,7 @@ public class SkseService {
                                                 item.getPerihal(),
                                                 item.getPic(),
                                                 item.getDepartement(),
-                                                item.getDeadline(),
+                                                item.getDeadlineskse(),
                                                 item.getStatus(),
                                                 item.getUserdomain(),
                                                 item.getUserdomainpic(),
@@ -92,7 +92,7 @@ public class SkseService {
                 skse.setPerihal(request.getPerihal());
                 skse.setPic(request.getPic());
                 skse.setDepartement(request.getDepartement());
-                skse.setDeadline(request.getDeadline());
+                skse.setDeadlineskse(request.getDeadlineskse());
                 skse.setStatus(request.getStatus());
                 skse.setUserdomain(request.getUserdomain());
                 skse.setUserdomainpic(request.getUserdomainpic());
@@ -105,7 +105,7 @@ public class SkseService {
                                 .perihal(skse.getPerihal())
                                 .pic(skse.getPic())
                                 .departement(skse.getDepartement())
-                                .deadline(skse.getDeadline())
+                                .deadlineskse(skse.getDeadlineskse())
                                 .status(skse.getStatus())
                                 .userdomain(skse.getUserdomain())
                                 .userdomainpic(skse.getUserdomainpic())
@@ -131,7 +131,7 @@ public class SkseService {
                                                 item.getPerihal(),
                                                 item.getPic(),
                                                 item.getDepartement(),
-                                                item.getDeadline(),
+                                                item.getDeadlineskse(),
                                                 item.getStatus(),
                                                 item.getUserdomain(),
                                                 item.getUserdomainpic(),
@@ -161,7 +161,7 @@ public class SkseService {
                                                 item.getPerihal(),
                                                 item.getPic(),
                                                 item.getDepartement(),
-                                                item.getDeadline(),
+                                                item.getDeadlineskse(),
                                                 item.getStatus(),
                                                 item.getUserdomain(),
                                                 item.getUserdomainpic(),
