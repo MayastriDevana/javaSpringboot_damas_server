@@ -45,4 +45,14 @@ public class LogisticMemo {
 
     @Column(nullable = true, length = 255)
     private String memo_upload;  // Field for storing uploaded files
+
+    private String userdomain;
+
+    @Column(name = "userdomain_pic")
+    private String userdomainpic;
+
+    @Column(name = "userdomain_reviewer")
+    private String userdomainreviewer;
+
+
 }
