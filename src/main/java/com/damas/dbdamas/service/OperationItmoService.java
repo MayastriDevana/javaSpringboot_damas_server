@@ -67,6 +67,9 @@ public class OperationItmoService {
         operationItmo.setItmo_status(request.getItmo_status());
         operationItmo.setItmo_deadline_project(request.getItmo_deadline_project());
         operationItmo.setItmo_project_done(request.getItmo_project_done());
+        operationItmo.setCreatedBy(request.getCreatedBy());
+        operationItmo.setUserdomain(request.getUserdomain());
+        operationItmo.setUserdomain_pic(request.getUserdomain_pic());
 
         OperationItmoRepository.save(operationItmo);
 
@@ -113,6 +116,9 @@ public class OperationItmoService {
                 .itmo_status(operationItmo.getItmo_status())
                 .itmo_deadline_project(operationItmo.getItmo_deadline_project())
                 .itmo_project_done(operationItmo.getItmo_project_done())
+                .createdBy(operationItmo.getCreatedBy())
+                .userdomain(operationItmo.getUserdomain())
+                .userdomain_pic(operationItmo.getUserdomain_pic())
 
                 .build();
     }
@@ -161,6 +167,9 @@ public class OperationItmoService {
                         item.getItmo_status(),
                         item.getItmo_deadline_project(),
                         item.getItmo_project_done(),
+                        item.getCreatedBy(),
+                        item.getUserdomain(),
+                        item.getUserdomain_pic(),
                         itmoByName.size()))
                 .collect(Collectors.toList());
 
@@ -214,6 +223,9 @@ public class OperationItmoService {
         operationItmo.setItmo_status(request.getItmo_status());
         operationItmo.setItmo_deadline_project(request.getItmo_deadline_project());
         operationItmo.setItmo_project_done(request.getItmo_project_done());
+        operationItmo.setCreatedBy(request.getCreatedBy());
+        operationItmo.setUserdomain(request.getUserdomain());
+        operationItmo.setUserdomain_pic(request.getUserdomain_pic());
 
         OperationItmoRepository.save(operationItmo);
 
@@ -260,6 +272,9 @@ public class OperationItmoService {
                 .itmo_status(operationItmo.getItmo_status())
                 .itmo_deadline_project(operationItmo.getItmo_deadline_project())
                 .itmo_project_done(operationItmo.getItmo_project_done())
+                .createdBy(operationItmo.getCreatedBy())
+                .userdomain(operationItmo.getUserdomain())
+                .userdomain_pic(operationItmo.getUserdomain_pic())
                 .build();
 
     }
@@ -315,9 +330,72 @@ public class OperationItmoService {
                         item.getItmo_status(),
                         item.getItmo_deadline_project(),
                         item.getItmo_project_done(),
+                        item.getCreatedBy(),
+                        item.getUserdomain(),
+                        item.getUserdomain_pic(),
                         operationItmoShowAll.size()))
                 .collect(Collectors.toList());
 
         return response;
     }
+
+    @Transactional
+public List<OperationItmoResponse> findByUserdomainOrderByDeadline(String userid, Long start, Long size, String userdomain) {
+      
+    // Melakukan validasi terhadap user yang sedang login
+    validationService.validateRequest(userid);
+
+    if (!(validationService.isOperator(userid) || validationService.isItmoOperator(userid) || validationService.isPpoSupervisor(userid) || validationService.isDevSupervisor(userid) || validationService.isSupervisor(userid) || validationService.isPpoOperator(userid))) {
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+    }
+
+    // Mengambil data proyek berdasarkan userdomain
+    List<OperationItmo> operationItmoAll = OperationItmoRepository.findByUserdomainOrderByDeadline(userdomain);
+
+    List<OperationItmoResponse> response = operationItmoAll.stream()
+            .skip(start).limit(size)
+            .map(item -> new OperationItmoResponse(
+                item.getItmo_id(),
+                item.getItmo_perihal(),
+                item.getItmo_pic(),
+                item.getDepartement(),
+                item.getItmo_phase1(),
+                item.getItmo_phase1_start(),
+                item.getItmo_phase1_deadline(),
+                item.getItmo_phase1_done(),
+                item.getItmo_phase2(),
+                item.getItmo_phase2_start(),
+                item.getItmo_phase2_deadline(),
+                item.getItmo_phase2_done(),
+                item.getItmo_phase3(),
+                item.getItmo_phase3_start(),
+                item.getItmo_phase3_deadline(),
+                item.getItmo_phase3_done(),
+                item.getItmo_phase4(),
+                item.getItmo_phase4_start(),
+                item.getItmo_phase4_deadline(),
+                item.getItmo_phase4_done(),
+                item.getItmo_phase5(),
+                item.getItmo_phase5_start(),
+                item.getItmo_phase5_deadline(),
+                item.getItmo_phase5_done(),
+                item.getItmo_phase6(),
+                item.getItmo_phase6_start(),
+                item.getItmo_phase6_deadline(),
+                item.getItmo_phase6_done(),
+                item.getItmo_phase7(),
+                item.getItmo_phase7_start(),
+                item.getItmo_phase7_deadline(),
+                item.getItmo_phase7_done(),
+                item.getItmo_status(),
+                item.getItmo_deadline_project(),
+                item.getItmo_project_done(),
+                item.getCreatedBy(),
+                item.getUserdomain(),
+                item.getUserdomain_pic(),
+                operationItmoAll.size()))
+            .collect(Collectors.toList());
+
+    return response;
+}
 }

@@ -75,4 +75,10 @@ public class OperationServerRequest {
 
     @Size(max = 255)
     private String createdBy;
+
+    @Size(max = 255)
+    private String userdomain;
+
+    @Size(max = 255)
+    private String userdomain_pic;
 }

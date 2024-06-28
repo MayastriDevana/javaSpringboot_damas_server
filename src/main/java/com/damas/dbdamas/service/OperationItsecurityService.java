@@ -67,6 +67,9 @@ public class OperationItsecurityService {
         operationItsecurity.setItsecurity_status(request.getItsecurity_status());
         operationItsecurity.setItsecurity_deadline_project(request.getItsecurity_deadline_project());
         operationItsecurity.setItsecurity_project_done(request.getItsecurity_project_done());
+        operationItsecurity.setCreatedBy(request.getCreatedBy());
+        operationItsecurity.setUserdomain(request.getUserdomain());
+        operationItsecurity.setUserdomain_pic(request.getUserdomain_pic());
 
         OperationItsecurityRepository.save(operationItsecurity);
 
@@ -113,6 +116,9 @@ public class OperationItsecurityService {
                 .itsecurity_status(operationItsecurity.getItsecurity_status())
                 .itsecurity_deadline_project(operationItsecurity.getItsecurity_deadline_project())
                 .itsecurity_project_done(operationItsecurity.getItsecurity_project_done())
+                .createdBy(operationItsecurity.getCreatedBy())
+                .userdomain(operationItsecurity.getUserdomain())
+                .userdomain_pic(operationItsecurity.getUserdomain_pic())
 
                 .build();
 
@@ -163,6 +169,9 @@ public class OperationItsecurityService {
                         item.getItsecurity_status(),
                         item.getItsecurity_deadline_project(),
                         item.getItsecurity_project_done(),
+                        item.getCreatedBy(),
+                        item.getUserdomain(),
+                        item.getUserdomain_pic(),
                         itsecurityByName.size()))
                 .collect(Collectors.toList());
 
@@ -216,6 +225,9 @@ public class OperationItsecurityService {
         operationItsecurity.setItsecurity_status(request.getItsecurity_status());
         operationItsecurity.setItsecurity_deadline_project(request.getItsecurity_deadline_project());
         operationItsecurity.setItsecurity_project_done(request.getItsecurity_project_done());
+        operationItsecurity.setCreatedBy(request.getCreatedBy());
+        operationItsecurity.setUserdomain(request.getUserdomain());
+        operationItsecurity.setUserdomain_pic(request.getUserdomain_pic());
 
         OperationItsecurityRepository.save(operationItsecurity);
 
@@ -262,6 +274,9 @@ public class OperationItsecurityService {
                 .itsecurity_status(operationItsecurity.getItsecurity_status())
                 .itsecurity_deadline_project(operationItsecurity.getItsecurity_deadline_project())
                 .itsecurity_project_done(operationItsecurity.getItsecurity_project_done())
+                .createdBy(operationItsecurity.getCreatedBy())
+                .userdomain(operationItsecurity.getUserdomain())
+                .userdomain_pic(operationItsecurity.getUserdomain_pic())
                 .build();
 
     }
@@ -317,9 +332,72 @@ public class OperationItsecurityService {
                         item.getItsecurity_status(),
                         item.getItsecurity_deadline_project(),
                         item.getItsecurity_project_done(),
+                        item.getCreatedBy(),
+                        item.getUserdomain(),
+                        item.getUserdomain_pic(),
                         operationItsecurityShowAll.size()))
                 .collect(Collectors.toList());
 
         return response;
     }
+
+        @Transactional
+public List<OperationItsecurityResponse> findByUserdomainOrderByDeadline(String userid, Long start, Long size, String userdomain) {
+      
+    // Melakukan validasi terhadap user yang sedang login
+    validationService.validateRequest(userid);
+
+    if (!(validationService.isOperator(userid) || validationService.isItsecurityOperator(userid) || validationService.isPpoSupervisor(userid) || validationService.isDevSupervisor(userid) || validationService.isSupervisor(userid) || validationService.isPpoOperator(userid))) {
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+    }
+
+    // Mengambil data proyek berdasarkan userdomain
+    List<OperationItsecurity> operationItsecurityAll = OperationItsecurityRepository.findByUserdomainOrderByDeadline(userdomain);
+
+    List<OperationItsecurityResponse> response = operationItsecurityAll.stream()
+            .skip(start).limit(size)
+            .map(item -> new OperationItsecurityResponse(
+                item.getItsecurity_id(),
+                        item.getItsecurity_perihal(),
+                        item.getItsecurity_pic(),
+                        item.getDepartement(),
+                        item.getItsecurity_phase1(),
+                        item.getItsecurity_phase1_start(),
+                        item.getItsecurity_phase1_deadline(),
+                        item.getItsecurity_phase1_done(),
+                        item.getItsecurity_phase2(),
+                        item.getItsecurity_phase2_start(),
+                        item.getItsecurity_phase2_deadline(),
+                        item.getItsecurity_phase2_done(),
+                        item.getItsecurity_phase3(),
+                        item.getItsecurity_phase3_start(),
+                        item.getItsecurity_phase3_deadline(),
+                        item.getItsecurity_phase3_done(),
+                        item.getItsecurity_phase4(),
+                        item.getItsecurity_phase4_start(),
+                        item.getItsecurity_phase4_deadline(),
+                        item.getItsecurity_phase4_done(),
+                        item.getItsecurity_phase5(),
+                        item.getItsecurity_phase5_start(),
+                        item.getItsecurity_phase5_deadline(),
+                        item.getItsecurity_phase5_done(),
+                        item.getItsecurity_phase6(),
+                        item.getItsecurity_phase6_start(),
+                        item.getItsecurity_phase6_deadline(),
+                        item.getItsecurity_phase6_done(),
+                        item.getItsecurity_phase7(),
+                        item.getItsecurity_phase7_start(),
+                        item.getItsecurity_phase7_deadline(),
+                        item.getItsecurity_phase7_done(),
+                        item.getItsecurity_status(),
+                        item.getItsecurity_deadline_project(),
+                        item.getItsecurity_project_done(),
+                        item.getCreatedBy(),
+                        item.getUserdomain(),
+                        item.getUserdomain_pic(),
+                operationItsecurityAll.size()))
+            .collect(Collectors.toList());
+
+    return response;
+}
 }

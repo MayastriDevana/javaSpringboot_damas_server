@@ -83,6 +83,12 @@ public class OperationDacenResponse {
     private Date dacen_deadline_project;
 
     private Date dacen_project_done;
+    
+    private String createdBy;
+
+    private String userdomain;
+
+    private String userdomain_pic;
 
     private Integer maxSize;
 }

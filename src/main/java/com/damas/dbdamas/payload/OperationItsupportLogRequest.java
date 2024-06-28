@@ -117,4 +117,12 @@ public class OperationItsupportLogRequest {
     private Date itsupport_deadline_project;
 
     private Date itsupport_project_done;
+
+    private String createdBy;
+
+    @Size(max = 255)
+    private String userdomain;
+    
+    @Size(max = 255)
+    private String userdomain_pic;
 }

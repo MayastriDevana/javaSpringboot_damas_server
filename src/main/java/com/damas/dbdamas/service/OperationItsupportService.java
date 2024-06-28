@@ -67,6 +67,9 @@ public class OperationItsupportService {
         operationItsupport.setItsupport_status(request.getItsupport_status());
         operationItsupport.setItsupport_deadline_project(request.getItsupport_deadline_project());
         operationItsupport.setItsupport_project_done(request.getItsupport_project_done());
+        operationItsupport.setCreatedBy(request.getCreatedBy());
+        operationItsupport.setUserdomain(request.getUserdomain());
+        operationItsupport.setUserdomain_pic(request.getUserdomain_pic());
 
         OperationItsupportRepository.save(operationItsupport);
 
@@ -113,6 +116,9 @@ public class OperationItsupportService {
         .itsupport_status(operationItsupport.getItsupport_status())
         .itsupport_deadline_project(operationItsupport.getItsupport_deadline_project())
         .itsupport_project_done(operationItsupport.getItsupport_project_done())
+        .createdBy(operationItsupport.getCreatedBy())
+        .userdomain(operationItsupport.getUserdomain())
+        .userdomain_pic(operationItsupport.getUserdomain_pic())
 
         .build();
     }
@@ -161,6 +167,9 @@ public class OperationItsupportService {
             item.getItsupport_status(),
             item.getItsupport_deadline_project(),
             item.getItsupport_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             itsupportByName.size()))
             .collect(Collectors.toList());
 
@@ -213,6 +222,9 @@ public class OperationItsupportService {
             operationItsupport.setItsupport_status(request.getItsupport_status());
             operationItsupport.setItsupport_deadline_project(request.getItsupport_deadline_project());
             operationItsupport.setItsupport_project_done(request.getItsupport_project_done());
+            operationItsupport.setCreatedBy(request.getCreatedBy());
+            operationItsupport.setUserdomain(request.getUserdomain());
+            operationItsupport.setUserdomain_pic(request.getUserdomain_pic());
 
         OperationItsupportRepository.save(operationItsupport);
 
@@ -259,6 +271,9 @@ public class OperationItsupportService {
             .itsupport_status(operationItsupport.getItsupport_status())
             .itsupport_deadline_project(operationItsupport.getItsupport_deadline_project())
             .itsupport_project_done(operationItsupport.getItsupport_project_done())
+            .createdBy(operationItsupport.getCreatedBy())
+            .userdomain(operationItsupport.getUserdomain())
+            .userdomain_pic(operationItsupport.getUserdomain_pic())
             .build();
     }
 
@@ -313,9 +328,72 @@ public class OperationItsupportService {
             item.getItsupport_status(),
             item.getItsupport_deadline_project(),
             item.getItsupport_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             operationItsupportShowAll.size()))
             .collect(Collectors.toList());
 
             return response;
     }
+
+    @Transactional
+public List<OperationItsupportResponse> findByUserdomainOrderByDeadline(String userid, Long start, Long size, String userdomain) {
+      
+    // Melakukan validasi terhadap user yang sedang login
+    validationService.validateRequest(userid);
+
+    if (!(validationService.isOperator(userid) || validationService.isItsupportOperator(userid) || validationService.isPpoSupervisor(userid) || validationService.isDevSupervisor(userid) || validationService.isSupervisor(userid) || validationService.isPpoOperator(userid))) {
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+    }
+
+    // Mengambil data proyek berdasarkan userdomain
+    List<OperationItsupport> operationItsupportAll = OperationItsupportRepository.findByUserdomainOrderByDeadline(userdomain);
+
+    List<OperationItsupportResponse> response = operationItsupportAll.stream()
+            .skip(start).limit(size)
+            .map(item -> new OperationItsupportResponse(
+                item.getItsupport_id(),
+                item.getItsupport_perihal(),
+                item.getItsupport_pic(),
+                item.getDepartement(),
+                item.getItsupport_phase1(),
+                item.getItsupport_phase1_start(),
+                item.getItsupport_phase1_deadline(),
+                item.getItsupport_phase1_done(),
+                item.getItsupport_phase2(),
+                item.getItsupport_phase2_start(),
+                item.getItsupport_phase2_deadline(),
+                item.getItsupport_phase2_done(),
+                item.getItsupport_phase3(),
+                item.getItsupport_phase3_start(),
+                item.getItsupport_phase3_deadline(),
+                item.getItsupport_phase3_done(),
+                item.getItsupport_phase4(),
+                item.getItsupport_phase4_start(),
+                item.getItsupport_phase4_deadline(),
+                item.getItsupport_phase4_done(),
+                item.getItsupport_phase5(),
+                item.getItsupport_phase5_start(),
+                item.getItsupport_phase5_deadline(),
+                item.getItsupport_phase5_done(),
+                item.getItsupport_phase6(),
+                item.getItsupport_phase6_start(),
+                item.getItsupport_phase6_deadline(),
+                item.getItsupport_phase6_done(),
+                item.getItsupport_phase7(),
+                item.getItsupport_phase7_start(),
+                item.getItsupport_phase7_deadline(),
+                item.getItsupport_phase7_done(),
+                item.getItsupport_status(),
+                item.getItsupport_deadline_project(),
+                item.getItsupport_project_done(),
+                item.getCreatedBy(),
+                item.getUserdomain(),
+                item.getUserdomain_pic(),
+                operationItsupportAll.size()))
+            .collect(Collectors.toList());
+
+    return response;
+}
 }

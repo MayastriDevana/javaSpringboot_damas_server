@@ -23,6 +23,12 @@ public class LogisticMemoResponse {
     private Date memo_deadline;
     private String memo_notes;
     private String memo_upload;
+    
+    private String userdomain;
+
+    private String userdomainpic;
+
+    private String userdomainreviewer;
     // private String memo_signature;
 
     private Integer maxSize;

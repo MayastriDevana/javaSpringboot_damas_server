@@ -73,5 +73,11 @@ public class OperationNetworkLogResponse {
 
     private String network_project_done;
 
+    private String createdby;
+
+    private String userdomain;
+
+    private String userdomain_pic;
+
     private Integer maxSize;
 }

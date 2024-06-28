@@ -105,4 +105,8 @@ public class OperationDacenLog {
 
     private String createdBy;
 
+    private String userdomain;
+
+    private String userdomain_pic;
+
 }

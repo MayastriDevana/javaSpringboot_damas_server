@@ -67,6 +67,9 @@ public class OperationDacenService {
         operationDacen.setDacen_status(request.getDacen_status());
         operationDacen.setDacen_deadline_project(request.getDacen_deadline_project());
         operationDacen.setDacen_project_done(request.getDacen_project_done());
+        operationDacen.setCreatedBy(request.getCreatedBy());
+        operationDacen.setUserdomain(request.getUserdomain());
+        operationDacen.setUserdomain_pic(request.getUserdomain_pic());
 
         OperationDacenRepository.save(operationDacen);
 
@@ -113,6 +116,9 @@ public class OperationDacenService {
         .dacen_status(operationDacen.getDacen_status())
         .dacen_deadline_project(operationDacen.getDacen_deadline_project())
         .dacen_project_done(operationDacen.getDacen_project_done())
+        .createdBy(operationDacen.getCreatedBy())
+        .userdomain(operationDacen.getUserdomain())
+        .userdomain_pic(operationDacen.getUserdomain_pic())
 
         .build();
     }
@@ -161,6 +167,9 @@ public class OperationDacenService {
             item.getDacen_status(),
             item.getDacen_deadline_project(),
             item.getDacen_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             dacenByName.size()))
             .collect(Collectors.toList());
 
@@ -214,6 +223,9 @@ public class OperationDacenService {
         operationDacen.setDacen_status(request.getDacen_status());
         operationDacen.setDacen_deadline_project(request.getDacen_deadline_project());
         operationDacen.setDacen_project_done(request.getDacen_project_done());
+        operationDacen.setCreatedBy(request.getCreatedBy());
+        operationDacen.setUserdomain(request.getUserdomain());
+        operationDacen.setUserdomain_pic(request.getUserdomain_pic());
 
     OperationDacenRepository.save(operationDacen);
 
@@ -260,6 +272,9 @@ public class OperationDacenService {
         .dacen_status(operationDacen.getDacen_status())
         .dacen_deadline_project(operationDacen.getDacen_deadline_project())
         .dacen_project_done(operationDacen.getDacen_project_done())
+        .createdBy(operationDacen.getCreatedBy())
+        .userdomain(operationDacen.getUserdomain())
+        .userdomain_pic(operationDacen.getUserdomain_pic())
         .build();
 
     }
@@ -313,9 +328,72 @@ public class OperationDacenService {
             item.getDacen_status(),
             item.getDacen_deadline_project(),
             item.getDacen_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             operationDacenShowAll.size()))
             .collect(Collectors.toList());
 
             return response;
     }
+
+    @Transactional
+public List<OperationDacenResponse> findByUserdomainOrderByDeadline(String userid, Long start, Long size, String userdomain) {
+      
+    // Melakukan validasi terhadap user yang sedang login
+    validationService.validateRequest(userid);
+
+    if (!(validationService.isOperator(userid) || validationService.isDacenOperator(userid) || validationService.isPpoSupervisor(userid) || validationService.isDevSupervisor(userid) || validationService.isSupervisor(userid) || validationService.isPpoOperator(userid))) {
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+    }
+
+    // Mengambil data proyek berdasarkan userdomain
+    List<OperationDacen> projectDacenAll = OperationDacenRepository.findByUserdomainOrderByDeadline(userdomain);
+
+    List<OperationDacenResponse> response = projectDacenAll.stream()
+            .skip(start).limit(size)
+            .map(item -> new OperationDacenResponse(
+                item.getDacen_id(),
+                item.getDacen_perihal(),
+                item.getDacen_pic(),
+                item.getDepartement(),
+                item.getDacen_phase1(),
+                item.getDacen_phase1_start(),
+                item.getDacen_phase1_deadline(),
+                item.getDacen_phase1_done(),
+                item.getDacen_phase2(),
+                item.getDacen_phase2_start(),
+                item.getDacen_phase2_deadline(),
+                item.getDacen_phase2_done(),
+                item.getDacen_phase3(),
+                item.getDacen_phase3_start(),
+                item.getDacen_phase3_deadline(),
+                item.getDacen_phase3_done(),
+                item.getDacen_phase4(),
+                item.getDacen_phase4_start(),
+                item.getDacen_phase4_deadline(),
+                item.getDacen_phase4_done(),
+                item.getDacen_phase5(),
+                item.getDacen_phase5_start(),
+                item.getDacen_phase5_deadline(),
+                item.getDacen_phase5_done(),
+                item.getDacen_phase6(),
+                item.getDacen_phase6_start(),
+                item.getDacen_phase6_deadline(),
+                item.getDacen_phase6_done(),
+                item.getDacen_phase7(),
+                item.getDacen_phase7_start(),
+                item.getDacen_phase7_deadline(),
+                item.getDacen_phase7_done(),
+                item.getDacen_status(),
+                item.getDacen_deadline_project(),
+                item.getDacen_project_done(),
+                item.getCreatedBy(),
+                item.getUserdomain(),
+                item.getUserdomain_pic(),
+                projectDacenAll.size()))
+            .collect(Collectors.toList());
+
+    return response;
+}
 }

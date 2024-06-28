@@ -63,4 +63,16 @@ public class OperationDacenController {
 
         return WebResponse.<OperationDacenResponse>builder().data(OperationDacenResponse).error(null).build();
     }
+
+    @GetMapping("/api/dacenshow/userdomainprojects")
+    public WebResponse<List<OperationDacenResponse>> findByUserdomainOrderByDeadline(
+            @RequestHeader("USER-ID") String userid,
+            @RequestParam("start") Long start,
+            @RequestParam("size") Long size,
+           @RequestParam("userdomain") String userdomain) {
+        List<OperationDacenResponse> response = operationDacenService.findByUserdomainOrderByDeadline(userid, start, size,
+                userdomain);
+        return WebResponse.<List<OperationDacenResponse>>builder().data(response).error(null).build();
+    }
+
 }

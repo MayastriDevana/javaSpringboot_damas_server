@@ -60,6 +60,9 @@ public class OperationServerService {
         operationServer.setServer_status(request.getServer_status());
         operationServer.setServer_deadline_project(request.getServer_deadline_project());
         operationServer.setServer_project_done(request.getServer_project_done());
+        operationServer.setCreatedBy(request.getCreatedBy());
+        operationServer.setUserdomain(request.getUserdomain());
+        operationServer.setUserdomain_pic(request.getUserdomain_pic());
 
 
         OperationServerRepository.save(operationServer);
@@ -100,6 +103,9 @@ public class OperationServerService {
         .server_status(operationServer.getServer_status())
         .server_deadline_project(operationServer.getServer_deadline_project())
         .server_project_done(operationServer.getServer_project_done())
+        .createdBy(operationServer.getCreatedBy())
+        .userdomain(operationServer.getUserdomain())
+        .userdomain_pic(operationServer.getUserdomain_pic())
         .build();
         
     }
@@ -141,6 +147,9 @@ public class OperationServerService {
             item.getServer_status(),
             item.getServer_deadline_project(),
             item.getServer_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             serverByName.size()))
             .collect((Collectors.toList()));
 
@@ -188,6 +197,9 @@ public class OperationServerService {
             operationServer.setServer_status(request.getServer_status());
             operationServer.setServer_deadline_project(request.getServer_deadline_project());
             operationServer.setServer_project_done(request.getServer_project_done());
+            operationServer.setCreatedBy(request.getCreatedBy());
+            operationServer.setUserdomain(request.getUserdomain());
+            operationServer.setUserdomain_pic(request.getUserdomain_pic());
 
     OperationServerRepository.save(operationServer);
 
@@ -227,6 +239,9 @@ public class OperationServerService {
             .server_status(operationServer.getServer_status())
             .server_deadline_project(operationServer.getServer_deadline_project())
             .server_project_done(operationServer.getServer_project_done())
+            .createdBy(operationServer.getCreatedBy())
+            .userdomain(operationServer.getUserdomain())
+            .userdomain_pic(operationServer.getUserdomain_pic())
             .build();
     }
 
@@ -274,9 +289,65 @@ public class OperationServerService {
             item.getServer_status(),
             item.getServer_deadline_project(),
             item.getServer_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             operationServerShowAll.size()))
             .collect(Collectors.toList());
 
         return response;
     }
+
+    @Transactional
+public List<OperationServerResponse> findByUserdomainOrderByDeadline(String userid, Long start, Long size, String userdomain) {
+      
+    // Melakukan validasi terhadap user yang sedang login
+    validationService.validateRequest(userid);
+
+    if (!(validationService.isOperator(userid) || validationService.isServerOperator(userid) || validationService.isPpoSupervisor(userid) || validationService.isDevSupervisor(userid) || validationService.isSupervisor(userid) || validationService.isPpoOperator(userid))) {
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+    }
+
+    // Mengambil data proyek berdasarkan userdomain
+    List<OperationServer> operationServerAll = OperationServerRepository.findByUserdomainOrderByDeadline(userdomain);
+
+    List<OperationServerResponse> response = operationServerAll.stream()
+            .skip(start).limit(size)
+            .map(item -> new OperationServerResponse(
+            item.getServer_id(),
+            item.getServer_perihal(),
+            item.getServer_pic(),
+            item.getDepartement(),
+            item.getServer_kickoff_deadline(),
+            item.getServer_kickoff_done(),
+            item.getServer_kickoff_start(),
+            item.getServer_peyiapanserver_start(),
+            item.getServer_peyiapanserver_deadline(),
+            item.getServer_peyiapanserver_done(),
+            item.getServer_instalasiaplikasi_start(),
+            item.getServer_instalasiaplikasi_deadline(),
+            item.getServer_instalasiaplikasi_done(),
+            item.getServer_instalcheckpoint_start(),
+            item.getServer_instalcheckpoint_deadline(),
+            item.getServer_instalcheckpoint_done(),
+            item.getServer_testingkoneksi_start(),
+            item.getServer_testingkoneksi_deadline(),
+            item.getServer_testingkoneksi_done(),
+            item.getServer_serahterimaserver_start(),
+            item.getServer_serahterimaserver_deadline(),
+            item.getServer_serahterimaserver_done(),
+            item.getServer_implementasi_start(),
+            item.getServer_implementasi_deadline(),
+            item.getServer_implementasi_done(),
+            item.getServer_status(),
+            item.getServer_deadline_project(),
+            item.getServer_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
+            operationServerAll.size()))
+            .collect(Collectors.toList());
+
+    return response;
+}
 }

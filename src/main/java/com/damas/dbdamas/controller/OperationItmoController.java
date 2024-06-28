@@ -63,4 +63,15 @@ public class OperationItmoController {
                 
         return WebResponse.<OperationItmoResponse>builder().data(OperationItmoResponse).error(null).build();
     }
+
+     @GetMapping("/api/itmoshow/userdomainprojects")
+    public WebResponse<List<OperationItmoResponse>> findByUserdomainOrderByDeadline(
+            @RequestHeader("USER-ID") String userid,
+            @RequestParam("start") Long start,
+            @RequestParam("size") Long size,
+           @RequestParam("userdomain") String userdomain) {
+        List<OperationItmoResponse> response = operationItmoService.findByUserdomainOrderByDeadline(userid, start, size,
+                userdomain);
+        return WebResponse.<List<OperationItmoResponse>>builder().data(response).error(null).build();
+    }
 }

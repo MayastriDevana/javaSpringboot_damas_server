@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.damas.dbdamas.payload.LogisticMemoRequest;
 import com.damas.dbdamas.payload.LogisticMemoResponse;
+import com.damas.dbdamas.payload.ProjectDevResponse;
 import com.damas.dbdamas.payload.WebResponse;
 import com.damas.dbdamas.service.LogisticMemoService;
 import com.damas.dbdamas.service.FileStorageService;
@@ -62,7 +63,7 @@ public class LogisticMemoController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
-    
+
     @GetMapping("/api/allmemo")
     public WebResponse<List<LogisticMemoResponse>> findAll(@RequestHeader("USER-ID") String userId,
             @RequestParam(value = "start") Long start,
@@ -96,5 +97,27 @@ public class LogisticMemoController {
             @RequestParam("input") String input) {
         List<LogisticMemoResponse> response = logisticMemoService.findMemo(userId, input);
         return WebResponse.<List<LogisticMemoResponse>>builder().data(response).error(null).build();
+    }
+
+    @GetMapping("api/allmemo/pic")
+    public ResponseEntity<List<LogisticMemoResponse>> getAllByUserdomainPic(
+            @RequestHeader("USER-ID") String userid,
+            @RequestParam("start") Long start,
+            @RequestParam("size") Long size,
+            @RequestParam("userdomain") String userdomain) {
+        List<LogisticMemoResponse> responses = logisticMemoService.findAllByUserdomainPicOrderByDeadline(userid, start,
+                size, userdomain);
+        return new ResponseEntity<>(responses, HttpStatus.OK);
+    }
+
+    @GetMapping("api/allmemo/reviewer")
+    public ResponseEntity<List<LogisticMemoResponse>> getAllByUserdomainReviewer(
+            @RequestHeader("USER-ID") String userid,
+            @RequestParam("start") Long start,
+            @RequestParam("size") Long size,
+            @RequestParam("userdomain") String userdomain) {
+        List<LogisticMemoResponse> responses = logisticMemoService.findAllByUserdomainReviewerOrderByDeadline(userid,
+                start, size, userdomain);
+        return new ResponseEntity<>(responses, HttpStatus.OK);
     }
 }

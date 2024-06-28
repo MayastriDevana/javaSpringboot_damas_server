@@ -95,6 +95,9 @@ public class OperationDacenLogService {
             item.getDacen_status(),
             item.getDacen_deadline_project(),
             item.getDacen_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             LogAll.size()))
             .collect(Collectors.toList());
 
@@ -149,6 +152,9 @@ public class OperationDacenLogService {
             item.getDacen_status(),
             item.getDacen_deadline_project(),
             item.getDacen_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             logByName.size()))
     .collect((Collectors.toList()));
         return response;
@@ -203,6 +209,9 @@ public class OperationDacenLogService {
             inputRequestOperationDacen.setDacen_status(result.getDacen_status());
             inputRequestOperationDacen.setDacen_deadline_project(result.getDacen_deadline_project());
             inputRequestOperationDacen.setDacen_project_done(result.getDacen_project_done());
+            inputRequestOperationDacen.setCreatedBy(result.getCreatedBy());
+            inputRequestOperationDacen.setUserdomain(result.getUserdomain());
+            inputRequestOperationDacen.setUserdomain_pic(result.getUserdomain_pic());
 
             if (dacen_status.toUpperCase().equals("APPROVED")) {
                 operationDacenService.editedDacen(userid, inputRequestOperationDacen, result.getDacen_id());

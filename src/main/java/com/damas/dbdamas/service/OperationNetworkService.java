@@ -57,6 +57,9 @@ public class OperationNetworkService {
         operationNetwork.setNetwork_status(request.getNetwork_status());
         operationNetwork.setNetwork_deadline_project(request.getNetwork_deadline_project());
         operationNetwork.setNetwork_project_done(request.getNetwork_project_done());
+        operationNetwork.setCreatedBy(request.getCreatedBy());
+        operationNetwork.setUserdomain(request.getUserdomain());
+        operationNetwork.setUserdomain_pic(request.getUserdomain_pic());
 
         OperationNetworkRepository.save(operationNetwork);
 
@@ -92,6 +95,9 @@ public class OperationNetworkService {
         .network_status(operationNetwork.getNetwork_status())
         .network_deadline_project(operationNetwork.getNetwork_deadline_project())
         .network_project_done(operationNetwork.getNetwork_project_done())
+        .createdBy(operationNetwork.getCreatedBy())
+        .userdomain(operationNetwork.getUserdomain())
+        .userdomain_pic(operationNetwork.getUserdomain_pic())
         .build();
 
     }
@@ -130,6 +136,9 @@ public class OperationNetworkService {
             item.getNetwork_status(),
             item.getNetwork_deadline_project(),
             item.getNetwork_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             networkByName.size()))
             .collect((Collectors.toList()));
 
@@ -173,6 +182,9 @@ public class OperationNetworkService {
                 operationNetwork.setNetwork_status(request.getNetwork_status());
                 operationNetwork.setNetwork_deadline_project(request.getNetwork_deadline_project());
                 operationNetwork.setNetwork_project_done(request.getNetwork_project_done());
+                operationNetwork.setCreatedBy(request.getCreatedBy());
+                operationNetwork.setUserdomain(request.getUserdomain_pic());
+                operationNetwork.setUserdomain_pic(request.getUserdomain_pic());
 
 
         OperationNetworkRepository.save(operationNetwork);
@@ -202,6 +214,9 @@ public class OperationNetworkService {
         .network_status(operationNetwork.getNetwork_status())
         .network_deadline_project(operationNetwork.getNetwork_deadline_project())
         .network_project_done(operationNetwork.getNetwork_project_done())
+        .createdBy(operationNetwork.getCreatedBy())
+        .userdomain(operationNetwork.getUserdomain())
+        .userdomain_pic(operationNetwork.getUserdomain_pic())
         .build();
     }
 
@@ -244,12 +259,63 @@ public class OperationNetworkService {
             item.getNetwork_status(),
             item.getNetwork_deadline_project(),
             item.getNetwork_project_done(),
+            item.getCreatedBy(),
+            item.getUserdomain(),
+            item.getUserdomain_pic(),
             operationNetworkShowAll.size()
         ))
     .collect(Collectors.toList());
 
         return response;
     }
+    @Transactional
+public List<OperationNetworkResponse> findByUserdomainOrderByDeadline(String userid, Long start, Long size, String userdomain) {
+      
+    // Melakukan validasi terhadap user yang sedang login
+    validationService.validateRequest(userid);
 
+    if (!(validationService.isOperator(userid) || validationService.isNetworkOperator(userid) || validationService.isPpoSupervisor(userid) || validationService.isDevSupervisor(userid) || validationService.isSupervisor(userid) || validationService.isPpoOperator(userid))) {
+        throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+    }
+
+    // Mengambil data proyek berdasarkan userdomain
+    List<OperationNetwork> operaationNetworkAll = OperationNetworkRepository.findByUserdomainOrderByDeadline(userdomain);
+
+    List<OperationNetworkResponse> response = operaationNetworkAll.stream()
+            .skip(start).limit(size)
+            .map(item -> new OperationNetworkResponse(
+                item.getNetwork_id(),
+                item.getNetwork_perihal(),
+                item.getNetwork_pic(),
+                item.getDepartement(),
+                item.getNetwork_kickoff_start(),
+                item.getNetwork_kickoff_deadline(),
+                item.getNetwork_kickoff_done(),
+                item.getNetwork_mop_start(),
+                item.getNetwork_mop_deadline(),
+                item.getNetwork_mop_done(),
+                item.getNetwork_demomop_start(),
+                item.getNetwork_demomop_deadline(),
+                item.getNetwork_demomop_done(),
+                item.getNetwork_implementasi_start(),
+                item.getNetwork_implementasi_deadline(),
+                item.getNetwork_implementasi_done(),
+                item.getNetwork_skse_start(),
+                item.getNetwork_skse_deadline(),
+                item.getNetwork_skse_done(),
+                item.getNetwork_uat_start(),
+                item.getNetwork_uat_deadline(),
+                item.getNetwork_uat_done(),
+                item.getNetwork_status(),
+                item.getNetwork_deadline_project(),
+                item.getNetwork_project_done(),
+                item.getCreatedBy(),
+                item.getUserdomain(),
+                item.getUserdomain_pic(),
+                operaationNetworkAll.size()))
+            .collect(Collectors.toList());
+
+    return response;
+}
    
 }
