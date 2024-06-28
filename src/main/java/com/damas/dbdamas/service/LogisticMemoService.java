@@ -79,7 +79,7 @@ public class LogisticMemoService {
                         throws IOException {
                 validationService.validateRequest(request);
 
-                if (!(validationService.isOperator(userid) || validationService.isLogisticOperator(userid))) {
+                if (!(validationService.isOperator(userid) || validationService.isLogisticOperator(userid) || validationService.isLogisticSupervisor(userid) || validationService.isReviewerSupervisor(userid)|| validationService.isSupervisor(userid))) {
                         throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
                 }
 
@@ -95,6 +95,9 @@ public class LogisticMemoService {
                 logisticMemo.setMemo_status(request.getMemo_status());
                 logisticMemo.setMemo_deadline(request.getMemo_deadline());
                 logisticMemo.setMemo_notes(request.getMemo_notes());
+                logisticMemo.setUserdomain(request.getUserdomain());
+                logisticMemo.setUserdomainpic(request.getUserdomainpic());
+                logisticMemo.setUserdomainreviewer(request.getUserdomainreviewer());
 
                 if (request.getMemo_upload() != null) {
                         logisticMemo.setMemo_upload(
@@ -115,6 +118,9 @@ public class LogisticMemoService {
                                 .memo_deadline(new Date(logisticMemo.getMemo_deadline().getTime()))
                                 .memo_notes(logisticMemo.getMemo_notes())
                                 .memo_upload(logisticMemo.getMemo_upload())
+                                .userdomain(logisticMemo.getUserdomain())
+                                .userdomainpic(logisticMemo.getUserdomainpic())
+                                .userdomainreviewer(logisticMemo.getUserdomainreviewer())
                                 .build();
         }
 
@@ -188,12 +194,10 @@ public class LogisticMemoService {
     public List<LogisticMemoResponse> findAllByUserdomainReviewerOrderByDeadline(String userid, Long start, Long size, String userdomain) {
         validationService.validateRequest(userid);
 
-        if (!(validationService.isOperator(userid) || validationService.isLogisticOperator(userid)
-                || validationService.isLogisticSupervisor(userid)
-                || validationService.isSupervisor(userid)
-                || validationService.isReviewerSupervisor(userid))) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
+        if (!(validationService.isOperator(userid) || validationService.isLogisticOperator(userid) || validationService.isLogisticSupervisor(userid) || validationService.isReviewerSupervisor(userid)|| validationService.isSupervisor(userid))) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "user not allowed");
         }
+
 
         List<LogisticMemo> logisticMemos = logisticMemoRepository.findAllByUserdomainReviewerOrderByDeadline(userdomain);
 
