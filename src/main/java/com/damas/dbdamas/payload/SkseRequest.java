@@ -33,7 +33,7 @@ public class SkseRequest {
 
    
     @Size(max = 100)
-    private String deadline;
+    private String deadlineskse;
 
   
     @Size(max = 100)

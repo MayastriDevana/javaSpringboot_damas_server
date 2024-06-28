@@ -17,7 +17,7 @@ public class SkseResponse {
     private String perihal;
     private String pic;
     private String departement;
-    private String deadline;
+    private String deadlineskse;
     private String status;
     private String userdomain;
     private String userdomainpic;
