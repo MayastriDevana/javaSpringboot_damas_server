@@ -238,6 +238,9 @@ public class LogisticMemoService {
                                 .memo_deadline(new Date(logisticMemo.getMemo_deadline().getTime()))
                                 .memo_notes(logisticMemo.getMemo_notes())
                                 .memo_upload(logisticMemo.getMemo_upload())
+                                .userdomain(logisticMemo.getUserdomain())
+                                .userdomainpic(logisticMemo.getUserdomainpic())
+                                .userdomainreviewer(logisticMemo.getUserdomainreviewer())
                                 .build();
         }
 
