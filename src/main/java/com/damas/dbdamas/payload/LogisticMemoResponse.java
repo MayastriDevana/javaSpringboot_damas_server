@@ -20,7 +20,7 @@ public class LogisticMemoResponse {
     private String memo_createdBy;
     private String memo_reviewer;
     private String memo_status;
-    private Date memo_deadline;
+    private String memo_deadline;
     private String memo_notes;
     private String memo_upload;
     
