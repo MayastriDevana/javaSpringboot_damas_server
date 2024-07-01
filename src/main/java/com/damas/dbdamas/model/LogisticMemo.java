@@ -36,7 +36,7 @@ public class LogisticMemo {
 
     private String memo_reviewer;
     
-    private Date memo_deadline;
+    private String memo_deadline;
 
     private String memo_status;
 

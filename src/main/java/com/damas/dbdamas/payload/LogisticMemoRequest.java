@@ -48,7 +48,7 @@ public class LogisticMemoRequest {
 
 
     // @PastOrPresent
-    private Date memo_deadline;
+    private String memo_deadline;
 
     @Size(max = 1000)
     private String memo_notes; // Optional field, can store longer text
