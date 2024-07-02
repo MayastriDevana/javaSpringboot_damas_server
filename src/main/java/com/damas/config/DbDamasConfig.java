@@ -18,11 +18,11 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.damas.dbdamas.model.LogisticMemo;
-import com.damas.dbdamas.model.OperationNetwork;
 import com.damas.dbdamas.model.User;
-import com.damas.dbdamas.model.ProjectDev;
-import com.damas.dbdamas.model.Skse;
+import com.damas.dbdamas.model.Logistic.LogisticMemo;
+import com.damas.dbdamas.model.Operation.OperationNetwork;
+import com.damas.dbdamas.model.Projectdev.ProjectDev;
+import com.damas.dbdamas.model.Projectdev.Skse;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
